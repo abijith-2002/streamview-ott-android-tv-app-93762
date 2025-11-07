@@ -6,4 +6,10 @@
         <item name="android:windowBackground">@color/tv_background</item>
         <item name="android:colorPrimary">@color/tv_accent</item>
     </style>
+
+    <!-- Minimalist Splash theme using Ocean Professional palette -->
+    <style name="SplashTheme" parent="Theme.Leanback">
+        <item name="android:windowBackground">@color/ocean_background</item>
+        <item name="android:colorPrimary">@color/ocean_primary</item>
+    </style>
 </resources>

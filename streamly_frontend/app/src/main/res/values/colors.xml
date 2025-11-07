@@ -8,4 +8,10 @@
     <color name="tv_accent">#2196F3</color>
     <color name="tv_button_focused">#FFFFFF</color>
     <color name="tv_button_normal">#80FFFFFF</color>
+
+    <!-- Ocean Professional theme references -->
+    <color name="ocean_background">#FFFFFF</color>
+    <color name="ocean_text">#111827</color>
+    <color name="ocean_primary">#374151</color>
+    <color name="ocean_secondary">#9CA3AF</color>
 </resources>

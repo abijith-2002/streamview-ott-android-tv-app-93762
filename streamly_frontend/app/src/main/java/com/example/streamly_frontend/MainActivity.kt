@@ -18,7 +18,7 @@ class MainActivity : FragmentActivity() {
         setContentView(R.layout.activity_main)
         
         titleText = findViewById(R.id.title_text)
-        titleText.text = "streamly_frontend"
+        titleText.text = "Streamly"
         
         // TODO: Initialize your rating screen components here
         // setupRatingOverlay()
