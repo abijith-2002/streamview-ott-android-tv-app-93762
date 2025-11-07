@@ -1,1 +1,3 @@
-# streamview-ott-android-tv-app-93762
+# Project Repository
+
+This is the initial README file for the project.
