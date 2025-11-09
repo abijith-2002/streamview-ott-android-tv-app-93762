@@ -5,19 +5,16 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.fragment.app.FragmentActivity
-import com.example.streamly_frontend.MainActivity
 
-/*
- PUBLIC_INTERFACE
- SplashActivity
- Minimal splash then navigates to MainActivity (Home).
- */
+// PUBLIC_INTERFACE
+// SplashActivity
+// Minimal splash then navigates to MainActivity (Home).
 class SplashActivity : FragmentActivity() {
 
     private val splashDurationMs: Long = 3000L
     private val handler = Handler(Looper.getMainLooper())
     private val navigateRunnable = Runnable {
-        val intent = Intent(this@SplashActivity, MainActivity::class.java)
+        val intent = Intent(this@SplashActivity, com.example.streamly_frontend.MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
         finish()
