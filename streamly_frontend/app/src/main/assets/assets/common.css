@@ -1,0 +1,30 @@
+:root {
+  /* existing variables remain */
+  --focus-ring-color: rgba(255,255,255,0.8);
+}
+
+/* Base reset for sizing precision */
+* { box-sizing: border-box; }
+html, body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  background: var(--color-121212);
+  color: var(--color-ffffff);
+  font-family: 'Roboto', sans-serif;
+}
+.screen {
+  position: relative;
+  width: 1920px;
+  height: 1080px;
+  background: var(--style-0-bg);
+  overflow: hidden;
+}
+.abs { position: absolute; }
+img.pixel, img.icon {
+  display: block;
+  position: absolute;
+  max-width: none; /* prevent unexpected scaling affecting transform-based responsive */
+}
+.round { border-radius: 50%; }

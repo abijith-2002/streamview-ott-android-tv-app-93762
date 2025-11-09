@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Home Page - screen_1:2</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <!-- Preload critical LCP image -->
+  <link rel="preload" href="/assets/figmaimages/figma_image_1_8.png" as="image" imagesrcset="/assets/figmaimages/figma_image_1_8.png 1x" fetchpriority="high">
+  <link rel="stylesheet" href="/assets/common.css">
+  <link rel="stylesheet" href="/assets/home-page-1-2.css">
+</head>
+<body>
+  <section id="responsive-frame" aria-label="Viewport scaler for 1920x1080 layout" role="region">
+    <div id="home-page-1-2" class="screen" role="main" aria-label="Home Page" aria-describedby="screen-desc">
+      <p id="screen-desc" class="visually-hidden">Pantalla principal con navegación superior, carrusel de destacados, sección Seguí viendo y Canales de TV.</p>
+      <!-- Header -->
+      <header id="header" class="abs" style="width:1466.2799px;height:74px;" aria-label="Encabezado principal">
+        <nav id="top-nav" class="abs" style="width:1159px;height:74px;" aria-label="Navegación principal" role="navigation">
+          <div id="top-nav-bg" class="abs bg-style-23" aria-hidden="true"></div>
+          <div id="avatar-focus" class="abs bg-style-24 round" aria-hidden="true"></div>
+          <!-- Avatar image from YAML -->
+          <img id="avatar" class="pixel" src="/assets/figmaimages/figma_image_1_231.png" alt="Usuario" width="56" height="56" decoding="async" loading="lazy" style="left:1475px;top:44px;width:56px;height:56px;object-fit:cover;border-radius:50%;">
+          <!-- Search icon parts (all from YAML) -->
+          <img id="search-234" class="icon" src="/assets/figmaimages/figma_image_1_234.svg" alt="" role="presentation" width="28" height="28" decoding="async">
+          <img id="search-235" class="icon" src="/assets/figmaimages/figma_image_1_235.svg" alt="" role="presentation" width="15" height="15" decoding="async">
+          <img id="search-236" class="icon" src="/assets/figmaimages/figma_image_1_236.svg" alt="Buscar" width="23" height="23" decoding="async">
+          <!-- Top nav texts: ensure keyboard/focusable -->
+          <a id="nav-peliculas" class="abs typo-28 focus-ring" href="#peliculas" role="link" tabindex="0" aria-label="Películas">Películas</a>
+          <a id="nav-inicio" class="abs typo-28 focus-ring" href="#inicio" role="link" tabindex="0" aria-current="page">Inicio</a>
+          <a id="nav-series" class="abs typo-28 focus-ring" href="#series" role="link" tabindex="0" aria-label="Series">Series</a>
+          <a id="nav-tvenvivo" class="abs typo-28 focus-ring" href="#tv-en-vivo" role="link" tabindex="0" aria-label="TV en vivo">TV en vivo</a>
+          <a id="nav-kids" class="abs typo-28 focus-ring" href="#kids" role="link" tabindex="0" aria-label="Kids">Kids</a>
+          <a id="nav-miscontenidos" class="abs typo-28 focus-ring" href="#mis-contenidos" role="link" tabindex="0" aria-label="Mis Contenidos">Mis Contenidos</a>
+        </nav>
+        <div id="top-active" class="abs" aria-hidden="true">
+          <div id="top-active-bg" class="abs bg-style-29"></div>
+          <div id="top-active-title" class="abs typo-29">Inicio</div>
+        </div>
+        <!-- Logo composite (decorative) -->
+        <img id="logo-249" class="icon" src="/assets/figmaimages/figma_image_1_249.svg" alt="" role="presentation" width="16" height="18" decoding="async">
+        <img id="logo-255" class="icon" src="/assets/figmaimages/figma_image_1_255.svg" alt="" role="presentation" width="15" height="25" decoding="async">
+        <img id="logo-258" class="icon" src="/assets/figmaimages/figma_image_1_258.svg" alt="" role="presentation" width="16" height="19" decoding="async">
+        <img id="logo-261" class="icon" src="/assets/figmaimages/figma_image_1_261.svg" alt="" role="presentation" width="15" height="19" decoding="async">
+        <img id="logo-263" class="icon" src="/assets/figmaimages/figma_image_1_263.svg" alt="" role="presentation" width="14" height="14" decoding="async">
+        <img id="logo-267" class="icon" src="/assets/figmaimages/figma_image_1_267.svg" alt="" role="presentation" width="19" height="19" decoding="async">
+        <img id="logo-268" class="icon" src="/assets/figmaimages/figma_image_1_268.svg" alt="" role="presentation" width="10" height="10" decoding="async">
+        <img id="logo-269" class="icon" src="/assets/figmaimages/figma_image_1_269.svg" alt="" role="presentation" width="23" height="24" decoding="async">
+        <img id="logo-274" class="icon" src="/assets/figmaimages/figma_image_1_274.svg" alt="" role="presentation" width="11" height="19" decoding="async">
+        <!-- TV icon composite from YAML (decorative) -->
+        <img id="tv-icon-143" class="icon" src="/assets/figmaimages/figma_image_1_143.svg" alt="" role="presentation" width="29" height="19" decoding="async" style="left:1200px;top:48px;width:29px;height:19px;">
+        <img id="tv-icon-144" class="icon" src="/assets/figmaimages/figma_image_1_144.svg" alt="" role="presentation" width="33" height="28" decoding="async" style="left:1233px;top:44px;width:33px;height:28px;">
+        <img id="tv-icon-147" class="icon" src="/assets/figmaimages/figma_image_1_147.svg" alt="" role="presentation" width="10" height="11" decoding="async" style="left:1272px;top:52px;width:10px;height:11px;">
+      </header>
+
+      <!-- Highlights strip center -->
+      <div id="highlight-strip-center" class="abs" aria-hidden="true">
+        <div id="highlight-center-bg" class="abs"></div>
+      </div>
+      <!-- Left highlight image -->
+      <img class="pixel" src="/assets/figmaimages/figma_image_1_8.png" alt="Destacado" width="1211" height="444" decoding="async" fetchpriority="high" style="left:0px;top:152px;width:1211px;height:444px;object-fit:cover">
+
+      <!-- Seguí viendo title -->
+      <h2 id="sec-title-segui" class="abs typo-24">Seguí viendo</h2>
+
+      <!-- Card 1 Rogue One -->
+      <div id="card1-img" class="abs poster-ph" role="img" aria-label="Rogue One poster" aria-roledescription="placeholder"></div>
+      <div id="card1-pb-bg" class="abs bg-style-8" aria-hidden="true"></div>
+      <div id="card1-pb-fill" class="abs bg-style-9" aria-hidden="true"></div>
+      <div id="card1-name-bg" class="abs bg-style-11" aria-hidden="true"></div>
+      <div id="card1-title" class="abs typo-23">Rogue One</div>
+      <!-- Delete icon composite -->
+      <img id="delete-61" class="icon" src="/assets/figmaimages/figma_image_1_61.svg" alt="" role="presentation" width="20" height="23" decoding="async" loading="lazy">
+      <img id="delete-63" class="icon focus-ring" src="/assets/figmaimages/figma_image_1_63.svg" alt="Eliminar Rogue One de Seguí viendo" width="32" height="35" decoding="async" role="button" tabindex="0" aria-label="Eliminar Rogue One de Seguí viendo">
+      <!-- Yellow control dot -->
+      <img id="yellow-dot" class="icon" src="/assets/figmaimages/figma_image_1_65.svg" alt="" role="presentation" width="20" height="20" decoding="async" loading="lazy">
+
+      <!-- Card 2 Ex Machina -->
+      <div id="card2-img" class="abs poster-ph" role="img" aria-label="Ex Machina poster" aria-roledescription="placeholder"></div>
+      <div id="card2-pb-bg" class="abs bg-style-14" aria-hidden="true"></div>
+      <div id="card2-pb-fill" class="abs bg-style-15" aria-hidden="true"></div>
+      <div id="card2-name-bg" class="abs bg-style-11" aria-hidden="true"></div>
+      <div id="card2-title" class="abs typo-23">Ex Machina</div>
+
+      <!-- Card 3 Sing Street -->
+      <div id="card3-img" class="abs poster-ph" role="img" aria-label="Sing Street poster" aria-roledescription="placeholder"></div>
+      <div id="card3-pb-bg" class="abs bg-style-14" aria-hidden="true"></div>
+      <div id="card3-pb-fill" class="abs bg-style-15" aria-hidden="true"></div>
+      <div id="card3-name-bg" class="abs bg-style-11" aria-hidden="true"></div>
+      <div id="card3-title" class="abs typo-23">Sing Street</div>
+
+      <!-- Card 4 2012 -->
+      <div id="card4-img" class="abs poster-ph" role="img" aria-label="2012 poster" aria-roledescription="placeholder"></div>
+      <div id="card4-pb-bg" class="abs bg-style-14" aria-hidden="true"></div>
+      <div id="card4-pb-fill" class="abs bg-style-15" aria-hidden="true"></div>
+      <div id="card4-name-bg" class="abs bg-style-11" aria-hidden="true"></div>
+      <div id="card4-title" class="abs typo-23">2012</div>
+
+      <!-- Card 5 Ad Astra (partly off-screen to the right) -->
+      <div id="card5-img" class="abs poster-ph" role="img" aria-label="Ad Astra poster" aria-roledescription="placeholder"></div>
+      <div id="card5-pb-bg" class="abs bg-style-14" aria-hidden="true"></div>
+      <div id="card5-pb-fill" class="abs bg-style-15" aria-hidden="true"></div>
+      <div id="card5-name-bg" class="abs bg-style-11" aria-hidden="true"></div>
+      <div id="card5-title" class="abs typo-23">Ad Astra</div>
+
+      <!-- Canales de TV -->
+      <h2 id="sec-title-tv" class="abs typo-24">Canales de TV</h2>
+
+      <!-- TV Card A -->
+      <img id="tvA-image" class="pixel" src="/assets/figmaimages/figma_image_1_154.png" alt="Marca Claro Radio - Claro sports" width="377" height="212" decoding="async" loading="lazy" style="object-fit:cover">
+      <div id="tvA-pb-bg" class="abs bg-style-18" aria-hidden="true"></div>
+      <div id="tvA-pb-fill" class="abs bg-style-19" aria-hidden="true"></div>
+      <div id="tvA-play-wrap" class="abs focus-ring" style="box-shadow: var(--shadow-3);" role="button" tabindex="0" aria-label="Reproducir Marca Claro Radio">
+        <div id="tvA-play-circle" class="abs" aria-hidden="true"></div>
+        <img id="tvA-play-icon" class="icon" src="/assets/figmaimages/figma_image_1_162.svg" alt="" role="presentation" width="40" height="42" decoding="async">
+      </div>
+      <div id="tvA-title" class="abs typo-25">Marca Claro Radio</div>
+      <div id="tvA-sub" class="abs typo-26">004 | Claro sports</div>
+      <div id="tvA-hour" class="abs typo-26">11:30 - 12:30</div>
+      <div id="tvA-live-bg" class="abs" style="background: var(--style-16-bg); border-radius: var(--style-16-radius);" aria-hidden="true"></div>
+      <div id="tvA-live-text" class="abs typo-27">EN VIVO</div>
+
+      <!-- Alquilá tag (decorative) -->
+      <div id="alquila-bg" class="abs bg-style-21" aria-hidden="true"></div>
+      <img id="alquila-192" class="icon" src="/assets/figmaimages/figma_image_1_192.svg" alt="" role="presentation" width="32" height="17" decoding="async" loading="lazy">
+      <img id="alquila-193" class="icon" src="/assets/figmaimages/figma_image_1_193.svg" alt="" role="presentation" width="14" height="17" decoding="async" loading="lazy">
+      <img id="alquila-195" class="icon" src="/assets/figmaimages/figma_image_1_195.svg" alt="" role="presentation" width="10" height="9" decoding="async" loading="lazy">
+
+      <!-- TV Card B -->
+      <div id="tvB-imageA" class="abs poster-ph" role="img" aria-label="E.T. channel image" aria-roledescription="placeholder"></div>
+      <div id="tvB-imageB" class="abs poster-ph" aria-hidden="true"></div>
+      <div id="tvB-pb-bg" class="abs bg-style-18" aria-hidden="true"></div>
+      <div id="tvB-pb-fill" class="abs bg-style-19" aria-hidden="true"></div>
+      <div id="tvB-play-circle" class="abs" aria-hidden="true"></div>
+      <div id="tvB-title" class="abs typo-25">E.T.</div>
+      <div id="tvB-sub" class="abs typo-26">005 | HBO Channel</div>
+      <div id="tvB-hour" class="abs typo-26">11:30 - 12:30</div>
+      <div id="tvB-live-bg" class="abs" style="background: var(--style-16-bg); border-radius: var(--style-16-radius);" aria-hidden="true"></div>
+      <div id="tvB-live-text" class="abs typo-27">EN VIVO</div>
+
+      <!-- TV Card C -->
+      <div id="tvC-image" class="abs poster-ph" role="img" aria-label="Marca Claro Radio channel image" aria-roledescription="placeholder"></div>
+      <div id="tvC-pb-bg" class="abs bg-style-18" aria-hidden="true"></div>
+      <div id="tvC-pb-fill" class="abs bg-style-19" aria-hidden="true"></div>
+      <div id="tvC-play-circle" class="abs" aria-hidden="true"></div>
+      <div id="tvC-title" class="abs typo-25">Marca Claro Radio</div>
+      <div id="tvC-sub" class="abs typo-26">004 | Claro sports</div>
+      <div id="tvC-hour" class="abs typo-26">11:30 - 12:30</div>
+      <div id="tvC-live-bg" class="abs" style="background: var(--style-16-bg); border-radius: var(--style-16-radius);" aria-hidden="true"></div>
+      <div id="tvC-live-text" class="abs typo-27">EN VIVO</div>
+    </div>
+  </section>
+  <script src="/assets/app.js" defer></script>
+  <script src="/assets/home-page-1-2.js" defer></script>
+</body>
+</html>
