@@ -11,21 +11,20 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.fragment.app.FragmentActivity
 
-/**
- * PUBLIC_INTERFACE
- * MainActivity (Home)
- * Hosts the generated Home Page (assets/home-page-1-2.html) inside a TV-optimized WebView.
- *
- * Behavior:
- * - Loads /assets/home-page-1-2.html as the default Home screen.
- * - Ensures local assets (/assets/*.css, *.js, figmaimages) resolve via the Android assets folder.
- * - Preserves D-pad remote behavior: DPAD_CENTER and ENTER trigger click on focused actionable elements.
- * - Exposes a "Home" navigation via loadHome() which (re)loads the Home screen.
- *
- * Note:
- * - This uses FragmentActivity per Leanback guidance.
- * - All focusable elements within the HTML have tabindex/role and CSS focus outlines already defined.
- */
+ // PUBLIC_INTERFACE
+ // MainActivity (Home)
+ // Hosts the generated Home Page (assets/home-page-1-2.html) inside a TV-optimized WebView.
+ //
+ // Behavior:
+ // - Loads /assets/home-page-1-2.html as the default Home screen.
+ // - Ensures local assets (/assets/*.css, *.js, figmaimages) resolve via the Android assets folder.
+ // - Preserves D-pad remote behavior: DPAD_CENTER and ENTER trigger click on focused actionable elements.
+ // - Exposes a "Home" navigation via loadHome() which (re)loads the Home screen.
+ //
+ // Note:
+ // - This uses FragmentActivity per Leanback guidance.
+ // - All focusable elements within the HTML have tabindex/role and CSS focus outlines already defined.
+
 class MainActivity : FragmentActivity() {
 
     private lateinit var webView: WebView
@@ -34,7 +33,7 @@ class MainActivity : FragmentActivity() {
     fun loadHome() {
         /** Reloads the Home screen route. */
         webView.loadUrl("file:///android_asset/home-page-1-2.html")
-    } // end loadHome
+    }
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,7 +77,9 @@ class MainActivity : FragmentActivity() {
         // Map TV remote "OK" to invoke click on the focused element inside the WebView
         return when (keyCode) {
             KeyEvent.KEYCODE_DPAD_CENTER, KeyEvent.KEYCODE_ENTER -> {
-                webView.dispatchKeyEvent(event)
+                if (event != null) {
+                    webView.dispatchKeyEvent(event)
+                }
                 true
             }
             KeyEvent.KEYCODE_BACK -> {

@@ -5,11 +5,12 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.fragment.app.FragmentActivity
+import com.example.streamly_frontend.MainActivity
 
-/**
- * PUBLIC_INTERFACE
- * SplashActivity
- * Minimal splash then navigates to MainActivity (Home).
+/*
+ PUBLIC_INTERFACE
+ SplashActivity
+ Minimal splash then navigates to MainActivity (Home).
  */
 class SplashActivity : FragmentActivity() {
 
