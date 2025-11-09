@@ -15,27 +15,34 @@
       <p id="screen-desc" class="visually-hidden">Pantalla principal con navegación superior, carrusel de destacados, sección Seguí viendo y Canales de TV.</p>
       <!-- Header -->
       <header id="header" class="abs" style="width:1466.2799px;height:74px;" aria-label="Encabezado principal">
-        <nav id="top-nav" class="abs" style="width:1159px;height:74px;" aria-label="Navegación principal" role="navigation">
-          <div id="top-nav-bg" class="abs bg-style-23" aria-hidden="true"></div>
-          <div id="avatar-focus" class="abs bg-style-24 round" aria-hidden="true"></div>
-          <!-- Avatar image from YAML -->
-          <img id="avatar" class="pixel" src="assets/figmaimages/figma_image_1_231.png" alt="Usuario" width="56" height="56" decoding="async" loading="lazy" style="left:1475px;top:44px;width:56px;height:56px;object-fit:cover;border-radius:50%;">
-          <!-- Search icon parts (all from YAML) -->
-          <img id="search-234" class="icon" src="assets/figmaimages/figma_image_1_234.svg" alt="" role="presentation" width="28" height="28" decoding="async">
-          <img id="search-235" class="icon" src="assets/figmaimages/figma_image_1_235.svg" alt="" role="presentation" width="15" height="15" decoding="async">
-          <img id="search-236" class="icon" src="assets/figmaimages/figma_image_1_236.svg" alt="Buscar" width="23" height="23" decoding="async">
-          <!-- Top nav texts: ensure keyboard/focusable -->
-          <a id="nav-peliculas" class="abs typo-28 focus-ring" href="#peliculas" role="link" tabindex="0" aria-label="Películas">Películas</a>
-          <a id="nav-inicio" class="abs typo-28 focus-ring" href="#inicio" role="link" tabindex="0" aria-current="page">Inicio</a>
-          <a id="nav-series" class="abs typo-28 focus-ring" href="#series" role="link" tabindex="0" aria-label="Series">Series</a>
-          <a id="nav-tvenvivo" class="abs typo-28 focus-ring" href="#tv-en-vivo" role="link" tabindex="0" aria-label="TV en vivo">TV en vivo</a>
-          <a id="nav-kids" class="abs typo-28 focus-ring" href="#kids" role="link" tabindex="0" aria-label="Kids">Kids</a>
-          <a id="nav-miscontenidos" class="abs typo-28 focus-ring" href="#mis-contenidos" role="link" tabindex="0" aria-label="Mis Contenidos">Mis Contenidos</a>
+        <nav id="top-nav" class="site-nav" aria-label="Navegación principal" role="navigation">
+          <div id="top-nav-bg" class="bg-style-23" aria-hidden="true"></div>
+          <div class="nav-inner">
+            <div class="nav-left">
+              <!-- Search icon parts (all from YAML) -->
+              <img id="search-234" class="icon" src="assets/figmaimages/figma_image_1_234.svg" alt="" role="presentation" width="28" height="28" decoding="async">
+              <img id="search-235" class="icon" src="assets/figmaimages/figma_image_1_235.svg" alt="" role="presentation" width="15" height="15" decoding="async">
+              <img id="search-236" class="icon" src="assets/figmaimages/figma_image_1_236.svg" alt="Buscar" width="23" height="23" decoding="async">
+            </div>
+            <div class="nav-center" role="menubar" aria-label="Secciones">
+              <a id="nav-inicio" class="typo-28 focus-ring" href="#inicio" role="menuitem" tabindex="0" aria-current="page">Inicio</a>
+              <a id="nav-peliculas" class="typo-28 focus-ring" href="#peliculas" role="menuitem" tabindex="0" aria-label="Películas">Películas</a>
+              <a id="nav-series" class="typo-28 focus-ring" href="#series" role="menuitem" tabindex="0" aria-label="Series">Series</a>
+              <a id="nav-tvenvivo" class="typo-28 focus-ring" href="#tv-en-vivo" role="menuitem" tabindex="0" aria-label="TV en vivo">TV en vivo</a>
+              <a id="nav-kids" class="typo-28 focus-ring" href="#kids" role="menuitem" tabindex="0" aria-label="Kids">Kids</a>
+              <a id="nav-miscontenidos" class="typo-28 focus-ring" href="#mis-contenidos" role="menuitem" tabindex="0" aria-label="Mis Contenidos">Mis Contenidos</a>
+            </div>
+            <div class="nav-right">
+              <div id="avatar-focus" class="bg-style-24 round" aria-hidden="true"></div>
+              <img id="avatar" class="pixel" src="assets/figmaimages/figma_image_1_231.png" alt="Usuario" width="56" height="56" decoding="async" loading="lazy">
+            </div>
+          </div>
+          <!-- Active tab indicator retained for design parity -->
+          <div id="top-active" aria-hidden="true">
+            <div id="top-active-bg" class="bg-style-29"></div>
+            <div id="top-active-title" class="typo-29">Inicio</div>
+          </div>
         </nav>
-        <div id="top-active" class="abs" aria-hidden="true">
-          <div id="top-active-bg" class="abs bg-style-29"></div>
-          <div id="top-active-title" class="abs typo-29">Inicio</div>
-        </div>
         <!-- Logo composite (decorative) -->
         <img id="logo-249" class="icon" src="assets/figmaimages/figma_image_1_249.svg" alt="" role="presentation" width="16" height="18" decoding="async">
         <img id="logo-255" class="icon" src="assets/figmaimages/figma_image_1_255.svg" alt="" role="presentation" width="15" height="25" decoding="async">
@@ -46,10 +53,10 @@
         <img id="logo-268" class="icon" src="assets/figmaimages/figma_image_1_268.svg" alt="" role="presentation" width="10" height="10" decoding="async">
         <img id="logo-269" class="icon" src="assets/figmaimages/figma_image_1_269.svg" alt="" role="presentation" width="23" height="24" decoding="async">
         <img id="logo-274" class="icon" src="assets/figmaimages/figma_image_1_274.svg" alt="" role="presentation" width="11" height="19" decoding="async">
-        <!-- TV icon composite from YAML (decorative) -->
-        <img id="tv-icon-143" class="icon" src="assets/figmaimages/figma_image_1_143.svg" alt="" role="presentation" width="29" height="19" decoding="async" style="left:1200px;top:48px;width:29px;height:19px;">
-        <img id="tv-icon-144" class="icon" src="assets/figmaimages/figma_image_1_144.svg" alt="" role="presentation" width="33" height="28" decoding="async" style="left:1233px;top:44px;width:33px;height:28px;">
-        <img id="tv-icon-147" class="icon" src="assets/figmaimages/figma_image_1_147.svg" alt="" role="presentation" width="10" height="11" decoding="async" style="left:1272px;top:52px;width:10px;height:11px;">
+        <!-- TV icon composite from YAML (decorative); removed absolute offsets to avoid horizontal scroll -->
+        <img id="tv-icon-143" class="icon" src="assets/figmaimages/figma_image_1_143.svg" alt="" role="presentation" width="29" height="19" decoding="async">
+        <img id="tv-icon-144" class="icon" src="assets/figmaimages/figma_image_1_144.svg" alt="" role="presentation" width="33" height="28" decoding="async">
+        <img id="tv-icon-147" class="icon" src="assets/figmaimages/figma_image_1_147.svg" alt="" role="presentation" width="10" height="11" decoding="async">
       </header>
 
       <!-- Highlights strip center -->

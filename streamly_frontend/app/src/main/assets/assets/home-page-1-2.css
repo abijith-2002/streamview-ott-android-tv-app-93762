@@ -24,7 +24,7 @@
   place-items: center;
   min-height: 100vh;
   padding: var(--overscan-gap);
-  background: var(--style-0-bg);
+  background: #000000; /* Set page background to black */
 }
 #responsive-frame > .screen {
   transform-origin: top left;
@@ -45,7 +45,7 @@
   position: relative;
   width: 1920px;
   height: 1080px;
-  background: var(--style-0-bg);
+  background: #000000; /* enforce black */
   overflow: hidden;
 }
 
@@ -86,24 +86,114 @@ a:focus {
 /* Posters placeholder neutral background to avoid CLS shimmer mismatch */
 .poster-ph { background: #1e1e1e; border: 0 solid transparent; }
 
-/* Header positions */
-#header { left: 88.72px; top: 36px; width: 1466.28px; height: 74px; }
-#top-nav { left: 396px; top: 36px; width: 1159px; height: 74px; }
-#top-nav-bg { left: 396px; top: 40px; width: 1159px; height: 64px; }
-#avatar-focus { left: 1466px; top: 36px; width: 74px; height: 74px; border-radius: 50%; }
-#avatar { left: 1475px; top: 44px; width: 56px; height: 56px; border-radius: 50%; overflow: hidden; object-fit: cover; }
-#search-234 { left: 420px; top: 54px; width: 27.53px; height: 27.894px; }
-#search-235 { left: 441.303px; top: 75.2069px; width: 14.7931px; height: 14.7931px; }
-#search-236 { left: 422.753px; top: 56.7894px; width: 22.0241px; height: 22.3155px; }
-#nav-peliculas { left: 626px; top: 55px; width: 120px; height: 34px; }
-#nav-inicio { left: 506px; top: 55px; width: 72px; height: 34px; }
-#nav-series { left: 796px; top: 55px; width: 82px; height: 34px; }
-#nav-tvenvivo { left: 928px; top: 55px; width: 137px; height: 34px; }
-#nav-kids { left: 1113px; top: 55px; width: 58px; height: 34px; }
-#nav-miscontenidos { left: 1220px; top: 55px; width: 207px; height: 34px; }
-#top-active { left: 493px; top: 46px; width: 96px; height: 53px; }
-#top-active-bg { left: 493px; top: 46px; width: 96px; height: 53px; }
-#top-active-title { left: 504.9167px; top: 56px; width: 74px; height: 32px; }
+/* Header positioning */
+#header { left: 0; top: 0; width: 100%; height: 74px; }
+
+/* New top nav layout - centered, fixed at top, no horizontal scroll */
+#top-nav.site-nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 74px;
+  display: block;
+  z-index: 1000;
+}
+
+#top-nav-bg {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  max-width: 1400px;
+  height: 64px;
+  border-radius: 34px;
+  z-index: -1;
+}
+
+/* Flex wrapper to center content */
+#top-nav .nav-inner {
+  position: relative;
+  height: 74px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* centers the nav-center group */
+  gap: 32px; /* design spacing between left, center, right groups */
+  padding: 0 48px;
+  overflow-x: hidden; /* prevent any horizontal scroll from icons */
+}
+
+/* Left and right sections */
+#top-nav .nav-left,
+#top-nav .nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Centered nav items */
+#top-nav .nav-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px; /* spacing between nav items per design */
+  flex: 0 1 auto;
+}
+
+#top-nav .nav-center a {
+  position: static; /* reset absolute */
+  display: inline-block;
+  color: #FFFFFF; /* ensure contrast on black */
+  text-decoration: none;
+  padding: 8px 12px;
+}
+
+#top-nav .nav-center a[aria-current="page"] {
+  color: #FFFFFF;
+  font-weight: 700;
+}
+
+/* Avatar and focus ring sizing */
+#avatar-focus { position: relative; width: 74px; height: 74px; border-radius: 50%; }
+#avatar { position: relative; width: 56px; height: 56px; border-radius: 50%; overflow: hidden; object-fit: cover; }
+
+/* Search icons arranged inline; prevent absolute offsets causing scroll */
+#search-234, #search-235, #search-236,
+#tv-icon-143, #tv-icon-144, #tv-icon-147 {
+  position: relative;
+}
+
+/* Active tab badge repositioned relative to nav bar center */
+#top-active {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 53px;
+}
+#top-active-bg {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--style-29-radius);
+}
+#top-active-title {
+  position: absolute;
+  top: 12px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: auto;
+  text-align: center;
+}
+
+/* Remove any potential horizontal scrolling on the container */
+html, body {
+  overflow-x: hidden;
+  background: #000000; /* body background to black */
+}
 
 /* Logo group positions (key svg parts) */
 #logo-249 { left: 183.2966px; top: 67.8241px; width: 16.4009px; height: 17.9797px; }

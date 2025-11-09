@@ -29,6 +29,10 @@
     applyResponsiveScale();
     window.addEventListener('resize', applyResponsiveScale);
 
+    // Prevent accidental horizontal scrolling due to transforms or focus jumps
+    document.documentElement.style.overflowX = 'hidden';
+    document.body.style.overflowX = 'hidden';
+
     // Ensure focus outline visible using CSS class; no inline style needed
     var focusables = document.querySelectorAll('#home-page-1-2 [role="link"], #home-page-1-2 [role="button"], #home-page-1-2 a, #home-page-1-2 [tabindex="0"]');
     focusables.forEach(function (el) {

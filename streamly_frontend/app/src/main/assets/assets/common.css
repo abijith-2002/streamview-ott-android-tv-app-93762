@@ -10,7 +10,7 @@ html, body {
 }
 body {
   margin: 0;
-  background: var(--color-121212);
+  background: #000000; /* enforce black background globally */
   color: var(--color-ffffff);
   font-family: 'Roboto', sans-serif;
 }
