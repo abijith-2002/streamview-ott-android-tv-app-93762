@@ -30,7 +30,10 @@ class MainActivity : FragmentActivity() {
     // PUBLIC_INTERFACE
     fun loadHome() {
         /** Reloads the Home screen route. */
-        webView.loadUrl("file:///android_asset/home-page-1-2.html")
+        // Use base URL so that relative asset references like "assets/..." resolve correctly.
+        val baseUrl = "file:///android_asset/"
+        val html = assets.open("home-page-1-2.html").bufferedReader().use { it.readText() }
+        webView.loadDataWithBaseURL(baseUrl, html, "text/html", "UTF-8", null)
     }
 
     @SuppressLint("SetJavaScriptEnabled")
