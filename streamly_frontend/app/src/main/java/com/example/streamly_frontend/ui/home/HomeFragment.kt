@@ -1,0 +1,187 @@
+package com.example.streamly_frontend.ui.home
+
+import android.graphics.Color
+import android.os.Bundle
+import android.util.TypedValue
+import androidx.core.content.ContextCompat
+import androidx.leanback.app.BackgroundManager
+import androidx.leanback.app.BrowseSupportFragment
+import androidx.leanback.widget.*
+import com.example.streamly_frontend.R
+
+/**
+ * Browse-style Home fragment with:
+ * - Top navigation bar (Inicio, Películas, Series, TV en vivo, Kids, Mis Contenidos)
+ * - Full-width hero/banner background using BackgroundManager
+ * - Content rails (ArrayObjectAdapter + ListRow)
+ * - D-pad focus with Leanback's default focus scaling and highlight
+ */
+class HomeFragment : BrowseSupportFragment(), OnItemViewClickedListener, OnItemViewSelectedListener {
+
+    private lateinit var rowsAdapter: ArrayObjectAdapter
+    private lateinit var backgroundManager: BackgroundManager
+
+    private val topNavLabels = listOf(
+        "Inicio", "Películas", "Series", "TV en vivo", "Kids", "Mis Contenidos"
+    )
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        prepareBackground()
+        setupUI()
+        buildRows()
+        setOnItemViewClickedListener(this)
+        setOnItemViewSelectedListener(this)
+    }
+
+    private fun prepareBackground() {
+        backgroundManager = BackgroundManager.getInstance(activity)
+        backgroundManager.attach(activity?.window)
+        // Full-width hero/banner impression
+        backgroundManager.color = Color.BLACK
+        // Optionally load a drawable banner; fall back to color if none
+        backgroundManager.drawable = ContextCompat.getDrawable(requireContext(), R.drawable.hero_banner_placeholder)
+    }
+
+    private fun setupUI() {
+        title = "" // we'll use headers as rails; keep title empty for minimalist look
+
+        // Headers alignment and brand color accents
+        brandColor = ContextCompat.getColor(requireContext(), R.color.tv_accent)
+        headersState = HEADERS_ENABLED
+        isHeadersTransitionOnBackEnabled = true
+
+        // Build a top navigation bar inside the TitleView
+        buildTopNavBar()
+    }
+
+    private fun buildTopNavBar() {
+        // Leanback TitleViewAdapter allows custom view or branding.
+        // We'll set a simple "breadcrumb" style row of nav labels with increased text size, centered.
+        val titleViewAdapter = titleViewAdapter
+        val titleTextView = titleViewAdapter.searchAffordanceView // Not ideal: reuse space next to search affordance
+        // Instead, we will configure the BadgeDrawable text to mimic centered nav. For true centering use a custom TitleView:
+        badgeDrawable = null
+        title = topNavLabels.joinToString("    ") // visually spaced
+        setTitlePaddingForTV()
+        // Enable search affordance visually but no-op
+        setOnSearchClickedListener { /* No-op for now */ }
+    }
+
+    private fun setTitlePaddingForTV() {
+        // Typography: larger text for TV, add insets to keep overscan-safe
+        val px = TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP, 24f, resources.displayMetrics
+        ).toInt()
+        setBadgeDrawable(null)
+        view?.setPadding(px, px, px, 0)
+    }
+
+    private fun buildRows() {
+        rowsAdapter = ArrayObjectAdapter(ListRowPresenter())
+
+        // Row 1: Seguí viendo (Continue Watching)
+        rowsAdapter.add(buildCardRow("Seguí viendo", sampleItems("Rogue One", "Ex Machina", "Sing Street", "2012", "Ad Astra")))
+
+        // Row 2: Canales de TV (Live TV)
+        rowsAdapter.add(buildCardRow("Canales de TV", sampleItems("Marca Claro Radio", "E.T.", "Noticias 24", "Música en Vivo")))
+
+        adapter = rowsAdapter
+    }
+
+    private fun buildCardRow(headerTitle: String, items: List<CardItem>): ListRow {
+        val header = HeaderItem(headerTitle)
+        val cardPresenter = HeroCardPresenter()
+        val listRowAdapter = ArrayObjectAdapter(cardPresenter)
+        items.forEach { listRowAdapter.add(it) }
+        return ListRow(header, listRowAdapter)
+    }
+
+    private fun sampleItems(vararg titles: String): List<CardItem> {
+        return titles.mapIndexed { index, t ->
+            CardItem(
+                id = index.toLong(),
+                title = t,
+                description = "Descripción $index",
+                imageRes = when (index % 3) {
+                    0 -> R.drawable.sample_poster_1
+                    1 -> R.drawable.sample_poster_2
+                    else -> R.drawable.sample_poster_3
+                }
+            )
+        }
+    }
+
+    override fun onItemClicked(
+        itemViewHolder: Presenter.ViewHolder?,
+        item: Any?,
+        rowViewHolder: RowPresenter.ViewHolder?,
+        row: Row?
+    ) {
+        // TODO: Wire to details and playback activities when available
+        // For now, we show a simple click feedback via headers state change
+        // Could navigate like: startActivity(Intent(requireContext(), DetailsActivity::class.java).putExtra("id", (item as CardItem).id))
+    }
+
+    override fun onItemSelected(
+        itemViewHolder: Presenter.ViewHolder?,
+        item: Any?,
+        rowViewHolder: RowPresenter.ViewHolder?,
+        row: Row?
+    ) {
+        // Update hero/banner when selection changes to simulate full-width banner
+        if (item is CardItem) {
+            // Set a different drawable or keep placeholder
+            backgroundManager.drawable = ContextCompat.getDrawable(requireContext(), item.imageRes)
+        }
+    }
+}
+
+/**
+ * Simple data model for cards.
+ */
+data class CardItem(
+    val id: Long,
+    val title: String,
+    val description: String,
+    val imageRes: Int
+)
+
+/**
+ * Presenter for 16:9 posters with focus scaling and title.
+ * Uses ImageCardView for default Leanback behavior.
+ */
+class HeroCardPresenter : Presenter() {
+    override fun onCreateViewHolder(parent: android.view.ViewGroup): ViewHolder {
+        val cardView = ImageCardView(parent.context).apply {
+            isFocusable = true
+            isFocusableInTouchMode = true
+            setMainImageDimensions(
+                dp(parent, 320), // width
+                dp(parent, 180)  // height (16:9)
+            )
+            setBackgroundColor(ContextCompat.getColor(context, android.R.color.transparent))
+            setInfoAreaBackgroundColor(Color.parseColor("#28292F"))
+            setMainImageScaleType(android.widget.ImageView.ScaleType.CENTER_CROP)
+        }
+        return ViewHolder(cardView)
+    }
+
+    override fun onBindViewHolder(viewHolder: ViewHolder, item: Any) {
+        val card = viewHolder.view as ImageCardView
+        val data = item as CardItem
+        card.titleText = data.title
+        card.contentText = data.description
+        card.setMainImage(ContextCompat.getDrawable(card.context, data.imageRes))
+    }
+
+    override fun onUnbindViewHolder(viewHolder: ViewHolder) {
+        val card = viewHolder.view as ImageCardView
+        card.mainImage = null
+    }
+
+    private fun dp(parent: android.view.ViewGroup, dp: Int): Int {
+        val dm = parent.resources.displayMetrics
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp.toFloat(), dm).toInt()
+    }
+}

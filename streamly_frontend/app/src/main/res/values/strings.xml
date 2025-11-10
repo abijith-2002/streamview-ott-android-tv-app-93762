@@ -10,4 +10,14 @@
     <string name="rating_dislike">I don\'t like it</string>
     <string name="rating_close">Close</string>
     <string name="rating_countdown">Closing in %d seconds</string>
+
+    <!-- Home labels -->
+    <string name="home_nav_inicio">Inicio</string>
+    <string name="home_nav_peliculas">Películas</string>
+    <string name="home_nav_series">Series</string>
+    <string name="home_nav_live">TV en vivo</string>
+    <string name="home_nav_kids">Kids</string>
+    <string name="home_nav_mis_contenidos">Mis Contenidos</string>
+    <string name="home_row_continue">Seguí viendo</string>
+    <string name="home_row_live_channels">Canales de TV</string>
 </resources>

@@ -14,7 +14,7 @@ class SplashActivity : FragmentActivity() {
     private val splashDurationMs: Long = 3000L
     private val handler = Handler(Looper.getMainLooper())
     private val navigateRunnable = Runnable {
-        val intent = Intent(this@SplashActivity, com.example.streamly_frontend.MainActivity::class.java)
+        val intent = Intent(this@SplashActivity, com.example.streamly_frontend.ui.home.HomeActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
         finish()

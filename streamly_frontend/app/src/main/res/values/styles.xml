@@ -5,6 +5,7 @@
         <!-- Customize your theme here -->
         <item name="android:windowBackground">@color/tv_background</item>
         <item name="android:colorPrimary">@color/tv_accent</item>
+        <!-- Using default Leanback widgets; explicit style refs removed to avoid missing resources -->
     </style>
 
     <!-- Minimalist Splash theme using Ocean Professional palette -->

@@ -34,10 +34,11 @@
             </intent-filter>
         </activity>
 
-        <!-- Main/Home Activity -->
+        <!-- Main/Home Activity (Native) -->
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.home.HomeActivity"
             android:exported="true"
+            android:label="Inicio"
             android:screenOrientation="landscape" />
     </application>
 
