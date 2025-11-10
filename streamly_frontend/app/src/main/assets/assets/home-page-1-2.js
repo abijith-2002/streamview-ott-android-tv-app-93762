@@ -19,32 +19,70 @@
     screen.style.transform = 'scale(' + scale + ')';
   }
 
+  function isActivateKey(e) {
+    return e.key === 'Enter' || e.key === ' ' || e.key === 'DPAD_CENTER';
+  }
+
+  function smoothCenterIntoView(el) {
+    try {
+      el.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
+    } catch (e) {
+      // Fallback for some WebView implementations
+      el.scrollIntoView();
+    }
+  }
+
+  function attachFocusBehavior() {
+    // Scale-up animation is handled by CSS; here we keep navigation centered
+    var focusables = document.querySelectorAll('#home-page-1-2 a, #home-page-1-2 [role="button"], #home-page-1-2 [tabindex="0"]');
+    focusables.forEach(function (el) {
+      el.addEventListener('focus', function () {
+        // Try to center focused element if inside scrolling containers (e.g., nav-center)
+        var parent = el.parentElement;
+        if (parent && parent.classList.contains('nav-center')) {
+          smoothCenterIntoView(el);
+        }
+      });
+      el.addEventListener('keydown', function (e) {
+        if (isActivateKey(e) && (el.getAttribute('role') === 'button' || el.tagName === 'A')) {
+          e.preventDefault();
+          el.click();
+        }
+      });
+    });
+  }
+
+  function prefetchImages() {
+    // Prefetch thumbnails that are likely to be focused soon
+    var sources = [
+      'assets/figmaimages/figma_image_1_8.png',
+      'assets/figmaimages/figma_image_1_154.png'
+    ];
+    sources.forEach(function (src) {
+      var img = new Image();
+      img.decoding = 'async';
+      img.loading = 'lazy';
+      img.src = src;
+    });
+  }
+
   // PUBLIC_INTERFACE
   function initHomePageInteractions() {
     /** Initialize interactions and responsive scaling for the Home Page.
      * - TV-friendly focus ring via CSS classes (no inline styling)
      * - Keyboard activation for buttons/links (Enter/Space/DPAD Center)
      * - Responsive scaler preserving composition with safe-areas
+     * - DPAD focus: scale-up on focus via CSS and smooth center into view
+     * - Prefetch a couple of images to reduce focus-latency
      */
     applyResponsiveScale();
     window.addEventListener('resize', applyResponsiveScale);
 
-    // Prevent accidental horizontal scrolling due to transforms or focus jumps
     document.documentElement.style.overflowX = 'hidden';
     document.body.style.overflowX = 'hidden';
 
-    // Ensure focus outline visible using CSS class; no inline style needed
-    var focusables = document.querySelectorAll('#home-page-1-2 [role="link"], #home-page-1-2 [role="button"], #home-page-1-2 a, #home-page-1-2 [tabindex="0"]');
-    focusables.forEach(function (el) {
-      el.addEventListener('keydown', function (e) {
-        var isActivateKey = (e.key === 'Enter' || e.key === ' ' || e.key === 'DPAD_CENTER');
-        var isActionable = (el.getAttribute('role') === 'button' || el.tagName === 'A');
-        if (isActivateKey && isActionable) {
-          e.preventDefault();
-          el.click();
-        }
-      });
-    });
+    attachFocusBehavior();
+    prefetchImages();
 
     var playA = document.getElementById('tvA-play-wrap');
     if (playA) {

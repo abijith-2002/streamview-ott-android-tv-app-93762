@@ -1,8 +1,17 @@
-/* Home Page screen-specific styles - Pixel-accurate from Figma YAML with responsive scaler and a11y */
+/* Home Page screen-specific styles - Pixel-accurate from Figma with responsive scaler, TV DPAD focus, and minimalist theme */
 :root {
   --overscan-gap: 48px;
-  --focus-outline: 3px solid rgba(255,255,255,0.8);
-  --focus-outline-offset: 2px;
+  --focus-outline: 3px solid rgba(255,255,255,0.9);
+  --focus-outline-offset: 3px;
+
+  /* Rail sizing */
+  --rail-horizontal-gap: 24px;
+  --rail-vertical-gap: 48px;
+  --nav-item-gap: 40px;
+
+  /* Card sizing: base 16:9 with consistent gutters */
+  --card-width: 412px;  /* aligns to design for rails */
+  --card-height: calc(var(--card-width) * 9 / 16);
 }
 
 /* Utility: visually hidden for a11y descriptions */
@@ -24,7 +33,7 @@
   place-items: center;
   min-height: 100vh;
   padding: var(--overscan-gap);
-  background: #000000; /* Set page background to black */
+  background: var(--tv-bg);
 }
 #responsive-frame > .screen {
   transform-origin: top left;
@@ -45,7 +54,7 @@
   position: relative;
   width: 1920px;
   height: 1080px;
-  background: #000000; /* enforce black */
+  background: var(--tv-bg);
   overflow: hidden;
 }
 
@@ -60,7 +69,7 @@
 .typo-25 { font-family: var(--typo-25-family); font-size: var(--typo-25-size); font-weight: var(--typo-25-weight); line-height: var(--typo-25-line-height); letter-spacing: var(--typo-25-letter-spacing); color: var(--typo-25-color); text-align: var(--typo-25-text-align); }
 .typo-26 { font-family: var(--typo-26-family); font-size: var(--typo-26-size); font-weight: var(--typo-26-weight); line-height: var(--typo-26-line-height); letter-spacing: var(--typo-26-letter-spacing); color: var(--typo-26-color); text-align: var(--typo-26-text-align); }
 .typo-27 { font-family: var(--typo-27-family); font-size: var(--typo-27-size); font-weight: var(--typo-27-weight); line-height: var(--typo-27-line-height); letter-spacing: var(--typo-27-letter-spacing); color: var(--typo-27-color); text-align: var(--typo-27-text-align); }
-.typo-28 { font-family: var(--typo-28-family); font-size: var(--typo-28-size); font-weight: var(--typo-28-weight); line-height: var(--typo-28-line-height); letter-spacing: var(--typo-28-letter-spacing); color: var(--typo-28-color); text-align: var(--typo-28-text-align); }
+.typo-28 { font-family: var(--typo-28-family); font-size: var(--typo-28-size); font-weight: var(--typo-28-weight); line-height: var(--typo-28-line-height); letter-spacing: var(--typo-28-letter-spacing); color: var(--typo-28-color); text-align: center; }
 .typo-29 { font-family: var(--typo-29-family); font-size: var(--typo-29-size); font-weight: var(--typo-29-weight); line-height: var(--typo-29-line-height); letter-spacing: var(--typo-29-letter-spacing); color: var(--typo-29-color); text-align: var(--typo-29-text-align); }
 
 /* Style tokens */
@@ -84,12 +93,12 @@ a:focus {
 }
 
 /* Posters placeholder neutral background to avoid CLS shimmer mismatch */
-.poster-ph { background: #1e1e1e; border: 0 solid transparent; }
+.poster-ph { background: #1e1e1e; border-radius: var(--card-radius); }
 
 /* Header positioning */
 #header { left: 0; top: 0; width: 100%; height: 74px; }
 
-/* New top nav layout - centered, fixed at top, no horizontal scroll */
+/* Top nav - horizontally centered with Ocean minimalist look */
 #top-nav.site-nav {
   position: absolute;
   top: 0;
@@ -110,6 +119,8 @@ a:focus {
   height: 64px;
   border-radius: 34px;
   z-index: -1;
+  background: rgba(40,41,47,0.6);
+  backdrop-filter: blur(2px);
 }
 
 /* Flex wrapper to center content */
@@ -119,10 +130,10 @@ a:focus {
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center; /* centers the nav-center group */
-  gap: 32px; /* design spacing between left, center, right groups */
+  justify-content: center;
+  gap: 32px;
   padding: 0 48px;
-  overflow-x: hidden; /* prevent any horizontal scroll from icons */
+  overflow-x: hidden;
 }
 
 /* Left and right sections */
@@ -133,21 +144,34 @@ a:focus {
   gap: 12px;
 }
 
-/* Centered nav items */
+#avatar-focus { position: relative; width: 74px; height: 74px; border-radius: 50%; }
+#avatar { position: relative; width: 56px; height: 56px; border-radius: 50%; overflow: hidden; object-fit: cover; }
+
+/* Centered nav items - scrollable if overflow, with DPAD focus scaling */
 #top-nav .nav-center {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 40px; /* spacing between nav items per design */
-  flex: 0 1 auto;
+  gap: var(--nav-item-gap);
+  max-width: 70%;
+  overflow: hidden;
 }
 
 #top-nav .nav-center a {
-  position: static; /* reset absolute */
+  position: static;
   display: inline-block;
-  color: #FFFFFF; /* ensure contrast on black */
+  color: var(--typo-28-color);
   text-decoration: none;
-  padding: 8px 12px;
+  padding: 10px 14px;
+  border-radius: 20px;
+  transition: transform 140ms ease-out, color 140ms ease-out, background-color 140ms ease-out;
+}
+
+#top-nav .nav-center a:focus {
+  transform: scale(var(--nav-focus-scale));
+  color: #FFFFFF;
+  background: rgba(255,255,255,0.08);
+  outline-offset: 4px;
 }
 
 #top-nav .nav-center a[aria-current="page"] {
@@ -155,17 +179,13 @@ a:focus {
   font-weight: 700;
 }
 
-/* Avatar and focus ring sizing */
-#avatar-focus { position: relative; width: 74px; height: 74px; border-radius: 50%; }
-#avatar { position: relative; width: 56px; height: 56px; border-radius: 50%; overflow: hidden; object-fit: cover; }
-
-/* Search icons arranged inline; prevent absolute offsets causing scroll */
+/* Search and TV icons relative (no absolute offsets to avoid scroll) */
 #search-234, #search-235, #search-236,
 #tv-icon-143, #tv-icon-144, #tv-icon-147 {
   position: relative;
 }
 
-/* Active tab badge repositioned relative to nav bar center */
+/* Active tab badge centered under items */
 #top-active {
   position: absolute;
   top: 10px;
@@ -192,10 +212,10 @@ a:focus {
 /* Remove any potential horizontal scrolling on the container */
 html, body {
   overflow-x: hidden;
-  background: #000000; /* body background to black */
+  background: var(--tv-bg);
 }
 
-/* Logo group positions (key svg parts) */
+/* Logo group positions (decorative) */
 #logo-249 { left: 183.2966px; top: 67.8241px; width: 16.4009px; height: 17.9797px; }
 #logo-255 { left: 208.6444px; top: 61.3909px; width: 14.7784px; height: 24.7781px; }
 #logo-258 { left: 226.1289px; top: 67.7753px; width: 15.3526px; height: 18.3935px; }
@@ -208,16 +228,35 @@ html, body {
 
 /* Highlights main band */
 #highlight-strip-center { left: 88px; top: 152px; width: 1744px; height: 444px; }
-#highlight-center-bg { left: 88px; top: 152px; width: 1744px; height: 444px; border: 0 solid var(--color-414141); }
+#highlight-strip-center,
+#highlight-center-bg {
+  border-radius: 16px;
+  box-shadow: var(--card-shadow);
+}
+#highlight-center-bg { left: 88px; top: 152px; width: 1744px; height: 444px; border: 0 solid #414141; }
 
 /* Seguí viendo section title */
-#sec-title-segui { left: 88px; top: 632px; width: 182px; height: 32px; }
+#sec-title-segui { left: 88px; top: 632px; width: 600px; height: 32px; }
+
+/* Card base styles for rails */
+[id^="card"][id$="-img"] {
+  width: var(--card-width);
+  height: var(--card-height);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  transition: transform 160ms ease-out, box-shadow 160ms ease-out;
+}
+[id^="card"][id$="-img"]:focus {
+  transform: scale(var(--card-focus-scale));
+  box-shadow: 0 20px 36px rgba(0,0,0,0.5);
+  outline-offset: 6px;
+}
 
 /* First row cards (Rogue One) */
 #card1-img { left: 57px; top: 671px; width: 474px; height: 267px; }
 #card1-pb-bg { left: 76.5583px; top: 901.1724px; width: 436.034px; height: 18.4138px; border-radius: 9.2px; }
 #card1-pb-fill { left: 81.1582px; top: 905.7759px; width: 176.0045px; height: 9.2069px; border-radius: 4.6px; }
-#card1-name-bg { left: 88px; top: 920px; width: 412px; height: 80px; }
+#card1-name-bg { left: 88px; top: 920px; width: 412px; height: 80px; border-radius: 12px; }
 #card1-title { left: 104px; top: 944px; width: 270px; height: 32px; }
 #delete-61 { left: 482.7587px; top: 952.7936px; width: 20px; height: 22.8572px; }
 #delete-63 { left: 477.0444px; top: 944.2222px; width: 31.4286px; height: 34.2858px; }
@@ -227,73 +266,74 @@ html, body {
 #card2-img { left: 540px; top: 688px; width: 412px; height: 232px; }
 #card2-pb-bg { left: 557px; top: 888px; width: 379px; height: 16px; }
 #card2-pb-fill { left: 561px; top: 892px; width: 153.0474px; height: 8px; }
-#card2-name-bg { left: 540px; top: 920px; width: 412px; height: 80px; }
+#card2-name-bg { left: 540px; top: 920px; width: 412px; height: 80px; border-radius: 12px; }
 #card2-title { left: 556px; top: 944px; width: 270px; height: 32px; }
 
 /* Sing Street */
 #card3-img { left: 992px; top: 688px; width: 412px; height: 232px; }
 #card3-pb-bg { left: 1009px; top: 888px; width: 379px; height: 16px; }
 #card3-pb-fill { left: 1013px; top: 892px; width: 153.0474px; height: 8px; }
-#card3-name-bg { left: 992px; top: 920px; width: 412px; height: 80px; }
+#card3-name-bg { left: 992px; top: 920px; width: 412px; height: 80px; border-radius: 12px; }
 #card3-title { left: 1008px; top: 944px; width: 270px; height: 32px; }
 
 /* 2012 */
 #card4-img { left: 1444px; top: 688px; width: 412px; height: 232px; }
 #card4-pb-bg { left: 1461px; top: 888px; width: 379px; height: 16px; }
 #card4-pb-fill { left: 1465px; top: 892px; width: 153.0474px; height: 8px; }
-#card4-name-bg { left: 1444px; top: 920px; width: 412px; height: 80px; }
+#card4-name-bg { left: 1444px; top: 920px; width: 412px; height: 80px; border-radius: 12px; }
 #card4-title { left: 1460px; top: 944px; width: 270px; height: 32px; }
 
 /* Ad Astra */
 #card5-img { left: 1896px; top: 688px; width: 412px; height: 232px; }
 #card5-pb-bg { left: 1913px; top: 888px; width: 379px; height: 16px; }
 #card5-pb-fill { left: 1917px; top: 892px; width: 153.0474px; height: 8px; }
-#card5-name-bg { left: 1896px; top: 920px; width: 412px; height: 80px; }
+#card5-name-bg { left: 1896px; top: 920px; width: 412px; height: 80px; border-radius: 12px; }
 #card5-title { left: 1912px; top: 944px; width: 270px; height: 32px; }
 
 /* Canales de TV */
-#sec-title-tv { left: 88px; top: 1040px; width: 205px; height: 32px; }
+#sec-title-tv { left: 88px; top: 1040px; width: 600px; height: 32px; }
 
 /* TV Card A at (89,1096) */
-#tvA-image { left: 89px; top: 1096px; width: 377px; height: 212px; object-fit: cover; }
+#tvA-image { left: 89px; top: 1096px; width: 377px; height: 212px; object-fit: cover; border-radius: 12px; box-shadow: var(--card-shadow); }
 #tvA-pb-bg { left: 104px; top: 1288px; width: 207px; height: 10.4px; }
 #tvA-pb-fill { left: 104.8px; top: 1288.8px; width: 80px; height: 8.8px; }
-#tvA-play-wrap { left: 357px; top: 1199px; width: 91.6933px; height: 91.6933px; }
-#tvA-play-circle { left: 357px; top: 1199px; width: 91.6933px; height: 91.6933px; border-radius: 50%; background: var(--style-20-bg); }
+#tvA-play-wrap { left: 357px; top: 1199px; width: 91.6933px; height: 91.6933px; border-radius: 50%; }
+#tvA-play-circle { left: 357px; top: 1199px; width: 91.6933px; height: 91.6933px; border-radius: 50%; background: rgba(198,0,0,0.8); box-shadow: var(--shadow-3); }
 #tvA-play-icon { left: 385.1332px; top: 1224.0073px; width: 39.5948px; height: 41.6788px; }
+#tvA-play-wrap:focus { transform: scale(var(--card-focus-scale)); }
 
 /* TVA right info texts */
-#tvA-title { left: 497px; top: 1108px; width: 337px; height: 42px; }
-#tvA-sub { left: 498px; top: 1162px; width: 249px; height: 35px; }
-#tvA-hour { left: 498px; top: 1259px; width: 249px; height: 35px; }
-#tvA-live-bg { left: 549px; top: 1212px; width: 94px; height: 32px; }
+#tvA-title { left: 497px; top: 1108px; width: 600px; height: 42px; }
+#tvA-sub { left: 498px; top: 1162px; width: 400px; height: 35px; color: var(--ocean-secondary); }
+#tvA-hour { left: 498px; top: 1259px; width: 249px; height: 35px; color: var(--ocean-secondary); }
+#tvA-live-bg { left: 549px; top: 1212px; width: 94px; height: 32px; border-radius: 16px; }
 #tvA-live-text { left: 555px; top: 1217px; width: 81.3333px; height: 21px; }
 
 /* Alquilá tag */
-#alquila-bg { left: 852px; top: 1113px; width: 64.2069px; height: 32px; }
+#alquila-bg { left: 852px; top: 1113px; width: 64.2069px; height: 32px; border-radius: 8px; }
 #alquila-192 { left: 877.9492px; top: 1120px; width: 31.1295px; height: 17px; }
 #alquila-193 { left: 863.4655px; top: 1120.1852px; width: 13.5939px; height: 16.6299px; }
 #alquila-195 { left: 894.8855px; top: 1124.1874px; width: 9.5551px; height: 8.625px; }
 
-/* TV Card B at (834,1096) */
-#tvB-imageA { left: 834px; top: 1100px; width: 377px; height: 212px; }
-#tvB-imageB { left: 836px; top: 1096px; width: 374.7069px; height: 211px; }
+/* TV Card B */
+#tvB-imageA { left: 834px; top: 1100px; width: 377px; height: 212px; border-radius: 12px; }
+#tvB-imageB { left: 836px; top: 1096px; width: 374.7069px; height: 211px; border-radius: 12px; }
 #tvB-pb-bg { left: 850px; top: 1293px; width: 207px; height: 10.4px; }
 #tvB-pb-fill { left: 850.8px; top: 1293.8px; width: 80px; height: 8.8px; }
-#tvB-play-circle { left: 1102px; top: 1203px; width: 91.6933px; height: 91.6933px; border-radius: 50%; background: var(--style-20-bg); }
-#tvB-title { left: 1242px; top: 1112px; width: 337px; height: 42px; }
-#tvB-sub { left: 1243px; top: 1166px; width: 294px; height: 35px; }
-#tvB-hour { left: 1243px; top: 1263px; width: 281px; height: 54px; }
-#tvB-live-bg { left: 1294px; top: 1216px; width: 94px; height: 32px; }
+#tvB-play-circle { left: 1102px; top: 1203px; width: 91.6933px; height: 91.6933px; border-radius: 50%; background: rgba(198,0,0,0.8); }
+#tvB-title { left: 1242px; top: 1112px; width: 600px; height: 42px; }
+#tvB-sub { left: 1243px; top: 1166px; width: 294px; height: 35px; color: var(--ocean-secondary); }
+#tvB-hour { left: 1243px; top: 1263px; width: 281px; height: 54px; color: var(--ocean-secondary); }
+#tvB-live-bg { left: 1294px; top: 1216px; width: 94px; height: 32px; border-radius: 16px; }
 #tvB-live-text { left: 1300px; top: 1221px; width: 81.3333px; height: 21px; }
 
-/* TV Card C at (1661,1096) */
-#tvC-image { left: 1661px; top: 1096px; width: 377px; height: 212px; }
+/* TV Card C */
+#tvC-image { left: 1661px; top: 1096px; width: 377px; height: 212px; border-radius: 12px; }
 #tvC-pb-bg { left: 1676px; top: 1289px; width: 207px; height: 10.4px; }
 #tvC-pb-fill { left: 1676.8px; top: 1289.8px; width: 80px; height: 8.8px; }
-#tvC-play-circle { left: 1929px; top: 1199px; width: 91.6933px; height: 91.6933px; border-radius: 50%; background: var(--style-20-bg); }
+#tvC-play-circle { left: 1929px; top: 1199px; width: 91.6933px; height: 91.6933px; border-radius: 50%; background: rgba(198,0,0,0.8); }
 #tvC-title { left: 2069px; top: 1108px; width: 337px; height: 42px; }
-#tvC-sub { left: 2070px; top: 1162px; width: 249px; height: 35px; }
-#tvC-hour { left: 2070px; top: 1259px; width: 177px; height: 35px; }
-#tvC-live-bg { left: 2121px; top: 1212px; width: 94px; height: 32px; }
+#tvC-sub { left: 2070px; top: 1162px; width: 249px; height: 35px; color: var(--ocean-secondary); }
+#tvC-hour { left: 2070px; top: 1259px; width: 177px; height: 35px; color: var(--ocean-secondary); }
+#tvC-live-bg { left: 2121px; top: 1212px; width: 94px; height: 32px; border-radius: 16px; }
 #tvC-live-text { left: 2127px; top: 1217px; width: 81.3333px; height: 21px; }

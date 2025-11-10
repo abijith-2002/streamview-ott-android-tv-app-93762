@@ -1,6 +1,113 @@
 :root {
-  /* existing variables remain */
-  --focus-ring-color: rgba(255,255,255,0.8);
+  /* Ocean Professional minimalist palette + tokens */
+  --ocean-primary: #374151;
+  --ocean-secondary: #9CA3AF;
+  --ocean-success: #10B981;
+  --ocean-error: #EF4444;
+  --ocean-background: #FFFFFF;
+  --ocean-surface: #F9FAFB;
+  --ocean-text: #111827;
+
+  /* TV dark canvas for media */
+  --tv-bg: #000000;
+
+  /* Focus ring */
+  --focus-ring-color: rgba(255,255,255,0.9);
+
+  /* Typography tokens (subset used by page) */
+  --font-family: 'Roboto', system-ui, -apple-system, Segoe UI, Helvetica, Arial, sans-serif;
+  --typo-23-family: var(--font-family);
+  --typo-23-size: 30px;
+  --typo-23-weight: 500;
+  --typo-23-line-height: 32px;
+  --typo-23-letter-spacing: -0.02em;
+  --typo-23-color: #FFFFFF;
+  --typo-23-text-align: left;
+
+  --typo-24-family: var(--font-family);
+  --typo-24-size: 32px;
+  --typo-24-weight: 400;
+  --typo-24-line-height: 32px;
+  --typo-24-letter-spacing: -0.01em;
+  --typo-24-color: #FFFFFF;
+  --typo-24-text-align: left;
+
+  --typo-25-family: var(--font-family);
+  --typo-25-size: 36px;
+  --typo-25-weight: 700;
+  --typo-25-line-height: 42px;
+  --typo-25-letter-spacing: -0.01em;
+  --typo-25-color: #FFFFFF;
+  --typo-25-text-align: left;
+
+  --typo-26-family: var(--font-family);
+  --typo-26-size: 30px;
+  --typo-26-weight: 400;
+  --typo-26-line-height: 35px;
+  --typo-26-letter-spacing: 0;
+  --typo-26-color: #FFFFFF;
+  --typo-26-text-align: left;
+
+  --typo-27-family: var(--font-family);
+  --typo-27-size: 18px;
+  --typo-27-weight: 700;
+  --typo-27-line-height: 21px;
+  --typo-27-letter-spacing: 0.08em;
+  --typo-27-color: #FFFFFF;
+  --typo-27-text-align: center;
+
+  --typo-28-family: var(--font-family);
+  --typo-28-size: 29px;
+  --typo-28-weight: 500;
+  --typo-28-line-height: 34px;
+  --typo-28-letter-spacing: 0;
+  --typo-28-color: #E5E7EB; /* light gray for inactive nav */
+
+  --typo-29-family: var(--font-family);
+  --typo-29-size: 29px;
+  --typo-29-weight: 700;
+  --typo-29-line-height: 34px;
+  --typo-29-letter-spacing: 0;
+  --typo-29-color: #FFFFFF;
+  --typo-29-text-align: center;
+
+  /* Styles from design tokens mapped to CSS vars */
+  --style-0-bg: #121212;
+  --style-8-bg: #2c2c2c;
+  --style-9-bg: #de1717;
+  --style-11-bg: #323131;
+  --style-14-bg: #2c2c2c;
+  --style-14-radius: 8px;
+  --style-15-bg: #de1717;
+  --style-15-radius: 4px;
+  --style-16-bg: #eb0045;
+  --style-16-radius: 4px;
+  --style-18-bg: #2c2c2c;
+  --style-18-radius: 2.4px;
+  --style-18-opacity: 0.8;
+  --style-19-bg: #de1717;
+  --style-19-radius: 1.6px;
+  --style-21-bg: #FFFFFF;
+  --style-21-border-color: #FFFFFF;
+  --style-21-radius: 2px;
+  --style-23-bg: #28292f;
+  --style-23-radius: 34px;
+  --style-24-bg: #E84444;
+  --style-24-opacity: 0.0001;
+  --style-29-bg: #9b0f0f;
+  --style-29-radius: 37px;
+
+  /* Shadows */
+  --shadow-3: 0 2px 5px rgba(0,0,0,0.5);
+
+  /* Rails and cards */
+  --card-radius: 12px;
+  --card-shadow: 0 10px 20px rgba(0,0,0,0.35);
+  --card-focus-scale: 1.08;
+  --nav-focus-scale: 1.05;
+
+  /* Overscan safe gap */
+  --overscan-gap: 48px;
 }
 
 /* Base reset for sizing precision */
@@ -10,9 +117,9 @@ html, body {
 }
 body {
   margin: 0;
-  background: #000000; /* enforce black background globally */
-  color: var(--color-ffffff);
-  font-family: 'Roboto', sans-serif;
+  background: var(--tv-bg); /* enforce black background globally for TV canvas */
+  color: #ffffff;
+  font-family: var(--font-family);
 }
 .screen {
   position: relative;
@@ -28,3 +135,14 @@ img.pixel, img.icon {
   max-width: none; /* prevent unexpected scaling affecting transform-based responsive */
 }
 .round { border-radius: 50%; }
+
+/* Smooth focus animations for TV navigation */
+a, [role="button"], [tabindex="0"] {
+  transition: transform 160ms ease-out, box-shadow 160ms ease-out, outline-color 80ms ease-out;
+  will-change: transform;
+}
+
+a:focus, [role="button"]:focus, [tabindex="0"]:focus {
+  outline: 3px solid var(--focus-ring-color);
+  outline-offset: 3px;
+}
