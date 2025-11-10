@@ -87,7 +87,9 @@ class HomeFragment : BrowseSupportFragment(), OnItemViewClickedListener, OnItemV
     private fun buildTopNavBarIfReady(rootView: View) {
         // Guard against null TitleViewAdapter/TitleView during lifecycle race conditions
         val adapter = titleViewAdapter
-        if (adapter == null || adapter.view == null) {
+        // TitleViewAdapter#view is not a public property; avoid unresolved reference to a bare 'view'
+        // Instead, guard only on adapter being null and rely on posting to retry when needed.
+        if (adapter == null) {
             // TitleView not yet ready; try again on next frame
             if (isAdded) {
                 // Prefer cached rootViewRef; fallback to requireView() safely
