@@ -4,12 +4,4 @@
     android:id="@+id/home_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/tv_background">
-
-    <fragment
-        android:id="@+id/home_fragment"
-        android:name="com.example.streamly_frontend.ui.home.HomeFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-</FrameLayout>
+    android:background="@color/tv_background" />

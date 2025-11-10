@@ -3,6 +3,7 @@ package com.example.streamly_frontend.ui.home
 import android.graphics.Color
 import android.os.Bundle
 import android.util.TypedValue
+import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.leanback.app.BackgroundManager
 import androidx.leanback.app.BrowseSupportFragment
@@ -28,10 +29,15 @@ class HomeFragment : BrowseSupportFragment(), OnItemViewClickedListener, OnItemV
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         prepareBackground()
-        setupUI()
-        buildRows()
+        // Defer UI wiring that touches TitleView until view is created
         setOnItemViewClickedListener(this)
         setOnItemViewSelectedListener(this)
+    }
+
+    override fun onViewCreated(view: android.view.View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupUIAndTitleSafely()
+        buildRows()
     }
 
     private fun prepareBackground() {
@@ -43,29 +49,42 @@ class HomeFragment : BrowseSupportFragment(), OnItemViewClickedListener, OnItemV
         backgroundManager.drawable = ContextCompat.getDrawable(requireContext(), R.drawable.hero_banner_placeholder)
     }
 
-    private fun setupUI() {
-        title = "" // we'll use headers as rails; keep title empty for minimalist look
+    private fun setupUIAndTitleSafely() {
+        // Keep title empty; use headers/rows. Configure after TitleView exists.
+        title = ""
 
         // Headers alignment and brand color accents
         brandColor = ContextCompat.getColor(requireContext(), R.color.tv_accent)
         headersState = HEADERS_ENABLED
         isHeadersTransitionOnBackEnabled = true
 
-        // Build a top navigation bar inside the TitleView
-        buildTopNavBar()
+        // Build a top navigation bar AFTER TitleView is available
+        buildTopNavBarIfReady()
+
+        // Ensure overscan-safe padding only when the fragment is attached and has a view
+        if (isAdded) {
+            requireView().post { setTitlePaddingForTV() }
+        }
     }
 
-    private fun buildTopNavBar() {
-        // Leanback TitleViewAdapter allows custom view or branding.
-        // We'll set a simple "breadcrumb" style row of nav labels with increased text size, centered.
-        val titleViewAdapter = titleViewAdapter
-        val titleTextView = titleViewAdapter.searchAffordanceView // Not ideal: reuse space next to search affordance
-        // Instead, we will configure the BadgeDrawable text to mimic centered nav. For true centering use a custom TitleView:
+    private fun buildTopNavBarIfReady() {
+        // Guard against null TitleViewAdapter/TitleView during lifecycle race conditions
+        val adapter = titleViewAdapter
+        if (adapter == null || adapter.view == null) {
+            // TitleView not yet ready; try again on next frame
+            if (isAdded) {
+                requireView().post { buildTopNavBarIfReady() }
+            }
+            return
+        }
+
+        // Disable badge and search affordance if not used to avoid NPEs on uninitialized views
         badgeDrawable = null
-        title = topNavLabels.joinToString("    ") // visually spaced
+        setOnSearchClickedListener { /* No-op: search not implemented yet */ }
+
+        // Set a single centered title text by joining labels with spacing
+        title = topNavLabels.joinToString("    ")
         setTitlePaddingForTV()
-        // Enable search affordance visually but no-op
-        setOnSearchClickedListener { /* No-op for now */ }
     }
 
     private fun setTitlePaddingForTV() {
@@ -74,7 +93,9 @@ class HomeFragment : BrowseSupportFragment(), OnItemViewClickedListener, OnItemV
             TypedValue.COMPLEX_UNIT_DIP, 24f, resources.displayMetrics
         ).toInt()
         setBadgeDrawable(null)
-        view?.setPadding(px, px, px, 0)
+        if (isAdded) {
+            requireView().setPadding(px, px, px, 0)
+        }
     }
 
     private fun buildRows() {

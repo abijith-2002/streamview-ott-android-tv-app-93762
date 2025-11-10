@@ -8,7 +8,8 @@ class HomeActivity : FragmentActivity() {
     /**
      * Native entry activity for the Home experience on Android TV.
      *
-     * Replaces the previous WebView-based Home. Hosts HomeFragment (Leanback/BrowseSupportFragment).
+     * Hosts HomeFragment (Leanback/BrowseSupportFragment) programmatically to control timing
+     * and avoid TitleView nulls during inflation.
      *
      * Navigation:
      * - From SplashActivity -> HomeActivity
@@ -17,6 +18,15 @@ class HomeActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(com.example.streamly_frontend.R.layout.activity_home)
-        // Fragment is attached via XML.
+
+        if (supportFragmentManager.findFragmentByTag("home_fragment") == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(
+                    com.example.streamly_frontend.R.id.home_root,
+                    HomeFragment(),
+                    "home_fragment"
+                )
+                .commitNow() // ensure fragment view is created synchronously for Leanback setup
+        }
     }
 }
