@@ -126,7 +126,7 @@ body {
   width: 1920px;
   height: 1080px;
   background: var(--style-0-bg);
-  overflow: hidden;
+  overflow: hidden; /* keep overflow hidden but allow hero to be 100% of screen width since screen itself is 1920px */
 }
 .abs { position: absolute; }
 img.pixel, img.icon {
