@@ -40,9 +40,10 @@
         // Try to center focused element if inside scrolling containers (e.g., nav-center)
         var parent = el.parentElement;
         if (parent && parent.classList.contains('nav-center')) {
+          // Ensure it's visible without breaking overall centering
           smoothCenterIntoView(el);
         }
-      });
+      }, { passive: true });
       el.addEventListener('keydown', function (e) {
         if (isActivateKey(e) && (el.getAttribute('role') === 'button' || el.tagName === 'A')) {
           e.preventDefault();

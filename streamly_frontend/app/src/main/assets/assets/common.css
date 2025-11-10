@@ -57,9 +57,9 @@
   --typo-27-text-align: center;
 
   --typo-28-family: var(--font-family);
-  --typo-28-size: 29px;
-  --typo-28-weight: 500;
-  --typo-28-line-height: 34px;
+  --typo-28-size: 32px;    /* baseline increased */
+  --typo-28-weight: 600;   /* slightly bolder for readability */
+  --typo-28-line-height: 38px;
   --typo-28-letter-spacing: 0;
   --typo-28-color: #E5E7EB; /* light gray for inactive nav */
 
@@ -104,7 +104,7 @@
   --card-radius: 12px;
   --card-shadow: 0 10px 20px rgba(0,0,0,0.35);
   --card-focus-scale: 1.08;
-  --nav-focus-scale: 1.05;
+  --nav-focus-scale: 1.08; /* slightly larger to match increased font size */
 
   /* Overscan safe gap */
   --overscan-gap: 48px;

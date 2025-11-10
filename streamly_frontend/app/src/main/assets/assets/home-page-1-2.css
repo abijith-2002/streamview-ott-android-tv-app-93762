@@ -96,7 +96,7 @@ a:focus {
 .poster-ph { background: #1e1e1e; border-radius: var(--card-radius); }
 
 /* Header positioning */
-#header { left: 0; top: 0; width: 100%; height: 74px; }
+#header { left: 0; top: 0; width: 100%; height: 96px; }
 
 /* Top nav - horizontally centered with Ocean minimalist look */
 #top-nav.site-nav {
@@ -104,20 +104,20 @@ a:focus {
   top: 0;
   left: 0;
   width: 100%;
-  height: 74px;
+  height: 96px; /* increased height */
   display: block;
   z-index: 1000;
 }
 
 #top-nav-bg {
   position: absolute;
-  top: 8px;
+  top: 10px; /* slight shift to keep visual balance */
   left: 50%;
   transform: translateX(-50%);
-  width: 80%;
-  max-width: 1400px;
-  height: 64px;
-  border-radius: 34px;
+  width: 84%;            /* slightly wider */
+  max-width: 1520px;     /* allow more width on large screens */
+  height: 76px;          /* taller background pill */
+  border-radius: 38px;   /* radius proportional to height */
   z-index: -1;
   background: rgba(40,41,47,0.6);
   backdrop-filter: blur(2px);
@@ -126,14 +126,14 @@ a:focus {
 /* Flex wrapper to center content */
 #top-nav .nav-inner {
   position: relative;
-  height: 74px;
+  height: 96px; /* match container height */
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center; /* center entire inner content */
-  gap: 32px;
-  padding: 0 48px;
-  overflow-x: hidden;
+  gap: 36px;
+  padding: 0 64px;        /* larger horizontal breathing room */
+  overflow: hidden;       /* avoid horizontal jump on focus scale */
 }
 
 /* Left and right sections */
@@ -152,9 +152,10 @@ a:focus {
   display: flex;
   align-items: center;
   justify-content: center; /* center nav items horizontally */
-  gap: var(--nav-item-gap);
-  max-width: 70%;
+  gap: calc(var(--nav-item-gap) + 8px); /* slightly larger gap at bigger size */
+  max-width: 72%;
   overflow: hidden; /* prevent edge scroll, JS will center focused item if needed */
+  white-space: nowrap;
 }
 
 #top-nav .nav-center a {
@@ -162,17 +163,19 @@ a:focus {
   display: inline-block;
   color: var(--typo-28-color);
   text-decoration: none;
-  padding: 10px 14px;
-  border-radius: 20px;
+  padding: 14px 20px;            /* larger hit target for TV */
+  border-radius: 24px;
   transition: transform 140ms ease-out, color 140ms ease-out, background-color 140ms ease-out;
   outline: none;
+  font-size: 34px;               /* larger than token to improve TV readability */
+  line-height: 1.1;
 }
 
 #top-nav .nav-center a:focus {
   transform: scale(var(--nav-focus-scale));
   color: #FFFFFF;
-  background: rgba(255,255,255,0.08);
-  outline-offset: 4px;
+  background: rgba(255,255,255,0.10);
+  outline-offset: 6px; /* more offset to avoid clipping at larger size */
 }
 
 #top-nav .nav-center a[aria-current="page"] {
