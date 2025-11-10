@@ -22,6 +22,9 @@ class HomeFragment : BrowseSupportFragment(), OnItemViewClickedListener, OnItemV
     private lateinit var rowsAdapter: ArrayObjectAdapter
     private lateinit var backgroundManager: BackgroundManager
 
+    // Hold a reference to the created root view for lifecycle-safe postings
+    private var rootViewRef: View? = null
+
     private val topNavLabels = listOf(
         "Inicio", "Películas", "Series", "TV en vivo", "Kids", "Mis Contenidos"
     )
@@ -36,8 +39,17 @@ class HomeFragment : BrowseSupportFragment(), OnItemViewClickedListener, OnItemV
 
     override fun onViewCreated(view: android.view.View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupUIAndTitleSafely()
+        // Cache the root view reference for lifecycle-safe operations
+        rootViewRef = view
+        // Use the provided 'view' parameter for any direct operations on the fragment view.
+        setupUIAndTitleSafely(view)
         buildRows()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        // Clear view reference to avoid leaks
+        rootViewRef = null
     }
 
     private fun prepareBackground() {
@@ -49,7 +61,11 @@ class HomeFragment : BrowseSupportFragment(), OnItemViewClickedListener, OnItemV
         backgroundManager.drawable = ContextCompat.getDrawable(requireContext(), R.drawable.hero_banner_placeholder)
     }
 
-    private fun setupUIAndTitleSafely() {
+    /**
+     * Sets up UI and title-related properties safely once the view is created.
+     * Ensures any posted work is guarded with isAdded and uses requireView().
+     */
+    private fun setupUIAndTitleSafely(rootView: View) {
         // Keep title empty; use headers/rows. Configure after TitleView exists.
         title = ""
 
@@ -59,21 +75,24 @@ class HomeFragment : BrowseSupportFragment(), OnItemViewClickedListener, OnItemV
         isHeadersTransitionOnBackEnabled = true
 
         // Build a top navigation bar AFTER TitleView is available
-        buildTopNavBarIfReady()
+        buildTopNavBarIfReady(rootView)
 
         // Ensure overscan-safe padding only when the fragment is attached and has a view
         if (isAdded) {
-            requireView().post { setTitlePaddingForTV() }
+            // Post using the provided rootView and keep a cache for future retries
+            rootView.post { setTitlePaddingForTV() }
         }
     }
 
-    private fun buildTopNavBarIfReady() {
+    private fun buildTopNavBarIfReady(rootView: View) {
         // Guard against null TitleViewAdapter/TitleView during lifecycle race conditions
         val adapter = titleViewAdapter
         if (adapter == null || adapter.view == null) {
             // TitleView not yet ready; try again on next frame
             if (isAdded) {
-                requireView().post { buildTopNavBarIfReady() }
+                // Prefer cached rootViewRef; fallback to requireView() safely
+                val postTarget = rootViewRef ?: requireView()
+                postTarget.post { buildTopNavBarIfReady(postTarget) }
             }
             return
         }
@@ -94,6 +113,7 @@ class HomeFragment : BrowseSupportFragment(), OnItemViewClickedListener, OnItemV
         ).toInt()
         setBadgeDrawable(null)
         if (isAdded) {
+            // requireView() is safe here because we already checked isAdded
             requireView().setPadding(px, px, px, 0)
         }
     }
