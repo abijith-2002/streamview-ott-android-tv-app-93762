@@ -139,6 +139,47 @@ class HomeFragment : Fragment() {
             clipToPadding = false
             clipChildren = false
 
+            // Compute explicit size for 1080p and adaptive otherwise.
+            post {
+                val dm = resources.displayMetrics
+                val screenPxW = dm.widthPixels
+                val screenPxH = dm.heightPixels
+                val density = dm.density
+
+                // Normalize to density-independent logical size for comparison with 1920x1080 baseline
+                val logicalW = (screenPxW / density).toInt()
+                val logicalH = (screenPxH / density).toInt()
+
+                // Target size at 1080p
+                val targetW1080 = 1744
+                val targetH1080 = 444
+                val baselineW = 1920f
+                val widthRatio = targetW1080 / baselineW // ≈ 0.9073
+                val aspect = 4f // 4:1 -> width:height
+
+                val lp = layoutParams as ViewGroup.LayoutParams
+                if ((screenPxW == 1920 && screenPxH == 1080) ||
+                    (logicalW == 1920 && logicalH == 1080)) {
+                    // Exact 1080p: set fixed px
+                    lp.width = targetW1080
+                    lp.height = targetH1080
+                } else {
+                    // Other resolutions: scale from width proportionally based on baseline percentage
+                    val computedW = (screenPxW * widthRatio).toInt()
+                    val computedH = (computedW / aspect).toInt()
+                    lp.width = computedW
+                    lp.height = computedH
+                }
+                layoutParams = lp
+
+                // Center horizontally using padding so only one item is visible
+                val sidePad = ((screenPxW - lp.width) / 2).coerceAtLeast(0)
+                setPadding(sidePad, paddingTop, sidePad, paddingBottom)
+                clipToPadding = false
+                clipChildren = false
+                requestLayout()
+            }
+
             // Snap one item per page
             val snapHelper = PagerSnapHelper()
             snapHelper.attachToRecyclerView(this)
@@ -154,7 +195,7 @@ class HomeFragment : Fragment() {
             }
 
             // Ensure the centered/snapped item gets focus when list gains focus
-            setOnFocusChangeListener { v, hasFocus ->
+            setOnFocusChangeListener { _, hasFocus ->
                 if (hasFocus) {
                     val child = getChildAt(0)
                     child?.requestFocus()
