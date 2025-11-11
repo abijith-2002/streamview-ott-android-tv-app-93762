@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/top_nav_item_root"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:background="@drawable/bg_top_nav_item"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:layout_marginEnd="12dp">
+
+    <TextView
+        android:id="@+id/top_nav_label"
+        style="@style/TextAppearance.Streamly.Nav"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:gravity="center_vertical"
+        android:textColor="@color/ocean_text"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:text="Inicio" />
+
+</FrameLayout>

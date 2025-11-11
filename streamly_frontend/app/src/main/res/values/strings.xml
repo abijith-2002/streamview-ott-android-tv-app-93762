@@ -11,4 +11,8 @@
     <string name="rating_dislike">I do not like it</string>
     <string name="rating_close">Close</string>
     <string name="rating_countdown">Closing in %d seconds</string>
+
+    <!-- Accessibility -->
+    <string name="top_navigation">Top navigation</string>
+    <string name="content_rails">Content rails</string>
 </resources>

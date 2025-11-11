@@ -2,9 +2,10 @@
 <resources>
     <!-- Base application theme for Android TV -->
     <style name="AppTheme" parent="Theme.Leanback">
-        <!-- Customize your theme here -->
-        <item name="android:windowBackground">@color/tv_background</item>
-        <item name="android:colorPrimary">@color/tv_accent</item>
+        <item name="android:windowBackground">@color/ocean_background</item>
+        <item name="android:colorPrimary">@color/ocean_primary</item>
+        <item name="android:colorAccent">@color/ocean_primary</item>
+        <item name="android:textColorPrimary">@color/ocean_text</item>
     </style>
 
     <!-- Splash theme aligned with Ocean Professional -->
@@ -12,5 +13,24 @@
         <item name="android:windowBackground">@color/ocean_surface</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/black</item>
+    </style>
+
+    <!-- Text Appearances for Home -->
+    <style name="TextAppearance.Streamly.Nav" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@color/ocean_text</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="TextAppearance.Streamly.RowTitle" parent="@android:style/TextAppearance.Large">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/ocean_text</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="TextAppearance.Streamly.CardTitle" parent="@android:style/TextAppearance.Small">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/ocean_text</item>
+        <item name="android:fontFamily">sans-serif</item>
     </style>
 </resources>

@@ -1,38 +1,33 @@
 package com.example.streamly_frontend
 
 import android.os.Bundle
-import androidx.fragment.app.FragmentActivity
 import android.view.KeyEvent
-import android.widget.TextView
+import androidx.fragment.app.FragmentActivity
+import com.example.streamly_frontend.home.HomeFragment
 
 /**
  * Main Activity for Android TV
- * Extends FragmentActivity for Leanback compatibility
+ * Hosts the HomeFragment as the native TV home screen.
  */
 class MainActivity : FragmentActivity() {
 
-    private lateinit var titleText: TextView
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Use an empty container activity layout that hosts HomeFragment
         setContentView(R.layout.activity_main)
 
-        titleText = findViewById(R.id.title_text)
-        titleText.text = getString(R.string.app_name)
-        // TODO: Initialize your rating screen components here
-        // setupRatingOverlay()
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.main_container, HomeFragment())
+                .commitNow()
+        }
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        // Handle TV remote control inputs
         return when (keyCode) {
             KeyEvent.KEYCODE_DPAD_CENTER,
-            KeyEvent.KEYCODE_ENTER -> {
-                // Handle SELECT/OK button
-                true
-            }
+            KeyEvent.KEYCODE_ENTER -> true
             KeyEvent.KEYCODE_BACK -> {
-                // Handle BACK button
                 finish()
                 true
             }
