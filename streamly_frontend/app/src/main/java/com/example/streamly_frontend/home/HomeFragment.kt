@@ -146,6 +146,12 @@ class HomeFragment : Fragment() {
             clipToPadding = false
             clipChildren = false
 
+            // Also ensure the parent container does not clip
+            (parent as? ViewGroup)?.let { p ->
+                p.clipToPadding = false
+                p.clipChildren = false
+            }
+
             // Keep proper next focus to top bar when pressing UP on first row
             setOnFocusChangeListener { _, _ -> /* no-op, but could handle focus hint */ }
         }

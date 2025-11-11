@@ -65,14 +65,36 @@ class ContentRowAdapter(
                     if (hasFocus) {
                         // Parent vertical rails RecyclerView
                         val rails = (itemView.parent as? RecyclerView) ?: return@setOnFocusChangeListener
+
+                        // Do not clip children/padding while bringing rect on screen
+                        rails.clipToPadding = false
+                        rails.clipChildren = false
+                        (rails.parent as? ViewGroup)?.let { parent ->
+                            parent.clipToPadding = false
+                            parent.clipChildren = false
+                        }
+
                         // Compute the title's rect relative to this row's root (itemView)
                         val rect = Rect()
                         title.getDrawingRect(rect)
-                        // Ask rails to bring the rectangle of this row (itemView) containing the title into view.
-                        // requestChildRectangleOnScreen expects the child (itemView) and a rect in child's coordinates.
-                        // Add a small top offset so the title is clearly visible.
-                        val extraTop = ((itemView.resources?.displayMetrics?.density ?: 1f) * 8f).toInt() // 8dp
-                        rect.top = (rect.top - extraTop).coerceAtLeast(0)
+
+                        // Add a fixed top inset equal to header height + margin (approx):
+                        // - Top nav background height: 52dp
+                        // - Margin below nav to rails: 24dp
+                        // - Rails' own top padding: increased to 24dp in layout
+                        // We'll overshoot slightly for safe visibility near overscan.
+                        val density = (itemView.resources?.displayMetrics?.density ?: 1f)
+                        val headerDp = 52f
+                        val marginDp = 24f
+                        val railsPadTopDp = 24f
+                        val safetyDp = 8f
+                        val extraTopPx = ((headerDp + marginDp + railsPadTopDp + safetyDp) * density).toInt()
+
+                        // Shift rect upward by extraTop so title sits fully below the top bar
+                        rect.top = (rect.top - extraTopPx).coerceAtLeast(0)
+                        rect.bottom = (rect.bottom - extraTopPx).coerceAtLeast(rect.top)
+
+                        // Smooth scroll to reveal with offset
                         rails.requestChildRectangleOnScreen(itemView, rect, true)
                     }
                 }
