@@ -42,12 +42,21 @@ class ContentCardAdapter(
         private val title: TextView = itemView.findViewById(R.id.card_title)
 
         init {
-            // TV focus visual: scale up slightly on focus
+            // Elevation-only focus + gentle scale for visibility on TV.
+            val baseElevation = 0f
+            val focusedElevation = 16f // dp-like visual; used as px here for simplicity on View
+
+            itemView.elevation = baseElevation
             itemView.setOnFocusChangeListener { v, hasFocus ->
-                v.animate().scaleX(if (hasFocus) 1.06f else 1.0f)
+                // Animate slight scale
+                v.animate()
+                    .scaleX(if (hasFocus) 1.06f else 1.0f)
                     .scaleY(if (hasFocus) 1.06f else 1.0f)
                     .setDuration(120L)
                     .start()
+
+                // Elevation toggle (no border/glow/background change)
+                v.elevation = if (hasFocus) focusedElevation else baseElevation
             }
         }
 

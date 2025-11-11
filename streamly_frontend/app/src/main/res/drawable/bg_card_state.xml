@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Elevation-only focus: keep background fully transparent with rounded corners.
+     No stroke, no color fills; ripple retained for press feedback. -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Base shape with subtle corner radius -->
+    <!-- Base shape with subtle corner radius to match posters -->
     <item>
         <shape android:shape="rectangle">
             <solid android:color="@android:color/transparent" />
@@ -8,25 +10,14 @@
         </shape>
     </item>
 
-    <!-- Focus state stroke with higher contrast on dark -->
+    <!-- Transparent in all states (no focus styling here; focus indicated by elevation) -->
     <item>
-        <selector>
-            <item android:state_focused="true">
-                <shape android:shape="rectangle">
-                    <solid android:color="@color/colorSurfaceDark"/>
-                    <corners android:radius="8dp" />
-                    <stroke android:width="3dp" android:color="@color/ocean_primary"/>
-                </shape>
-            </item>
-            <item>
-                <shape android:shape="rectangle">
-                    <solid android:color="@android:color/transparent"/>
-                    <corners android:radius="8dp" />
-                </shape>
-            </item>
-        </selector>
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/transparent"/>
+            <corners android:radius="8dp" />
+        </shape>
     </item>
 
-    <!-- Press ripple -->
+    <!-- Press ripple retained -->
     <item android:drawable="@drawable/ripple_tv" />
 </layer-list>
