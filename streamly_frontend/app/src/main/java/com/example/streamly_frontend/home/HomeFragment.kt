@@ -10,7 +10,9 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import android.graphics.Rect
 import com.example.streamly_frontend.R
 import com.example.streamly_frontend.databinding.FragmentHomeBinding
 
@@ -122,7 +124,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupBannerRail() {
-        // Mock banner data using 4:3 images (e.g., 800x600)
+        // Mock banner data using 4:1 images
         val banners = MockBannerData.generate(12)
 
         bannerAdapter = BannerAdapter(banners)
@@ -132,8 +134,37 @@ class HomeFragment : Fragment() {
             descendantFocusability = ViewGroup.FOCUS_AFTER_DESCENDANTS
             isFocusable = true
             isFocusableInTouchMode = true
+
+            // Do not allow neighbors to peek in; viewport shows only the focused page
             clipToPadding = false
             clipChildren = false
+
+            // Snap one item per page
+            val snapHelper = PagerSnapHelper()
+            snapHelper.attachToRecyclerView(this)
+
+            // ItemDecoration to remove any inter-item spacing
+            if (itemDecorationCount == 0) {
+                addItemDecoration(object : RecyclerView.ItemDecoration() {
+                    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+                        // No gaps on either side, so only the snapped item is visible
+                        outRect.set(0, 0, 0, 0)
+                    }
+                })
+            }
+
+            // Ensure the centered/snapped item gets focus when list gains focus
+            setOnFocusChangeListener { v, hasFocus ->
+                if (hasFocus) {
+                    val lm = layoutManager as? LinearLayoutManager ?: return@setOnFocusChangeListener
+                    val pos = lm.findFirstCompletelyVisibleItemPosition()
+                        .takeIf { it != RecyclerView.NO_POSITION }
+                        ?: lm.findFirstVisibleItemPosition()
+                    if (pos != RecyclerView.NO_POSITION) {
+                        getChildAt(0)?.requestFocus()
+                    }
+                }
+            }
             // Up goes to top nav; down to rails is configured in XML via nextFocus*
         }
     }

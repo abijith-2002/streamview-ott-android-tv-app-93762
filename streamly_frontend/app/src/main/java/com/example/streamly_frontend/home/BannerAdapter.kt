@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -12,7 +11,7 @@ import com.bumptech.glide.Glide
 import com.example.streamly_frontend.R
 
 /**
- * Adapter for 4:3 banner cards.
+ * Adapter for 4:1 full-width banner cards.
  * Elevation-only focus; transparent background; matches dark theme.
  */
 class BannerAdapter(
@@ -30,6 +29,11 @@ class BannerAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BannerVH {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_banner_card, parent, false)
+        // Ensure full-width item occupying entire RecyclerView width
+        view.layoutParams = RecyclerView.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
         return BannerVH(view)
     }
 
@@ -39,17 +43,17 @@ class BannerAdapter(
 
     class BannerVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val img: ImageView = itemView.findViewById(R.id.banner_image)
-        private val title: TextView = itemView.findViewById(R.id.banner_title)
 
         init {
             val baseElevation = 0f
             val focusedElevation = 18f
             itemView.elevation = baseElevation
             itemView.setBackgroundResource(R.drawable.bg_banner_card_state)
+
             itemView.setOnFocusChangeListener { v, hasFocus ->
                 v.animate()
-                    .scaleX(if (hasFocus) 1.06f else 1.0f)
-                    .scaleY(if (hasFocus) 1.06f else 1.0f)
+                    .scaleX(if (hasFocus) 1.02f else 1.0f)
+                    .scaleY(if (hasFocus) 1.02f else 1.0f)
                     .setDuration(120L)
                     .start()
                 v.elevation = if (hasFocus) focusedElevation else baseElevation
@@ -57,7 +61,6 @@ class BannerAdapter(
         }
 
         fun bind(item: BannerItem) {
-            title.text = item.title
             itemView.contentDescription = item.title
             itemView.isFocusable = true
             itemView.isFocusableInTouchMode = true
