@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/banner_card_root"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="0dp"
     android:background="@drawable/bg_banner_card_state"
@@ -11,13 +11,13 @@
     android:clipToPadding="false"
     android:clipChildren="false">
 
-    <!-- 4:1 image area: use full width and 4:1 height to ensure pager-like single item view -->
+    <!-- 4:1 image area fills the container's computed height -->
     <ImageView
         android:id="@+id/banner_image"
         android:layout_width="match_parent"
-        android:layout_height="220dp"
+        android:layout_height="match_parent"
         android:layout_margin="0dp"
-        android:adjustViewBounds="true"
+        android:adjustViewBounds="false"
         android:scaleType="centerCrop"
         android:contentDescription="@string/banner_rail"
         android:importantForAccessibility="no"

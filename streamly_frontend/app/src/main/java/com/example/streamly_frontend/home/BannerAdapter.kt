@@ -29,10 +29,10 @@ class BannerAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BannerVH {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_banner_card, parent, false)
-        // Ensure full-width item occupying entire RecyclerView width
+        // Ensure the item occupies the entire page/container (width and height)
         view.layoutParams = RecyclerView.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
+            ViewGroup.LayoutParams.MATCH_PARENT
         )
         return BannerVH(view)
     }

@@ -156,15 +156,21 @@ class HomeFragment : Fragment() {
             // Ensure the centered/snapped item gets focus when list gains focus
             setOnFocusChangeListener { v, hasFocus ->
                 if (hasFocus) {
-                    val lm = layoutManager as? LinearLayoutManager ?: return@setOnFocusChangeListener
-                    val pos = lm.findFirstCompletelyVisibleItemPosition()
-                        .takeIf { it != RecyclerView.NO_POSITION }
-                        ?: lm.findFirstVisibleItemPosition()
-                    if (pos != RecyclerView.NO_POSITION) {
-                        getChildAt(0)?.requestFocus()
-                    }
+                    val child = getChildAt(0)
+                    child?.requestFocus()
                 }
             }
+
+            // Also ensure focus after snapping
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(rv: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(rv, newState)
+                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                        val child = snapHelper.findSnapView(layoutManager)
+                        child?.requestFocus()
+                    }
+                }
+            })
             // Up goes to top nav; down to rails is configured in XML via nextFocus*
         }
     }

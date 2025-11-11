@@ -76,6 +76,8 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="20dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
         android:overScrollMode="never"
         android:clipToPadding="false"
         android:paddingStart="0dp"
@@ -86,11 +88,13 @@
         android:nextFocusUp="@id/top_nav_recycler"
         android:nextFocusDown="@id/rails_recycler"
         app:layout_constraintTop_toBottomOf="@id/top_nav_background"
+        app:layout_constraintBottom_toTopOf="@id/rails_recycler"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintDimensionRatio="4:1"
-        app:layout_constraintWidth_default="spread"
-        app:layout_constraintHeight_percent="0.0" />
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.84"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintDimensionRatio="W,4:1" />
 
     <!-- Vertical rails list -->
     <androidx.recyclerview.widget.RecyclerView
