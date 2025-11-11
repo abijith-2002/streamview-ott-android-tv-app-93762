@@ -43,6 +43,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var topNavAdapter: TopNavAdapter
     private lateinit var contentRowAdapter: ContentRowAdapter
+    private lateinit var bannerAdapter: BannerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,9 +54,12 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupBrand()
         setupTopNav()
+        setupBannerRail()
         setupContentRails()
     }
 
@@ -114,6 +118,23 @@ class HomeFragment : Fragment() {
             if (binding.topNavRecycler.childCount > 0) {
                 binding.topNavRecycler.getChildAt(0)?.requestFocus()
             }
+        }
+    }
+
+    private fun setupBannerRail() {
+        // Mock banner data using 4:3 images (e.g., 800x600)
+        val banners = MockBannerData.generate(12)
+
+        bannerAdapter = BannerAdapter(banners)
+        binding.bannerRecycler.apply {
+            layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+            adapter = bannerAdapter
+            descendantFocusability = ViewGroup.FOCUS_AFTER_DESCENDANTS
+            isFocusable = true
+            isFocusableInTouchMode = true
+            clipToPadding = false
+            clipChildren = false
+            // Up goes to top nav; down to rails is configured in XML via nextFocus*
         }
     }
 

@@ -15,4 +15,5 @@
     <!-- Accessibility -->
     <string name="top_navigation">Top navigation</string>
     <string name="content_rails">Content rails</string>
+    <string name="banner_rail">Banner rail</string>
 </resources>

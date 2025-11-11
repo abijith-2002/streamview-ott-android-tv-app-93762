@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/banner_card_root"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginEnd="16dp"
+    android:padding="0dp"
+    android:background="@drawable/bg_banner_card_state"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:clipToPadding="false"
+    android:clipChildren="false">
+
+    <!-- 4:3 image area using dimension ratio via fixed width and computed height -->
+    <!-- For simplicity in LinearLayout, we set explicit 4:3 dp to ensure aspect -->
+    <ImageView
+        android:id="@+id/banner_image"
+        android:layout_width="match_parent"
+        android:layout_height="225dp"
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/banner_rail"
+        android:importantForAccessibility="no"
+        android:background="@android:color/transparent" />
+
+    <TextView
+        android:id="@+id/banner_title"
+        style="@style/TextAppearance.Streamly.RowTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:text="Banner" />
+</LinearLayout>
