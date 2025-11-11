@@ -108,6 +108,9 @@ class HomeSectionsAdapter(
         private val brand: TextView = itemView.findViewById(R.id.brand_text_scrolling)
         private val topNav: RecyclerView = itemView.findViewById(R.id.top_nav_recycler_scrolling)
 
+        // Tracks whether we've ever auto-focused the nav after entering it once
+        private var hasEverFocusedNav = false
+
         fun bind(header: SectionItem.HeaderSection) {
             // Brand styling with "Claro-" tinted brand red
             val ctx = itemView.context
@@ -132,7 +135,7 @@ class HomeSectionsAdapter(
                 clipToPadding = false
                 clipChildren = false
 
-                // Edge DPAD no-op behavior
+                // Edge DPAD no-op behavior (do not recenter to 'Inicio' here)
                 setOnKeyListener { v, keyCode, event ->
                     if (event.action != KeyEvent.ACTION_DOWN) return@setOnKeyListener false
                     val rv = v as RecyclerView
@@ -149,43 +152,37 @@ class HomeSectionsAdapter(
                     }
                 }
 
-                // Helper to find and focus 'Inicio' whenever navbar gains focus.
+                // Helper to find and focus 'Inicio'
                 fun focusInicio() {
                     val inicioIndex = categories.indexOfFirst { it.equals("Inicio", ignoreCase = true) }
                     if (inicioIndex >= 0) {
-                        // Smooth scroll to ensure item is visible
                         (layoutManager as? LinearLayoutManager)?.let { lm ->
                             lm.scrollToPositionWithOffset(inicioIndex, 0)
                         } ?: scrollToPosition(inicioIndex)
 
-                        // Post to ensure child is laid out before requesting focus
                         post {
                             val vh = findViewHolderForAdapterPosition(inicioIndex)
-                            if (vh?.itemView != null) {
-                                vh.itemView.requestFocus()
-                            } else {
-                                // Fallback: try getting child by index among visible children
-                                getChildAt(0)?.let {
-                                    // No-op if still not available
-                                }
-                            }
+                            vh?.itemView?.requestFocus()
                         }
                     }
                 }
 
-                // When the navbar (RecyclerView) gains focus, move focus to 'Inicio' by default.
-                setOnFocusChangeListener { _, hasFocus ->
+                // Only auto-focus 'Inicio' when entering navbar from another section
+                // or when the nav has no focused child currently.
+                setOnFocusChangeListener { rvView, hasFocus ->
                     if (hasFocus) {
-                        focusInicio()
+                        val rv = rvView as RecyclerView
+                        val currentFocused = rv.findFocus()
+                        // Gate with flag OR when there's no child focus inside the nav
+                        if (!hasEverFocusedNav || currentFocused == null) {
+                            focusInicio()
+                            hasEverFocusedNav = true
+                        }
                     }
                 }
 
-                // Also ensure after initial layout the default focus would be 'Inicio' if navbar is focused programmatically.
-                viewTreeObserver.addOnGlobalLayoutListener {
-                    if (hasFocus()) {
-                        focusInicio()
-                    }
-                }
+                // Remove global layout forced re-centering to avoid resetting selection during DPAD nav
+                // Keep layout as-is without additional focus changes here.
             }
         }
     }
