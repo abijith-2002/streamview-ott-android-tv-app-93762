@@ -55,9 +55,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupTopNav() {
-        // Mock categories for top navigation bar
+        // Restricted categories for top navigation bar with a leading Search item
+        // The adapter will render a search icon for the first "Search" pseudo-item
         val categories = listOf(
-            "Inicio", "Películas", "Series", "TV en vivo", "Kids", "Mis Contenidos", "Trending", "Novedades"
+            TopNavAdapter.SEARCH_ITEM, // special marker to render a focusable search icon
+            "Inicio", "Películas", "Series", "TV en vivo", "Kids", "Mis Contenidos"
         )
         topNavAdapter = TopNavAdapter(categories) { /* onClick category - can filter rails later */ }
 
@@ -69,7 +71,7 @@ class HomeFragment : Fragment() {
             isFocusableInTouchMode = true
         }
 
-        // Ensure first item is initially focusable for D-pad
+        // Ensure first visible item is initially focusable for D-pad (Search icon)
         binding.topNavRecycler.viewTreeObserver.addOnGlobalLayoutListener {
             if (binding.topNavRecycler.childCount > 0) {
                 binding.topNavRecycler.getChildAt(0)?.requestFocus()

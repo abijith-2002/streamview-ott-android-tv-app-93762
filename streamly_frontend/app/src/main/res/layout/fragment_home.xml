@@ -16,7 +16,7 @@
         android:id="@+id/top_nav_background"
         android:layout_width="0dp"
         android:layout_height="64dp"
-        android:background="@color/colorSurfaceDark"
+        android:background="@drawable/bg_top_nav_container"
         android:alpha="1.0"
         android:layout_marginTop="0dp"
         android:layout_marginBottom="8dp"
