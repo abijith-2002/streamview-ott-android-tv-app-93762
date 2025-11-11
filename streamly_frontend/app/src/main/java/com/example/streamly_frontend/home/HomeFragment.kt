@@ -69,6 +69,21 @@ class HomeFragment : Fragment() {
             descendantFocusability = ViewGroup.FOCUS_AFTER_DESCENDANTS
             isFocusable = true
             isFocusableInTouchMode = true
+
+            // Extra safeguard: consume DPAD_LEFT/RIGHT when focus at edges
+            setOnKeyListener { v, keyCode, event ->
+                if (event.action != android.view.KeyEvent.ACTION_DOWN) return@setOnKeyListener false
+                val rv = v as RecyclerView
+                val lm = rv.layoutManager as? LinearLayoutManager ?: return@setOnKeyListener false
+                val first = lm.findFirstCompletelyVisibleItemPosition().takeIf { it != RecyclerView.NO_POSITION } ?: lm.findFirstVisibleItemPosition()
+                val last = lm.findLastCompletelyVisibleItemPosition().takeIf { it != RecyclerView.NO_POSITION } ?: lm.findLastVisibleItemPosition()
+                val total = rv.adapter?.itemCount ?: return@setOnKeyListener false
+                return@setOnKeyListener when (keyCode) {
+                    android.view.KeyEvent.KEYCODE_DPAD_LEFT -> first == 0
+                    android.view.KeyEvent.KEYCODE_DPAD_RIGHT -> last == total - 1
+                    else -> false
+                }
+            }
         }
 
         // Ensure first visible item is initially focusable for D-pad (Search icon)

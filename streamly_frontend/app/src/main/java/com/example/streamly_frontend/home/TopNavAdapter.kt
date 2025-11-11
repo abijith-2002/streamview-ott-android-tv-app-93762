@@ -1,5 +1,6 @@
 package com.example.streamly_frontend.home
 
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -68,11 +69,37 @@ class TopNavAdapter(
             itemView.isFocusable = true
             itemView.isFocusableInTouchMode = true
 
+            // Subtle emphasis on focus: scale text/icon slightly for visibility on dark bg
+            itemView.setOnFocusChangeListener { v, hasFocus ->
+                val scale = if (hasFocus) 1.06f else 1.0f
+                v.animate().scaleX(scale).scaleY(scale).setDuration(100L).start()
+            }
+
             // Click -> callback with meaningful value
             itemView.setOnClickListener { onClick(if (isSearch) "Search" else text) }
 
+            // Intercept DPAD navigation at edges to prevent wrapping
+            itemView.setOnKeyListener { _, keyCode, event ->
+                if (event.action != KeyEvent.ACTION_DOWN) return@setOnKeyListener false
+                val rv = itemView.parent as? RecyclerView ?: return@setOnKeyListener false
+                val adapter = rv.adapter ?: return@setOnKeyListener false
+                val pos = bindingAdapterPosition
+                if (pos == RecyclerView.NO_POSITION) return@setOnKeyListener false
+                val lastIndex = adapter.itemCount - 1
+                return@setOnKeyListener when (keyCode) {
+                    KeyEvent.KEYCODE_DPAD_LEFT -> {
+                        // Consume if at first item
+                        pos == 0
+                    }
+                    KeyEvent.KEYCODE_DPAD_RIGHT -> {
+                        // Consume if at last item
+                        pos == lastIndex
+                    }
+                    else -> false
+                }
+            }
+
             // Ensure left/right focus traversal naturally uses order in RecyclerView
-            // Additional padding and background handled via layout/drawable
         }
     }
 }
