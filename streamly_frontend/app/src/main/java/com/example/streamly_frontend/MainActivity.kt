@@ -16,10 +16,9 @@ class MainActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        
+
         titleText = findViewById(R.id.title_text)
-        titleText.text = "streamly_frontend"
-        
+        titleText.text = getString(R.string.app_name)
         // TODO: Initialize your rating screen components here
         // setupRatingOverlay()
     }
