@@ -11,64 +11,11 @@
     android:paddingTop="48dp"
     android:paddingBottom="48dp">
 
-    <!-- Top area (brand + top nav) stays fixed at top; the rest (banner + rails) scrolls in a single vertical container -->
-    <TextView
-        android:id="@+id/brand_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Claro-video"
-        android:textColor="@color/ocean_text"
-        android:textStyle="bold"
-        android:textSize="24sp"
-        android:fontFamily="sans-serif-medium"
-        android:gravity="center_horizontal"
-        android:includeFontPadding="false"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/top_nav_background"
-        app:layout_constraintTop_toTopOf="@id/top_nav_background"
-        app:layout_constraintBottom_toBottomOf="@id/top_nav_background"/>
-
-    <android.view.View
-        android:id="@+id/top_nav_background"
-        android:layout_width="0dp"
-        android:layout_height="52dp"
-        android:background="@drawable/bg_top_nav_container"
-        android:alpha="1.0"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintWidth_percent="0.62"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/top_nav_recycler"
-        android:layout_width="0dp"
-        android:layout_height="52dp"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
-        android:paddingTop="4dp"
-        android:paddingBottom="4dp"
-        android:clipToPadding="false"
-        android:clipChildren="false"
-        android:overScrollMode="never"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:contentDescription="@string/top_navigation"
-        android:background="@android:color/transparent"
-        app:layout_constraintTop_toTopOf="@id/top_nav_background"
-        app:layout_constraintBottom_toBottomOf="@id/top_nav_background"
-        app:layout_constraintStart_toStartOf="@id/top_nav_background"
-        app:layout_constraintEnd_toEndOf="@id/top_nav_background" />
-
-    <!-- Single vertically scrollable container that includes Banner as first section and then content rails -->
+    <!-- Single vertically scrollable container that includes Header (brand+navbar), Banner and content rails -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rails_recycler"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="20dp"
         android:clipToPadding="false"
         android:paddingTop="0dp"
         android:paddingBottom="24dp"
@@ -76,8 +23,7 @@
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:contentDescription="@string/content_rails"
-        android:nextFocusUp="@id/top_nav_recycler"
-        app:layout_constraintTop_toBottomOf="@id/top_nav_background"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

@@ -56,8 +56,9 @@ class ContentRowAdapter(
                 descendantFocusability = ViewGroup.FOCUS_AFTER_DESCENDANTS
                 isFocusable = true
                 isFocusableInTouchMode = true
-                // Direct next focus up goes to top nav for first row
-                nextFocusUpId = R.id.top_nav_recycler
+                // Header (brand + navbar) is now part of the unified list above the banner.
+                // Do not hardwire focus up to an external pinned view; let RecyclerView handle natural DPAD up traversal.
+                nextFocusUpId = View.NO_ID
 
                 // Ensure when any child inside this row gains focus, the row title is visible.
                 // We perform requestChildRectangleOnScreen for the 'title' view against the parent rails RecyclerView.

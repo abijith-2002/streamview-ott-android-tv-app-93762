@@ -1,47 +1,26 @@
 package com.example.streamly_frontend.home
 
 import android.os.Bundle
-import android.text.SpannableString
-import android.text.Spanned
-import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.streamly_frontend.R
 import com.example.streamly_frontend.databinding.FragmentHomeBinding
 
 /**
  * PUBLIC_INTERFACE
- * HomeFragment is the main Android TV home screen implemented natively using RecyclerView.
+ * HomeFragment is the main Android TV home screen using a single vertical RecyclerView:
+ * sections: [Title+Navbar, Banner pager, Content rails...].
  *
- * Summary:
- * - Displays a top navigation bar (horizontally scrollable) and content rails (vertical list of rows).
- * - Each content row contains a horizontal list of focusable content cards suitable for D-pad navigation.
- *
- * Parameters:
- * - None
- *
- * Returns:
- * - A Fragment view that serves as the app's home screen.
- *
- * Ocean Professional minimalist theme:
- * - Colors pulled from colors.xml: ocean_primary, ocean_secondary, ocean_background, ocean_surface, ocean_text.
- * - Typography uses TextAppearance styles defined in styles.xml.
- *
- * Focus and accessibility:
- * - Cards are focusable with state list background and scale on focus.
- * - contentDescription set for images and importantForAccessibility marked to ensure screen readers behavior on TV devices.
+ * The brand and top navbar now scroll with the list (no fixed pinning).
  */
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var topNavAdapter: TopNavAdapter
     private lateinit var sectionsAdapter: HomeSectionsAdapter
 
     override fun onCreateView(
@@ -53,74 +32,18 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        setupBrand()
-        setupTopNav()
         setupSectionsList()
     }
 
-    private fun setupBrand() {
-        val tv = binding.brandText
-        // Build "Claro-video" with "Claro-" colored #E1251B and full text bold via TextView attributes.
-        val full = "Claro-video"
-        val spannable = SpannableString(full)
-        // Use the specified brand color #9B0F0F
-        val brandRed = ContextCompat.getColor(requireContext(), R.color.brand_claro_red)
-        val prefix = "Claro-"
-        val end = prefix.length.coerceAtMost(full.length)
-        spannable.setSpan(ForegroundColorSpan(brandRed), 0, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        // Remaining "video" inherits TextView textColor (ocean_text)
-        tv.text = spannable
-        // Accessibility label
-        tv.contentDescription = "Claro video"
-    }
-
-    private fun setupTopNav() {
-        // Restricted categories for top navigation bar with a leading Search item
-        // The adapter will render a search icon for the first "Search" pseudo-item
+    private fun setupSectionsList() {
+        // Header categories for top navigation (first section)
         val categories = listOf(
-            TopNavAdapter.SEARCH_ITEM, // special marker to render a focusable search icon
+            TopNavAdapter.SEARCH_ITEM,
             "Inicio", "Películas", "Series", "TV en vivo", "Kids", "Mis Contenidos"
         )
-        topNavAdapter = TopNavAdapter(categories) { /* onClick category - can filter rails later */ }
 
-        binding.topNavRecycler.apply {
-            layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
-            adapter = topNavAdapter
-            descendantFocusability = ViewGroup.FOCUS_AFTER_DESCENDANTS
-            isFocusable = true
-            isFocusableInTouchMode = true
-            clipToPadding = false
-            clipChildren = false
-
-            // Extra safeguard: consume DPAD_LEFT/RIGHT when focus at edges (unchanged with navbar height/padding adjustments)
-            setOnKeyListener { v, keyCode, event ->
-                if (event.action != android.view.KeyEvent.ACTION_DOWN) return@setOnKeyListener false
-                val rv = v as RecyclerView
-                val lm = rv.layoutManager as? LinearLayoutManager ?: return@setOnKeyListener false
-                val first = lm.findFirstCompletelyVisibleItemPosition().takeIf { it != RecyclerView.NO_POSITION } ?: lm.findFirstVisibleItemPosition()
-                val last = lm.findLastCompletelyVisibleItemPosition().takeIf { it != RecyclerView.NO_POSITION } ?: lm.findLastVisibleItemPosition()
-                val total = rv.adapter?.itemCount ?: return@setOnKeyListener false
-                return@setOnKeyListener when (keyCode) {
-                    android.view.KeyEvent.KEYCODE_DPAD_LEFT -> first == 0
-                    android.view.KeyEvent.KEYCODE_DPAD_RIGHT -> last == total - 1
-                    else -> false
-                }
-            }
-        }
-
-        // Ensure first visible item is initially focusable for D-pad (Search icon)
-        binding.topNavRecycler.viewTreeObserver.addOnGlobalLayoutListener {
-            if (binding.topNavRecycler.childCount > 0) {
-                binding.topNavRecycler.getChildAt(0)?.requestFocus()
-            }
-        }
-    }
-
-    private fun setupSectionsList() {
-        // Build sections: Banner as first section + content rows after it
+        // Banner and rails
         val banners = MockBannerData.generate(12)
         val rows = listOf(
             ContentRow(
@@ -138,6 +61,7 @@ class HomeFragment : Fragment() {
         )
 
         val sections = mutableListOf<SectionItem>()
+        sections.add(SectionItem.HeaderSection(categories))
         sections.add(SectionItem.BannerSection(banners))
         rows.forEach { sections.add(SectionItem.ContentRowSection(it)) }
 
@@ -156,29 +80,6 @@ class HomeFragment : Fragment() {
                 p.clipChildren = false
             }
         }
-    }
-
-    private fun setupContentRails() {
-        // Mock data: a few rails with posters
-        val mockRows = listOf(
-            ContentRow(
-                title = "Seguí viendo",
-                items = MockContentData.generate(10)
-            ),
-            ContentRow(
-                title = "Destacados",
-                items = MockContentData.generate(12)
-            ),
-            ContentRow(
-                title = "Recomendados para ti",
-                items = MockContentData.generate(14)
-            )
-        )
-
-        // Old content rails setup removed; unified sections list now used.
-
-        // Accessibility: group lists appropriately
-        binding.railsRecycler.importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_YES
     }
 
     override fun onDestroyView() {
