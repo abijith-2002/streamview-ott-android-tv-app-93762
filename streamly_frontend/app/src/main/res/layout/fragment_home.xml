@@ -26,6 +26,24 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
+    <!-- Claro-video brand icon: decorative, non-focusable, vertically centered, with safe start/end margins -->
+    <ImageView
+        android:id="@+id/top_nav_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:importantForAccessibility="no"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_claro_video"
+        app:layout_constraintTop_toTopOf="@id/top_nav_background"
+        app:layout_constraintBottom_toBottomOf="@id/top_nav_background"
+        app:layout_constraintStart_toStartOf="@id/top_nav_background" />
+
     <!-- Top navigation bar: remove internal padding and prevent clipping -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/top_nav_recycler"
@@ -45,7 +63,7 @@
         android:background="@android:color/transparent"
         app:layout_constraintTop_toTopOf="@id/top_nav_background"
         app:layout_constraintBottom_toBottomOf="@id/top_nav_background"
-        app:layout_constraintStart_toStartOf="@id/top_nav_background"
+        app:layout_constraintStart_toEndOf="@id/top_nav_logo"
         app:layout_constraintEnd_toEndOf="@id/top_nav_background" />
 
     <!-- Vertical rails list -->
