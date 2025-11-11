@@ -184,12 +184,17 @@ class HomeFragment : Fragment() {
             val snapHelper = PagerSnapHelper()
             snapHelper.attachToRecyclerView(this)
 
-            // ItemDecoration to remove any inter-item spacing
+            // ItemDecoration to ADD inter-item spacing while maintaining single visible item.
+            // Spacing is added between items; outer padding remains controlled via sidePad above.
             if (itemDecorationCount == 0) {
+                val spacingPx = (resources.displayMetrics.density * 16).toInt() // 16dp gap between pages
                 addItemDecoration(object : RecyclerView.ItemDecoration() {
                     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
-                        // No gaps on either side, so only the snapped item is visible
-                        outRect.set(0, 0, 0, 0)
+                        val position = parent.getChildAdapterPosition(view)
+                        val itemCount = parent.adapter?.itemCount ?: 0
+                        val left = if (position == 0) 0 else spacingPx / 2
+                        val right = if (position == itemCount - 1) 0 else spacingPx / 2
+                        outRect.set(left, 0, right, 0)
                     }
                 })
             }

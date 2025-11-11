@@ -12,7 +12,7 @@ import com.example.streamly_frontend.R
 
 /**
  * Adapter for 4:1 full-width banner cards.
- * Elevation-only focus; transparent background; matches dark theme.
+ * Focus behavior: no elevation, no glow, no background change, no scaling.
  */
 class BannerAdapter(
     items: List<BannerItem>
@@ -45,19 +45,10 @@ class BannerAdapter(
         private val img: ImageView = itemView.findViewById(R.id.banner_image)
 
         init {
-            val baseElevation = 0f
-            val focusedElevation = 18f
-            itemView.elevation = baseElevation
-            itemView.setBackgroundResource(R.drawable.bg_banner_card_state)
-
-            itemView.setOnFocusChangeListener { v, hasFocus ->
-                v.animate()
-                    .scaleX(if (hasFocus) 1.02f else 1.0f)
-                    .scaleY(if (hasFocus) 1.02f else 1.0f)
-                    .setDuration(120L)
-                    .start()
-                v.elevation = if (hasFocus) focusedElevation else baseElevation
-            }
+            // Remove elevation/scale/glow/background changes on focus.
+            itemView.elevation = 0f
+            itemView.setBackgroundResource(android.R.color.transparent)
+            itemView.setOnFocusChangeListener(null)
         }
 
         fun bind(item: BannerItem) {
