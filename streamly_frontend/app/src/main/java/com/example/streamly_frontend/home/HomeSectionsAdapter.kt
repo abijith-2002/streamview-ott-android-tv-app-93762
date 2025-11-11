@@ -149,10 +149,41 @@ class HomeSectionsAdapter(
                     }
                 }
 
-                // Initial focus to first item (Search)
+                // Helper to find and focus 'Inicio' whenever navbar gains focus.
+                fun focusInicio() {
+                    val inicioIndex = categories.indexOfFirst { it.equals("Inicio", ignoreCase = true) }
+                    if (inicioIndex >= 0) {
+                        // Smooth scroll to ensure item is visible
+                        (layoutManager as? LinearLayoutManager)?.let { lm ->
+                            lm.scrollToPositionWithOffset(inicioIndex, 0)
+                        } ?: scrollToPosition(inicioIndex)
+
+                        // Post to ensure child is laid out before requesting focus
+                        post {
+                            val vh = findViewHolderForAdapterPosition(inicioIndex)
+                            if (vh?.itemView != null) {
+                                vh.itemView.requestFocus()
+                            } else {
+                                // Fallback: try getting child by index among visible children
+                                getChildAt(0)?.let {
+                                    // No-op if still not available
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // When the navbar (RecyclerView) gains focus, move focus to 'Inicio' by default.
+                setOnFocusChangeListener { _, hasFocus ->
+                    if (hasFocus) {
+                        focusInicio()
+                    }
+                }
+
+                // Also ensure after initial layout the default focus would be 'Inicio' if navbar is focused programmatically.
                 viewTreeObserver.addOnGlobalLayoutListener {
-                    if (childCount > 0 && !hasFocus()) {
-                        getChildAt(0)?.requestFocus()
+                    if (hasFocus()) {
+                        focusInicio()
                     }
                 }
             }

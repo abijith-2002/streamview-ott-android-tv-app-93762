@@ -15,6 +15,7 @@ import com.example.streamly_frontend.databinding.FragmentHomeBinding
  * sections: [Title+Navbar, Banner pager, Content rails...].
  *
  * The brand and top navbar now scroll with the list (no fixed pinning).
+ * When the navbar gains focus, 'Inicio' becomes the default focused tab, while DPAD edge behavior remains unchanged.
  */
 class HomeFragment : Fragment() {
 
