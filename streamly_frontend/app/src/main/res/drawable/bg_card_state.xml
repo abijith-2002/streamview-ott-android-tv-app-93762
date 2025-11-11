@@ -1,21 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Base shape with subtle corner radius to match Minimalist theme -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/transparent" />
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+
     <!-- Focus state stroke -->
     <item>
         <selector>
             <item android:state_focused="true">
                 <shape android:shape="rectangle">
                     <solid android:color="@color/ocean_surface"/>
+                    <corners android:radius="8dp" />
                     <stroke android:width="2dp" android:color="@color/ocean_primary"/>
                 </shape>
             </item>
             <item>
                 <shape android:shape="rectangle">
                     <solid android:color="@android:color/transparent"/>
+                    <corners android:radius="8dp" />
                 </shape>
             </item>
         </selector>
     </item>
+
     <!-- Press ripple -->
     <item android:drawable="@drawable/ripple_tv" />
 </layer-list>

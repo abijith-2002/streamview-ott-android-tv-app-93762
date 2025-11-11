@@ -57,6 +57,12 @@ class ContentCardAdapter(
             itemView.isFocusable = true
             itemView.isFocusableInTouchMode = true
 
+            // Ensure poster has subtle rounded corners while preserving centerCrop
+            poster.apply {
+                clipToOutline = true
+                background = itemView.context.getDrawable(R.drawable.rounded_mask_8dp)
+            }
+
             Glide.with(poster.context)
                 .load(item.imageUrl)
                 .centerCrop()

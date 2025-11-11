@@ -133,16 +133,16 @@ data class ContentRow(
 
 object MockContentData {
     private val placeholders = listOf(
-        "https://picsum.photos/seed/streamly1/400/600",
-        "https://picsum.photos/seed/streamly2/400/600",
-        "https://picsum.photos/seed/streamly3/400/600",
-        "https://picsum.photos/seed/streamly4/400/600",
-        "https://picsum.photos/seed/streamly5/400/600",
-        "https://picsum.photos/seed/streamly6/400/600",
-        "https://picsum.photos/seed/streamly7/400/600",
-        "https://picsum.photos/seed/streamly8/400/600",
-        "https://picsum.photos/seed/streamly9/400/600",
-        "https://picsum.photos/seed/streamly10/400/600",
+        "https://picsum.photos/seed/streamly1/640/360",
+        "https://picsum.photos/seed/streamly2/640/360",
+        "https://picsum.photos/seed/streamly3/640/360",
+        "https://picsum.photos/seed/streamly4/640/360",
+        "https://picsum.photos/seed/streamly5/640/360",
+        "https://picsum.photos/seed/streamly6/640/360",
+        "https://picsum.photos/seed/streamly7/640/360",
+        "https://picsum.photos/seed/streamly8/640/360",
+        "https://picsum.photos/seed/streamly9/640/360",
+        "https://picsum.photos/seed/streamly10/640/360",
     )
 
     fun generate(count: Int): List<ContentItem> {
