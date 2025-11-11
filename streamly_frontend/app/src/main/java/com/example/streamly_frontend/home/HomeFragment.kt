@@ -142,6 +142,9 @@ class HomeFragment : Fragment() {
             isFocusable = true
             isFocusableInTouchMode = true
             descendantFocusability = ViewGroup.FOCUS_AFTER_DESCENDANTS
+            // Avoid clipping so headers are not hidden when near edges
+            clipToPadding = false
+            clipChildren = false
 
             // Keep proper next focus to top bar when pressing UP on first row
             setOnFocusChangeListener { _, _ -> /* no-op, but could handle focus hint */ }
