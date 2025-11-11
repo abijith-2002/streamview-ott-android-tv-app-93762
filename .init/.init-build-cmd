@@ -1,0 +1,4 @@
+{
+    "command": "./gradlew assembleDebug",
+    "working_directory": "/home/kavia/workspace/code-generation/streamview-ott-android-tv-app-93762/streamly_frontend"
+}
