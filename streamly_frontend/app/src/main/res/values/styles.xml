@@ -2,17 +2,19 @@
 <resources>
     <!-- Base application theme for Android TV -->
     <style name="AppTheme" parent="Theme.Leanback">
+        <!-- Apply dark background globally -->
         <item name="android:windowBackground">@color/ocean_background</item>
         <item name="android:colorPrimary">@color/ocean_primary</item>
         <item name="android:colorAccent">@color/ocean_primary</item>
         <item name="android:textColorPrimary">@color/ocean_text</item>
     </style>
 
-    <!-- Splash theme aligned with Ocean Professional -->
+    <!-- Splash theme aligned with Ocean Professional (dark) -->
     <style name="SplashTheme" parent="Theme.Leanback">
         <item name="android:windowBackground">@color/ocean_background</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/black</item>
+        <item name="android:textColorPrimary">@color/ocean_text</item>
     </style>
 
     <!-- Text Appearances for Home -->

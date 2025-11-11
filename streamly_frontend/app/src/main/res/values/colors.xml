@@ -9,12 +9,20 @@
     <color name="tv_button_focused">#FFFFFF</color>
     <color name="tv_button_normal">#80FFFFFF</color>
 
-    <!-- Ocean Professional Theme colors -->
+    <!-- Ocean Professional Theme colors (Light default) -->
     <color name="ocean_primary">#374151</color>
     <color name="ocean_secondary">#9CA3AF</color>
     <color name="ocean_success">#10B981</color>
     <color name="ocean_error">#EF4444</color>
-    <color name="ocean_background">#FFFFFF</color>
-    <color name="ocean_surface">#F9FAFB</color>
-    <color name="ocean_text">#111827</color>
+
+    <!-- Background tokens -->
+    <!-- Figma dark: #111827 -->
+    <color name="colorBackgroundDark">#111827</color>
+    <!-- Keep a surface slightly lighter for subtle rails/nav backgrounds if needed -->
+    <color name="colorSurfaceDark">#1F2937</color>
+
+    <!-- App-level background/surface/text tokens -->
+    <color name="ocean_background">#111827</color>
+    <color name="ocean_surface">#1F2937</color>
+    <color name="ocean_text">#F9FAFB</color>
 </resources>
