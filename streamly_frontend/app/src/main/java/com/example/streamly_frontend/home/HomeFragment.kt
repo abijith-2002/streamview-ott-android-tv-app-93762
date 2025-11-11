@@ -72,7 +72,7 @@ class HomeFragment : Fragment() {
             clipToPadding = false
             clipChildren = false
 
-            // Extra safeguard: consume DPAD_LEFT/RIGHT when focus at edges
+            // Extra safeguard: consume DPAD_LEFT/RIGHT when focus at edges (unchanged with navbar height/padding adjustments)
             setOnKeyListener { v, keyCode, event ->
                 if (event.action != android.view.KeyEvent.ACTION_DOWN) return@setOnKeyListener false
                 val rv = v as RecyclerView

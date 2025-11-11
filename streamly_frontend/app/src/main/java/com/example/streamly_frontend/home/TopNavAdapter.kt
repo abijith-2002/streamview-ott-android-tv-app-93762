@@ -78,7 +78,7 @@ class TopNavAdapter(
             // Click -> callback with meaningful value
             itemView.setOnClickListener { onClick(if (isSearch) "Search" else text) }
 
-            // Intercept DPAD navigation at edges to prevent wrapping
+            // Intercept DPAD navigation at edges to prevent wrapping (unchanged behavior after navbar sizing tweaks)
             itemView.setOnKeyListener { _, keyCode, event ->
                 if (event.action != KeyEvent.ACTION_DOWN) return@setOnKeyListener false
                 val rv = itemView.parent as? RecyclerView ?: return@setOnKeyListener false

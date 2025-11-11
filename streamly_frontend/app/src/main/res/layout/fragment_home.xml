@@ -15,7 +15,7 @@
     <android.view.View
         android:id="@+id/top_nav_background"
         android:layout_width="0dp"
-        android:layout_height="64dp"
+        android:layout_height="52dp"
         android:background="@drawable/bg_top_nav_container"
         android:alpha="1.0"
         android:layout_marginTop="0dp"
@@ -30,9 +30,11 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/top_nav_recycler"
         android:layout_width="0dp"
-        android:layout_height="64dp"
-        android:paddingStart="0dp"
-        android:paddingEnd="0dp"
+        android:layout_height="52dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
         android:clipToPadding="false"
         android:clipChildren="false"
         android:overScrollMode="never"

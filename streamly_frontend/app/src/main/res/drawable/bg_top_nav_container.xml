@@ -2,5 +2,5 @@
 <!-- Background surface for the entire top nav rail; no internal insets/padding. -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
     <solid android:color="@color/colorSurfaceDark"/>
-    <corners android:radius="32dp"/>
+    <corners android:radius="26dp"/>
 </shape>

@@ -19,7 +19,7 @@
 
     <!-- Text Appearances for Home -->
     <style name="TextAppearance.Streamly.Nav" parent="@android:style/TextAppearance.Medium">
-        <item name="android:textSize">22sp</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/ocean_text</item>
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
