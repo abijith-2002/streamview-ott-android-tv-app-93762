@@ -11,7 +11,7 @@
     android:paddingTop="48dp"
     android:paddingBottom="48dp">
 
-    <!-- Brand text area: horizontally centered between left screen edge (safe padding) and navbar's left edge -->
+    <!-- Top area (brand + top nav) stays fixed at top; the rest (banner + rails) scrolls in a single vertical container -->
     <TextView
         android:id="@+id/brand_text"
         android:layout_width="0dp"
@@ -31,24 +31,18 @@
         app:layout_constraintTop_toTopOf="@id/top_nav_background"
         app:layout_constraintBottom_toBottomOf="@id/top_nav_background"/>
 
-    <!-- Apply color span via TextAppearance isn't possible in XML; the red segment is set programmatically in HomeFragment -->
-    <!-- Top navigation background container centered horizontally -->
     <android.view.View
         android:id="@+id/top_nav_background"
         android:layout_width="0dp"
         android:layout_height="52dp"
         android:background="@drawable/bg_top_nav_container"
         android:alpha="1.0"
-        android:layout_marginTop="0dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginStart="0dp"
-        android:layout_marginEnd="0dp"
         app:layout_constraintWidth_percent="0.62"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <!-- Top navigation bar: keep reduced height and prevent clipping; remains centered by constraining to background -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/top_nav_recycler"
         android:layout_width="0dp"
@@ -63,50 +57,27 @@
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:contentDescription="@string/top_navigation"
-        android:nextFocusDown="@id/rails_recycler"
         android:background="@android:color/transparent"
         app:layout_constraintTop_toTopOf="@id/top_nav_background"
         app:layout_constraintBottom_toBottomOf="@id/top_nav_background"
         app:layout_constraintStart_toStartOf="@id/top_nav_background"
         app:layout_constraintEnd_toEndOf="@id/top_nav_background" />
 
-    <!-- Banner rail: horizontal list placed between navbar and content rails -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/banner_recycler"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="0dp"
-        android:layout_marginEnd="0dp"
-        android:overScrollMode="never"
-        android:clipToPadding="false"
-        android:paddingStart="0dp"
-        android:paddingEnd="0dp"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:contentDescription="@string/banner_rail"
-        android:nextFocusUp="@id/top_nav_recycler"
-        android:nextFocusDown="@id/rails_recycler"
-        app:layout_constraintTop_toBottomOf="@id/top_nav_background"
-        app:layout_constraintBottom_toTopOf="@id/rails_recycler"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <!-- Vertical rails list -->
+    <!-- Single vertically scrollable container that includes Banner as first section and then content rails -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rails_recycler"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:clipToPadding="false"
-        android:paddingTop="24dp"
+        android:paddingTop="0dp"
         android:paddingBottom="24dp"
         android:overScrollMode="never"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:contentDescription="@string/content_rails"
-        android:nextFocusUp="@id/banner_recycler"
-        app:layout_constraintTop_toBottomOf="@id/banner_recycler"
+        android:nextFocusUp="@id/top_nav_recycler"
+        app:layout_constraintTop_toBottomOf="@id/top_nav_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

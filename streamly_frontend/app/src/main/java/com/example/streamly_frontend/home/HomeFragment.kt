@@ -10,9 +10,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import android.graphics.Rect
 import com.example.streamly_frontend.R
 import com.example.streamly_frontend.databinding.FragmentHomeBinding
 
@@ -44,8 +42,7 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var topNavAdapter: TopNavAdapter
-    private lateinit var contentRowAdapter: ContentRowAdapter
-    private lateinit var bannerAdapter: BannerAdapter
+    private lateinit var sectionsAdapter: HomeSectionsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -61,8 +58,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupBrand()
         setupTopNav()
-        setupBannerRail()
-        setupContentRails()
+        setupSectionsList()
     }
 
     private fun setupBrand() {
@@ -123,101 +119,42 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun setupBannerRail() {
-        // Mock banner data using 4:1 images
+    private fun setupSectionsList() {
+        // Build sections: Banner as first section + content rows after it
         val banners = MockBannerData.generate(12)
+        val rows = listOf(
+            ContentRow(
+                title = "Seguí viendo",
+                items = MockContentData.generate(10)
+            ),
+            ContentRow(
+                title = "Destacados",
+                items = MockContentData.generate(12)
+            ),
+            ContentRow(
+                title = "Recomendados para ti",
+                items = MockContentData.generate(14)
+            )
+        )
 
-        bannerAdapter = BannerAdapter(banners)
-        binding.bannerRecycler.apply {
-            layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
-            adapter = bannerAdapter
-            descendantFocusability = ViewGroup.FOCUS_AFTER_DESCENDANTS
+        val sections = mutableListOf<SectionItem>()
+        sections.add(SectionItem.BannerSection(banners))
+        rows.forEach { sections.add(SectionItem.ContentRowSection(it)) }
+
+        sectionsAdapter = HomeSectionsAdapter(sections)
+
+        binding.railsRecycler.apply {
+            layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+            adapter = sectionsAdapter
             isFocusable = true
             isFocusableInTouchMode = true
-
-            // Do not allow neighbors to peek in; viewport shows only the focused page
+            descendantFocusability = ViewGroup.FOCUS_AFTER_DESCENDANTS
             clipToPadding = false
             clipChildren = false
-
-            // Compute explicit size for 1080p and adaptive otherwise.
-            post {
-                val dm = resources.displayMetrics
-                val screenPxW = dm.widthPixels
-                val screenPxH = dm.heightPixels
-                val density = dm.density
-
-                // Normalize to density-independent logical size for comparison with 1920x1080 baseline
-                val logicalW = (screenPxW / density).toInt()
-                val logicalH = (screenPxH / density).toInt()
-
-                // Target size at 1080p
-                val targetW1080 = 1744
-                val targetH1080 = 444
-                val baselineW = 1920f
-                val widthRatio = targetW1080 / baselineW // ≈ 0.9073
-                val aspect = 4f // 4:1 -> width:height
-
-                val lp = layoutParams as ViewGroup.LayoutParams
-                if ((screenPxW == 1920 && screenPxH == 1080) ||
-                    (logicalW == 1920 && logicalH == 1080)) {
-                    // Exact 1080p: set fixed px
-                    lp.width = targetW1080
-                    lp.height = targetH1080
-                } else {
-                    // Other resolutions: scale from width proportionally based on baseline percentage
-                    val computedW = (screenPxW * widthRatio).toInt()
-                    val computedH = (computedW / aspect).toInt()
-                    lp.width = computedW
-                    lp.height = computedH
-                }
-                layoutParams = lp
-
-                // Center horizontally using padding so only one item is visible
-                val sidePad = ((screenPxW - lp.width) / 2).coerceAtLeast(0)
-                setPadding(sidePad, paddingTop, sidePad, paddingBottom)
-                clipToPadding = false
-                clipChildren = false
-                requestLayout()
+            (parent as? ViewGroup)?.let { p ->
+                p.clipToPadding = false
+                p.clipChildren = false
             }
-
-            // Snap one item per page
-            val snapHelper = PagerSnapHelper()
-            snapHelper.attachToRecyclerView(this)
-
-            // ItemDecoration to ADD inter-item spacing while maintaining single visible item.
-            // Spacing is added between items; outer padding remains controlled via sidePad above.
-            if (itemDecorationCount == 0) {
-                val spacingPx = (resources.displayMetrics.density * 16).toInt() // 16dp gap between pages
-                addItemDecoration(object : RecyclerView.ItemDecoration() {
-                    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
-                        val position = parent.getChildAdapterPosition(view)
-                        val itemCount = parent.adapter?.itemCount ?: 0
-                        val left = if (position == 0) 0 else spacingPx / 2
-                        val right = if (position == itemCount - 1) 0 else spacingPx / 2
-                        outRect.set(left, 0, right, 0)
-                    }
-                })
-            }
-
-            // Ensure the centered/snapped item gets focus when list gains focus
-            setOnFocusChangeListener { _, hasFocus ->
-                if (hasFocus) {
-                    val child = getChildAt(0)
-                    child?.requestFocus()
-                }
-            }
-
-            // Also ensure focus after snapping
-            addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrollStateChanged(rv: RecyclerView, newState: Int) {
-                    super.onScrollStateChanged(rv, newState)
-                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                        val child = snapHelper.findSnapView(layoutManager)
-                        child?.requestFocus()
-                    }
-                }
-            })
-            // Up goes to top nav; down to rails is configured in XML via nextFocus*
         }
     }
 
@@ -238,27 +175,7 @@ class HomeFragment : Fragment() {
             )
         )
 
-        contentRowAdapter = ContentRowAdapter(mockRows)
-
-        binding.railsRecycler.apply {
-            layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-            adapter = contentRowAdapter
-            isFocusable = true
-            isFocusableInTouchMode = true
-            descendantFocusability = ViewGroup.FOCUS_AFTER_DESCENDANTS
-            // Avoid clipping so headers are not hidden when near edges
-            clipToPadding = false
-            clipChildren = false
-
-            // Also ensure the parent container does not clip
-            (parent as? ViewGroup)?.let { p ->
-                p.clipToPadding = false
-                p.clipChildren = false
-            }
-
-            // Keep proper next focus to top bar when pressing UP on first row
-            setOnFocusChangeListener { _, _ -> /* no-op, but could handle focus hint */ }
-        }
+        // Old content rails setup removed; unified sections list now used.
 
         // Accessibility: group lists appropriately
         binding.railsRecycler.importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_YES
