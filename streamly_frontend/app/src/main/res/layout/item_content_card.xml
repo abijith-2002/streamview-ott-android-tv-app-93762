@@ -10,7 +10,8 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:clipToPadding="false"
-    android:clipChildren="false">
+    android:clipChildren="false"
+    android:foreground="@null">
 
     <!-- 16:9 poster area with minimal rounded corners -->
     <ImageView
@@ -20,7 +21,8 @@
         android:scaleType="centerCrop"
         android:contentDescription="@string/streamly"
         android:importantForAccessibility="no"
-        android:background="@android:color/transparent" />
+        android:background="@android:color/transparent"
+        android:foreground="@null" />
 
     <TextView
         android:id="@+id/card_title"

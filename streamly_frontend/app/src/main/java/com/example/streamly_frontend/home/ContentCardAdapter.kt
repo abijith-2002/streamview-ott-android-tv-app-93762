@@ -47,6 +47,9 @@ class ContentCardAdapter(
             val focusedElevation = 16f // dp-like visual; used as px here for simplicity on View
 
             itemView.elevation = baseElevation
+            // Ensure no residual background; background is managed by XML selector which is transparent
+            itemView.setBackgroundResource(R.drawable.bg_card_state)
+
             itemView.setOnFocusChangeListener { v, hasFocus ->
                 // Animate slight scale
                 v.animate()

@@ -61,7 +61,7 @@ class HomeFragment : Fragment() {
 
     private fun setupBrand() {
         val tv = binding.brandText
-        // Build "Claro-video" with "Claro-" colored #9B0F0F and full text bold via TextView attributes.
+        // Build "Claro-video" with "Claro-" colored #E1251B and full text bold via TextView attributes.
         val full = "Claro-video"
         val spannable = SpannableString(full)
         // Use the specified brand color #9B0F0F
