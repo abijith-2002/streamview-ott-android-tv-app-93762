@@ -11,6 +11,7 @@
     android:focusableInTouchMode="true"
     android:layout_marginEnd="12dp">
 
+    <!-- Height 48dp and 18dp side padding ensures pill does not clip text/icon -->
     <TextView
         android:id="@+id/top_nav_label"
         style="@style/TextAppearance.Streamly.Nav"

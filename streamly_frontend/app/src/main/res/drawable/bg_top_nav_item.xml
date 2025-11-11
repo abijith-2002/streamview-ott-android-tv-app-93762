@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Transparent background for individual nav items; rely on text/icon emphasis only.
-     Container pill remains via bg_top_nav_container.xml -->
+<!-- Pill background for individual nav items on focus.
+     Container pill remains via bg_top_nav_container.xml. Normal state stays transparent. -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Focused: show pill with #9B0F0F -->
     <item android:state_focused="true">
         <shape android:shape="rectangle">
-            <solid android:color="@android:color/transparent"/>
+            <solid android:color="#9B0F0F"/>
+            <!-- Large radius to guarantee pill shape regardless of height -->
             <corners android:radius="32dp"/>
         </shape>
     </item>
+
+    <!-- Default/other states: transparent to let container show through -->
     <item>
         <shape android:shape="rectangle">
             <solid android:color="@android:color/transparent"/>
