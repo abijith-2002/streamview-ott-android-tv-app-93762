@@ -10,9 +10,12 @@
     android:paddingBottom="48dp"
     android:background="@color/tv_background">
 
+    <!-- HomeBrowseFragment renders all rails (top nav, hero hint, content rails) -->
     <fragment
         android:id="@+id/browse_fragment"
         android:name="com.example.streamly_frontend.home.HomeBrowseFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true" />
 </FrameLayout>

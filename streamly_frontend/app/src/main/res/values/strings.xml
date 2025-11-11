@@ -5,6 +5,20 @@
     <!-- Splash/Home -->
     <string name="home_title">Inicio</string>
 
+    <!-- Top Navigation -->
+    <string name="nav_home">Inicio</string>
+    <string name="nav_movies">Películas</string>
+    <string name="nav_series">Series</string>
+    <string name="nav_live_tv">TV en vivo</string>
+    <string name="nav_kids">Kids</string>
+    <string name="nav_my_content">Mis Contenidos</string>
+
+    <!-- Rails -->
+    <string name="rail_continue_watching">Seguí viendo</string>
+    <string name="rail_for_you_movies">Películas para ti</string>
+    <string name="rail_featured_series">Series destacadas</string>
+    <string name="rail_live_channels">Canales de TV</string>
+
     <!-- Rating Screen Strings -->
     <string name="rating_title">Did you like it?</string>
     <string name="rating_message">Your vote helps us recommend more content like this.</string>
