@@ -11,7 +11,28 @@
     android:paddingTop="48dp"
     android:paddingBottom="48dp">
 
-    <!-- Top navigation background surface pill hint (Figma-like) -->
+    <!-- Brand text area: horizontally centered between left screen edge (safe padding) and navbar's left edge -->
+    <TextView
+        android:id="@+id/brand_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Claro-video"
+        android:textColor="@color/ocean_text"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center_horizontal"
+        android:includeFontPadding="false"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/top_nav_background"
+        app:layout_constraintTop_toTopOf="@id/top_nav_background"
+        app:layout_constraintBottom_toBottomOf="@id/top_nav_background"/>
+
+    <!-- Apply color span via TextAppearance isn't possible in XML; the red segment is set programmatically in HomeFragment -->
+    <!-- Top navigation background container centered horizontally -->
     <android.view.View
         android:id="@+id/top_nav_background"
         android:layout_width="0dp"
@@ -22,11 +43,12 @@
         android:layout_marginBottom="8dp"
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"
+        app:layout_constraintWidth_percent="0.62"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <!-- Top navigation bar: remove internal padding and prevent clipping -->
+    <!-- Top navigation bar: keep reduced height and prevent clipping; remains centered by constraining to background -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/top_nav_recycler"
         android:layout_width="0dp"

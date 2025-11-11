@@ -1,9 +1,13 @@
 package com.example.streamly_frontend.home
 
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -50,8 +54,25 @@ class HomeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setupBrand()
         setupTopNav()
         setupContentRails()
+    }
+
+    private fun setupBrand() {
+        val tv = binding.brandText
+        // Build "Claro-video" with "Claro-" colored #9B0F0F and full text bold via TextView attributes.
+        val full = "Claro-video"
+        val spannable = SpannableString(full)
+        // Use the specified brand color #9B0F0F
+        val brandRed = ContextCompat.getColor(requireContext(), R.color.brand_claro_red)
+        val prefix = "Claro-"
+        val end = prefix.length.coerceAtMost(full.length)
+        spannable.setSpan(ForegroundColorSpan(brandRed), 0, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        // Remaining "video" inherits TextView textColor (ocean_text)
+        tv.text = spannable
+        // Accessibility label
+        tv.contentDescription = "Claro video"
     }
 
     private fun setupTopNav() {
