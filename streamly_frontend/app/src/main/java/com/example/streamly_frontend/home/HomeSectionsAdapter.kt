@@ -111,6 +111,9 @@ class HomeSectionsAdapter(
         // Tracks whether we've ever auto-focused the nav after entering it once
         private var hasEverFocusedNav = false
 
+        // Flag to request centering to 'Inicio' on next focus entry only (used when view is rebound)
+        private var recenterOnNextFocus: Boolean = false
+
         fun bind(header: SectionItem.HeaderSection) {
             // Brand styling with "Claro-" tinted brand red
             val ctx = itemView.context
@@ -135,7 +138,7 @@ class HomeSectionsAdapter(
                 clipToPadding = false
                 clipChildren = false
 
-                // Edge DPAD no-op behavior (do not recenter to 'Inicio' here)
+                // Edge DPAD no-op behavior (do not recenter to 'Inicio' on left/right)
                 setOnKeyListener { v, keyCode, event ->
                     if (event.action != KeyEvent.ACTION_DOWN) return@setOnKeyListener false
                     val rv = v as RecyclerView
@@ -167,22 +170,59 @@ class HomeSectionsAdapter(
                     }
                 }
 
-                // Only auto-focus 'Inicio' when entering navbar from another section
-                // or when the nav has no focused child currently.
+                // Detect navbar focus entry from outside: when navbar itself gains focus and no child has it,
+                // or when a previous rebind requested a re-center.
                 setOnFocusChangeListener { rvView, hasFocus ->
                     if (hasFocus) {
                         val rv = rvView as RecyclerView
                         val currentFocused = rv.findFocus()
-                        // Gate with flag OR when there's no child focus inside the nav
-                        if (!hasEverFocusedNav || currentFocused == null) {
+                        if (recenterOnNextFocus || (!hasEverFocusedNav || currentFocused == null)) {
                             focusInicio()
                             hasEverFocusedNav = true
+                            recenterOnNextFocus = false
                         }
                     }
                 }
 
-                // Remove global layout forced re-centering to avoid resetting selection during DPAD nav
-                // Keep layout as-is without additional focus changes here.
+                // If users navigate UP from banner into header, ensure we re-center to 'Inicio'
+                // without affecting left/right within the navbar
+                setOnKeyListener { v, keyCode, event ->
+                    if (event.action != KeyEvent.ACTION_DOWN) return@setOnKeyListener false
+                    when (keyCode) {
+                        // Do not consume LEFT/RIGHT, keep prior handler decision
+                        KeyEvent.KEYCODE_DPAD_UP -> {
+                            // Coming from below into the header area; request focus to 'Inicio'
+                            focusInicio()
+                            true
+                        }
+                        else -> false
+                    }
+                }
+
+                // When adapter is rebound (e.g., RecyclerView recycles the header on scroll), mark to re-center next time navbar gains focus
+                this.adapter?.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
+                    override fun onChanged() {
+                        recenterOnNextFocus = true
+                    }
+                    override fun onItemRangeChanged(positionStart: Int, itemCount: Int) {
+                        recenterOnNextFocus = true
+                    }
+                    override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+                        recenterOnNextFocus = true
+                    }
+                    override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) {
+                        recenterOnNextFocus = true
+                    }
+                })
+            }
+
+            // Also set a focus change listener on the header container: when header root itself gains focus (from outside),
+            // scroll and focus 'Inicio'. This helps when focus lands on the header container via DPAD_UP from rails.
+            itemView.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+                if (hasFocus) {
+                    recenterOnNextFocus = true
+                    topNav.requestFocus()
+                }
             }
         }
     }
