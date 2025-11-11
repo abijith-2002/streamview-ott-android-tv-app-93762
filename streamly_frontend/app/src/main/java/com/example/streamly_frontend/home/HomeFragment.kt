@@ -69,6 +69,8 @@ class HomeFragment : Fragment() {
             descendantFocusability = ViewGroup.FOCUS_AFTER_DESCENDANTS
             isFocusable = true
             isFocusableInTouchMode = true
+            clipToPadding = false
+            clipChildren = false
 
             // Extra safeguard: consume DPAD_LEFT/RIGHT when focus at edges
             setOnKeyListener { v, keyCode, event ->
