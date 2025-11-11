@@ -1,21 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Pill background for individual nav items on focus.
-     Container pill remains via bg_top_nav_container.xml. Normal state stays transparent. -->
+<!-- Selector to render ONLY a pill-shaped focus background for top nav items.
+     Non-focused state is fully transparent. -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Focused: show pill with #9B0F0F -->
+    <!-- Focused: pill with #9B0F0F -->
     <item android:state_focused="true">
+        <inset android:insetLeft="0dp" android:insetTop="0dp" android:insetRight="0dp" android:insetBottom="0dp">
+            <shape android:shape="rectangle">
+                <solid android:color="#9B0F0F" />
+                <corners android:radius="32dp" />
+            </shape>
+        </inset>
+    </item>
+
+    <!-- Pressed but not focused should remain transparent to avoid rectangular overlay -->
+    <item android:state_pressed="true">
         <shape android:shape="rectangle">
-            <solid android:color="#9B0F0F"/>
-            <!-- Large radius to guarantee pill shape regardless of height -->
-            <corners android:radius="32dp"/>
+            <solid android:color="@android:color/transparent" />
         </shape>
     </item>
 
-    <!-- Default/other states: transparent to let container show through -->
+    <!-- Default: transparent -->
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="@android:color/transparent"/>
-            <corners android:radius="32dp"/>
+            <solid android:color="@android:color/transparent" />
         </shape>
     </item>
 </selector>

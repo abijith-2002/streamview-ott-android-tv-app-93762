@@ -38,6 +38,7 @@
         android:focusableInTouchMode="true"
         android:contentDescription="@string/top_navigation"
         android:nextFocusDown="@id/rails_recycler"
+        android:background="@android:color/transparent"
         app:layout_constraintTop_toTopOf="@id/top_nav_background"
         app:layout_constraintBottom_toBottomOf="@id/top_nav_background"
         app:layout_constraintStart_toStartOf="@id/top_nav_background"

@@ -5,11 +5,11 @@
     android:layout_height="wrap_content"
     android:paddingStart="18dp"
     android:paddingEnd="18dp"
-    android:foreground="@drawable/ripple_tv"
+    android:layout_marginEnd="12dp"
     android:background="@drawable/bg_top_nav_item"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:layout_marginEnd="12dp">
+    android:clipToPadding="false">
 
     <!-- Height 48dp and 18dp side padding ensures pill does not clip text/icon -->
     <TextView
@@ -21,6 +21,7 @@
         android:textColor="@color/ocean_text"
         android:maxLines="1"
         android:ellipsize="end"
+        android:foreground="@drawable/ripple_tv"
         android:text="Inicio" />
 
     <ImageView
@@ -31,6 +32,7 @@
         android:scaleType="centerInside"
         android:contentDescription="@string/top_navigation"
         android:visibility="gone"
+        android:foreground="@drawable/ripple_tv"
         android:src="@drawable/ic_search_tv" />
 
 </FrameLayout>

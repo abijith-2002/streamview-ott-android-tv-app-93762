@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Ripple without a rectangular mask so it doesn't introduce a box behind pill-shaped items -->
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
     android:color="@color/ocean_secondary">
-    <item android:id="@android:id/mask">
-        <shape android:shape="rectangle">
-            <solid android:color="@color/ocean_secondary" />
-        </shape>
-    </item>
+    <!-- No mask item ensures ripple respects the view's outline/background (pill) -->
 </ripple>
