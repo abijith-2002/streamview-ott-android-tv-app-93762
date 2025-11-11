@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Base application theme for Android TV -->
+    <!-- Base application theme for Android TV with Ocean Professional alignment -->
     <style name="AppTheme" parent="Theme.Leanback">
-        <!-- Customize your theme here -->
         <item name="android:windowBackground">@color/tv_background</item>
         <item name="android:colorPrimary">@color/tv_accent</item>
+        <item name="android:colorAccent">@color/tv_accent</item>
+        <item name="android:textColorPrimary">@color/tv_primary</item>
+        <item name="android:textColorSecondary">@color/tv_secondary</item>
     </style>
 </resources>
