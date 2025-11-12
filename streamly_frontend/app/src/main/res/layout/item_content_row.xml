@@ -5,8 +5,8 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@android:color/transparent"
-    android:paddingTop="18dp"
-    android:paddingBottom="8dp">
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp">
 
     <TextView
         android:id="@+id/row_title"
