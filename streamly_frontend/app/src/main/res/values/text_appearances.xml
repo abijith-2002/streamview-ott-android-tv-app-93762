@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Navigation tab default -->
-    <style name="TextAppearance.Streamly.Nav" parent="TextAppearance.MaterialComponents.Body1">
+    <style name="TextAppearance.Streamly.Nav" parent="@android:style/TextAppearance.Material.Body1">
         <item name="android:textColor">@color/tv_secondary</item>
         <item name="android:textSize">18sp</item>
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
     <!-- Navigation tab focused -->
-    <style name="TextAppearance.Streamly.Nav.Focused" parent="TextAppearance.MaterialComponents.Body1">
+    <style name="TextAppearance.Streamly.Nav.Focused" parent="@android:style/TextAppearance.Material.Body1">
         <item name="android:textColor">@color/tv_primary</item>
         <item name="android:textSize">18sp</item>
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
     <!-- Content row title -->
-    <style name="TextAppearance.Streamly.RowTitle" parent="TextAppearance.MaterialComponents.Subtitle1">
+    <style name="TextAppearance.Streamly.RowTitle" parent="@android:style/TextAppearance.Material.Subhead">
         <item name="android:textColor">@color/tv_primary</item>
         <item name="android:textSize">22sp</item>
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
     <!-- Card title -->
-    <style name="TextAppearance.Streamly.CardTitle" parent="TextAppearance.MaterialComponents.Body2">
+    <style name="TextAppearance.Streamly.CardTitle" parent="@android:style/TextAppearance.Material.Body2">
         <item name="android:textColor">@color/tv_primary</item>
         <item name="android:textSize">16sp</item>
         <item name="android:fontFamily">sans-serif</item>

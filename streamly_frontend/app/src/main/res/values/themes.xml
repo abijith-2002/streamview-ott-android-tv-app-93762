@@ -32,6 +32,5 @@
         <item name="android:padding">8dp</item>
         <item name="android:focusable">true</item>
         <item name="android:clickable">true</item>
-        <item name="android:tint">?attr/colorControlNormal</item>
     </style>
 </resources>

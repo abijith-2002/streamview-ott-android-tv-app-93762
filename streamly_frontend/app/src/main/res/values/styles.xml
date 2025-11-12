@@ -6,7 +6,6 @@
         <item name="android:padding">8dp</item>
         <item name="android:background">@drawable/bg_tv_button_state</item>
         <item name="android:focusable">true</item>
-        <item name="android:tint">?attr/colorControlNormal</item>
     </style>
 
 </resources>
