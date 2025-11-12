@@ -16,7 +16,8 @@ import com.example.streamly_frontend.R
  * Uses centerCrop images and DP sizing matching Figma-inspired proportions for TV.
  */
 class ContentCardAdapter(
-    items: List<ContentItem>
+    private val items: List<ContentItem>,
+    private val onItemEnter: ((item: ContentItem, adapterPosition: Int) -> Unit)? = null
 ) : ListAdapter<ContentItem, ContentCardAdapter.CardVH>(CardDiff) {
 
     init {
@@ -35,6 +36,20 @@ class ContentCardAdapter(
 
     override fun onBindViewHolder(holder: CardVH, position: Int) {
         holder.bind(getItem(position))
+        // Key handler for DPAD_CENTER/ENTER to open Content Info
+        holder.itemView.setOnKeyListener { v, keyCode, event ->
+            if (event.action != android.view.KeyEvent.ACTION_DOWN) return@setOnKeyListener false
+            return@setOnKeyListener when (keyCode) {
+                android.view.KeyEvent.KEYCODE_DPAD_CENTER, android.view.KeyEvent.KEYCODE_ENTER -> {
+                    val pos = holder.bindingAdapterPosition
+                    if (pos != RecyclerView.NO_POSITION) {
+                        onItemEnter?.invoke(getItem(pos), pos)
+                        true
+                    } else false
+                }
+                else -> false
+            }
+        }
     }
 
     class CardVH(itemView: View) : RecyclerView.ViewHolder(itemView) {

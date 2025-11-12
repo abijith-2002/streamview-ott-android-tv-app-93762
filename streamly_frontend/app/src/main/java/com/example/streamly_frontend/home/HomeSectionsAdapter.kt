@@ -325,7 +325,29 @@ class HomeSectionsAdapter(
             title.text = row.title
             innerRecycler.apply {
                 layoutManager = LinearLayoutManager(itemView.context, RecyclerView.HORIZONTAL, false)
-                adapter = ContentCardAdapter(row.items)
+                adapter = ContentCardAdapter(row.items) { item, itemIndex ->
+                    // Launch Content Info screen
+                    val ctx = itemView.context
+                    val rowIndex = (itemView.parent as? RecyclerView)?.let { parentRv ->
+                        bindingAdapterPosition.takeIf { it != RecyclerView.NO_POSITION } ?: parentRv.getChildAdapterPosition(itemView)
+                    } ?: bindingAdapterPosition
+
+                    val intent = com.example.streamly_frontend.ContentInfoActivity.buildIntent(
+                        ctx = ctx,
+                        title = item.title,
+                        synopsis = "Sinopsis no disponible",
+                        imageUrl = item.imageUrl,
+                        tags = arrayListOf("Acción", "Aventura"),
+                        runtime = "120 min",
+                        rowIndex = rowIndex,
+                        itemIndex = itemIndex
+                    )
+                    if (ctx is androidx.fragment.app.FragmentActivity) {
+                        ctx.startActivityForResult(intent, 9001)
+                    } else {
+                        ctx.startActivity(intent)
+                    }
+                }
                 descendantFocusability = ViewGroup.FOCUS_AFTER_DESCENDANTS
                 isFocusable = true
                 isFocusableInTouchMode = true

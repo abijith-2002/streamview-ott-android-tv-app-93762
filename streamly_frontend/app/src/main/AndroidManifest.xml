@@ -39,6 +39,12 @@
             android:name=".MainActivity"
             android:exported="true"
             android:screenOrientation="landscape" />
+
+        <!-- ContentInfoActivity: WebView-based details screen -->
+        <activity
+            android:name=".ContentInfoActivity"
+            android:exported="false"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>

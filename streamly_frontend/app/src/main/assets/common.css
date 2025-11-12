@@ -1,0 +1,131 @@
+:root {
+  /* Colors (tokens) */
+  --color-121212: #121212;
+  --color-ffffff: #ffffff;
+  --color-d8d8d8: #d8d8d8;
+  --color-979797: #979797;
+  --color-414141: #414141;
+  --color-477f9b: #477f9b;
+  --color-8d4ca7: #8d4ca7;
+  --color-4271d4: #4271d4;
+  --color-2c2c2c: #2c2c2c;
+  --color-de1717: #de1717;
+  --color-323131: #323131;
+  --color-f80000: #f80000;
+  --color-eb0045: #eb0045;
+  --color-000000: #000000;
+  --color-c60000: #c60000;
+  --color-28292f: #28292f;
+  --color-e84444: #e84444;
+  --color-656767: #656767;
+  --color-dadada: #dadada;
+  --color-ababab: #ababab;
+  --color-7f8282: #7f8282;
+  --color-9b0f0f: #9b0f0f;
+  --color-e1251b: #e1251b;
+  --color-e51a1a: #e51a1a;
+  --color-3f9321: #3f9321;
+  --color-f4f4f4: #f4f4f4;
+  --color-282828: #282828;
+
+  /* Typography variables (typo_0..typo_40) */
+  --typo-0-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif; --typo-0-size: 16px; --typo-0-weight: 500; --typo-0-line-height: 16px; --typo-0-letter-spacing: 0.2666665912px; --typo-0-text-align: left;
+  --typo-1-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif; --typo-1-size: 32.2px; --typo-1-weight: 500; --typo-1-line-height: 36.8px; --typo-1-letter-spacing: 1.2286835909px; --typo-1-text-align: left;
+  --typo-2-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif; --typo-2-size: 18.4px; --typo-2-weight: 500; --typo-2-line-height: 18.4px; --typo-2-letter-spacing: 0.3066665828px; --typo-2-text-align: left;
+  --typo-3-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif; --typo-3-size: 30px; --typo-3-weight: 500; --typo-3-line-height: 32px; --typo-3-letter-spacing: -1.8967741728px; --typo-3-text-align: left;
+  --typo-4-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif; --typo-4-size: 28px; --typo-4-weight: 500; --typo-4-line-height: 32px; --typo-4-letter-spacing: 1.0684205294px; --typo-4-text-align: left;
+  --typo-5-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif; --typo-5-size: 32px; --typo-5-weight: 400; --typo-5-line-height: 32px; --typo-5-letter-spacing: 0px; --typo-5-text-align: left;
+  --typo-6-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif; --typo-6-size: 36px; --typo-6-weight: 700; --typo-6-line-height: 42.1875px; --typo-6-letter-spacing: 0px; --typo-6-text-align: left;
+  --typo-7-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif; --typo-7-size: 30px; --typo-7-weight: 400; --typo-7-line-height: 35.15625px; --typo-7-letter-spacing: 0px; --typo-7-text-align: left;
+  --typo-8-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif; --typo-8-size: 21.333333px; --typo-8-weight: 500; --typo-8-line-height: 21px; --typo-8-letter-spacing: 0px; --typo-8-text-align: left;
+  --typo-9-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif; --typo-9-size: 29px; --typo-9-weight: 400; --typo-9-line-height: 33.984375px; --typo-9-letter-spacing: 0.3815789521px; --typo-9-text-align: left;
+  --typo-10-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif; --typo-10-size: 29px; --typo-10-weight: 700; --typo-10-line-height: 32px; --typo-10-letter-spacing: 0.3815789521px; --typo-10-text-align: center;
+  --typo-11-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif; --typo-11-size: 32px; --typo-11-weight: 800; --typo-11-line-height: 37.5px; --typo-11-letter-spacing: 0px; --typo-11-text-align: right;
+  --typo-12-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif; --typo-12-size: 32px; --typo-12-weight: 800; --typo-12-line-height: 37.5px; --typo-12-letter-spacing: 0px; --typo-12-text-align: left;
+  --typo-13-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif; --typo-13-size: 60px; --typo-13-weight: 400; --typo-13-line-height: 70.3125px; --typo-13-letter-spacing: 0px; --typo-13-text-align: left;
+  --typo-14-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif; --typo-14-size: 25px; --typo-14-weight: 400; --typo-14-line-height: 29.296875px; --typo-14-letter-spacing: 0px; --typo-14-text-align: left;
+  --typo-15-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif; --typo-15-size: 24px; --typo-15-weight: 400; --typo-15-line-height: 32px; --typo-15-letter-spacing: 0px; --typo-15-text-align: center;
+  --typo-16-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif; --typo-16-size: 22px; --typo-16-weight: 500; --typo-16-line-height: 32px; --typo-16-letter-spacing: 0px; --typo-16-text-align: left;
+  --typo-17-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif; --typo-17-size: 28px; --typo-17-weight: 400; --typo-17-line-height: 32.8125px; --typo-17-letter-spacing: 0px; --typo-17-text-align: left;
+  --typo-18-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif; --typo-18-size: 26px; --typo-18-weight: 400; --typo-18-line-height: 39px; --typo-18-letter-spacing: 0px; --typo-18-text-align: left;
+  --typo-19-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif; --typo-19-size: 22px; --typo-19-weight: 500; --typo-19-line-height: 24px; --typo-19-letter-spacing: 0px; --typo-19-text-align: center;
+  --typo-20-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif; --typo-20-size: 20px; --typo-20-weight: 400; --typo-20-line-height: 24px; --typo-20-letter-spacing: 0px; --typo-20-text-align: center;
+  --typo-21-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif; --typo-21-size: 40px; --typo-21-weight: 400; --typo-21-line-height: 46.875px; --typo-21-letter-spacing: 0px; --typo-21-text-align: left;
+  --typo-22-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif; --typo-22-size: 28px; --typo-22-weight: 400; --typo-22-line-height: 32.8125px; --typo-22-letter-spacing: 0px; --typo-22-text-align: right;
+  --typo-23-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif; --typo-23-size: 30px; --typo-23-weight: 500; --typo-23-line-height: 32px; --typo-23-letter-spacing: -1.8967741728px; --typo-23-text-align: left; --typo-23-color: var(--color-ffffff);
+  --typo-24-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif; --typo-24-size: 32px; --typo-24-weight: 400; --typo-24-line-height: 32px; --typo-24-letter-spacing: 0px; --typo-24-text-align: left; --typo-24-color: var(--color-ffffff);
+  --typo-25-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif; --typo-25-size: 36px; --typo-25-weight: 700; --typo-25-line-height: 42.1875px; --typo-25-letter-spacing: 0px; --typo-25-text-align: left; --typo-25-color: var(--color-ffffff);
+  --typo-26-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif; --typo-26-size: 30px; --typo-26-weight: 400; --typo-26-line-height: 35.15625px; --typo-26-letter-spacing: 0px; --typo-26-text-align: left; --typo-26-color: var(--color-ffffff);
+  --typo-27-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif; --typo-27-size: 21.333333px; --typo-27-weight: 500; --typo-27-line-height: 21px; --typo-27-letter-spacing: 0px; --typo-27-text-align: left; --typo-27-color: var(--color-ffffff);
+  --typo-28-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif; --typo-28-size: 29px; --typo-28-weight: 400; --typo-28-line-height: 33.984375px; --typo-28-letter-spacing: 0.3815789521px; --typo-28-text-align: left; --typo-28-color: var(--color-7f8282);
+  --typo-29-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif; --typo-29-size: 29px; --typo-29-weight: 700; --typo-29-line-height: 32px; --typo-29-letter-spacing: 0.3815789521px; --typo-29-text-align: center; --typo-29-color: var(--color-ffffff);
+  --typo-30-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif; --typo-30-size: 32px; --typo-30-weight: 800; --typo-30-line-height: 37.5px; --typo-30-letter-spacing: 0px; --typo-30-text-align: right; --typo-30-color: var(--color-ffffff);
+  --typo-31-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif; --typo-31-size: 32px; --typo-31-weight: 800; --typo-31-line-height: 37.5px; --typo-31-letter-spacing: 0px; --typo-31-text-align: left; --typo-31-color: var(--color-ffffff);
+  --typo-32-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif; --typo-32-size: 60px; --typo-32-weight: 400; --typo-32-line-height: 70.3125px; --typo-32-letter-spacing: 0px; --typo-32-text-align: left; --typo-32-color: var(--color-ffffff);
+  --typo-33-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif; --typo-33-size: 25px; --typo-33-weight: 400; --typo-33-line-height: 29.296875px; --typo-33-letter-spacing: 0px; --typo-33-text-align: left; --typo-33-color: var(--color-ffffff);
+  --typo-34-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif; --typo-34-size: 24px; --typo-34-weight: 400; --typo-34-line-height: 32px; --typo-34-letter-spacing: 0px; --typo-34-text-align: center; --typo-34-color: var(--color-ffffff);
+  --typo-35-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif; --typo-35-size: 22px; --typo-35-weight: 500; --typo-35-line-height: 32px; --typo-35-letter-spacing: 0px; --typo-35-text-align: left; --typo-35-color: var(--color-ffffff);
+  --typo-36-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif; --typo-36-size: 28px; --typo-36-weight: 400; --typo-36-line-height: 32.8125px; --typo-36-letter-spacing: 0px; --typo-36-text-align: left; --typo-36-color: var(--color-ffffff);
+  --typo-37-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif; --typo-37-size: 26px; --typo-37-weight: 400; --typo-37-line-height: 39px; --typo-37-letter-spacing: 0px; --typo-37-text-align: left; --typo-37-color: var(--color-ffffff);
+  --typo-38-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif; --typo-38-size: 22px; --typo-38-weight: 500; --typo-38-line-height: 24px; --typo-38-letter-spacing: 0px; --typo-38-text-align: center; --typo-38-color: var(--color-ffffff);
+  --typo-39-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif; --typo-39-size: 40px; --typo-39-weight: 400; --typo-39-line-height: 46.875px; --typo-39-letter-spacing: 0px; --typo-39-text-align: left; --typo-39-color: var(--color-ffffff);
+  --typo-40-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif; --typo-40-size: 28px; --typo-40-weight: 400; --typo-40-line-height: 32.8125px; --typo-40-letter-spacing: 0px; --typo-40-text-align: right; --typo-40-color: var(--color-ffffff);
+
+  /* Shadows */
+  --shadow-0: 1px 18px 15px 0 rgba(0,0,0,1);
+  --shadow-1: 0 3px 5px 0 rgba(141,76,167,1);
+  --shadow-2: 0 3px 6px 0 rgba(141,76,167,1);
+  --shadow-3: 0 2px 5px 0 rgba(0,0,0,1);
+
+  /* Spacing scale */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+
+  /* Focus */
+  --focus-ring: 0 0 0 3px rgba(66,113,212,0.9), 0 0 1px 5px rgba(0,0,0,0.6);
+}
+
+* { box-sizing: border-box; }
+
+html { height: 100%; }
+body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--color-121212);
+  color: var(--color-ffffff);
+  font-family: var(--typo-5-family);
+}
+
+.screen-container {
+  position: relative;
+  overflow: hidden;
+  transform-origin: 0 0;
+  will-change: transform;
+}
+
+.abs { position: absolute; }
+
+.img,
+.icon {
+  display: block;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+.shadow-3 { box-shadow: var(--shadow-3); }
+.hidden-overflow { overflow: hidden; }
+
+/* Accessibility helpers */
+.kbd-nav :focus { outline: none; box-shadow: var(--focus-ring); border-radius: 8px; }
+.focus-ring { box-shadow: var(--focus-ring); }
+
+/* Utility */
+.visually-hidden {
+  position: absolute !important;
+  height: 1px; width: 1px;
+  overflow: hidden; clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap; border: 0; padding: 0; margin: -1px;
+}

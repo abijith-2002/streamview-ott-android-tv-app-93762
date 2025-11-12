@@ -1,0 +1,138 @@
+:root {
+  --ocean-primary: #374151;
+  --ocean-secondary: #9CA3AF;
+  --ocean-success: #10B981;
+  --ocean-error: #EF4444;
+  --ocean-background: #FFFFFF;
+  --ocean-surface: #F9FAFB;
+  --ocean-text-dark: #111827;
+
+  --color-ffffff: #ffffff;
+  --color-f4f4f4: #f4f4f4;
+  --color-282828: #282828;
+  --color-3f9321: #3f9321;
+
+  /* Typography variables mapped from YAML */
+  --typo-30-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+  --typo-30-size: 32px; --typo-30-weight: 800; --typo-30-line-height: 37.5px; --typo-30-color: var(--color-ffffff);
+  --typo-31-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+  --typo-31-size: 32px; --typo-31-weight: 800; --typo-31-line-height: 37.5px; --typo-31-color: var(--color-ffffff);
+  --typo-32-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+  --typo-32-size: 60px; --typo-32-weight: 400; --typo-32-line-height: 70.3125px; --typo-32-color: var(--color-ffffff);
+  --typo-33-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+  --typo-33-size: 25px; --typo-33-weight: 400; --typo-33-line-height: 29.296875px; --typo-33-color: var(--color-ffffff);
+  --typo-34-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+  --typo-34-size: 24px; --typo-34-weight: 400; --typo-34-line-height: 32px; --typo-34-color: var(--color-ffffff);
+  --typo-35-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+  --typo-35-size: 22px; --typo-35-weight: 500; --typo-35-line-height: 32px; --typo-35-color: var(--color-ffffff);
+  --typo-37-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+  --typo-37-size: 26px; --typo-37-weight: 400; --typo-37-line-height: 39px; --typo-37-color: var(--color-ffffff);
+  --typo-39-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+  --typo-39-size: 40px; --typo-39-weight: 400; --typo-39-line-height: 46.875px; --typo-39-color: var(--color-ffffff);
+  --typo-40-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+  --typo-40-size: 28px; --typo-40-weight: 400; --typo-40-line-height: 32.8125px; --typo-40-color: var(--color-ffffff);
+
+  /* Tokenized style blocks from YAML */
+  --style-32-bg: var(--color-ffffff);
+  --style-32-border-color: var(--color-ffffff);
+  --style-32-border-width: 1px;
+  --style-32-radius: 3px;
+
+  --style-33-bg: var(--color-3f9321);
+  --style-33-radius: 3px;
+
+  --style-36-bg: var(--color-f4f4f4);
+  --style-36-radius: 100px;
+
+  --style-37-bg: var(--color-282828);
+
+  /* Focus ring tuned for TV viewing (bright but not distracting) */
+  --focus-ring: 0 0 0 3px rgba(255,255,255,0.85), 0 0 1px 5px rgba(0,0,0,0.4);
+}
+
+/* Base resets and helpers */
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--ocean-background);
+  color: var(--ocean-text-dark);
+  font-family: var(--typo-33-family);
+}
+.screen {
+  position: relative;
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+  background: var(--ocean-background);
+}
+.abs { position: absolute; }
+
+#content-info-root {
+  transform-origin: 0 0;
+  will-change: transform;
+}
+
+/* Typography utility classes */
+.typo-30 { font-family: var(--typo-30-family); font-size: var(--typo-30-size); font-weight: var(--typo-30-weight); line-height: var(--typo-30-line-height); color: var(--typo-30-color); text-align: right; }
+.typo-31 { font-family: var(--typo-31-family); font-size: var(--typo-31-size); font-weight: var(--typo-31-weight); line-height: var(--typo-31-line-height); color: var(--typo-31-color); text-align: left; }
+.typo-32 { font-family: var(--typo-32-family); font-size: var(--typo-32-size); font-weight: var(--typo-32-weight); line-height: var(--typo-32-line-height); color: var(--typo-32-color); }
+.typo-33 { font-family: var(--typo-33-family); font-size: var(--typo-33-size); font-weight: var(--typo-33-weight); line-height: var(--typo-33-line-height); color: var(--typo-33-color); }
+.typo-34 { font-family: var(--typo-34-family); font-size: var(--typo-34-size); font-weight: var(--typo-34-weight); line-height: var(--typo-34-line-height); color: var(--typo-34-color); text-align: center; }
+.typo-35 { font-family: var(--typo-35-family); font-size: var(--typo-35-size); font-weight: var(--typo-35-weight); line-height: var(--typo-35-line-height); color: var(--typo-35-color); }
+.typo-36 { font-family: var(--typo-33-family); font-size: 28px; font-weight: 400; line-height: 32.8125px; color: var(--color-ffffff); }
+.typo-37 { font-family: var(--typo-37-family); font-size: var(--typo-37-size); font-weight: var(--typo-37-weight); line-height: var(--typo-37-line-height); color: var(--typo-37-color); }
+.typo-38 { font-family: var(--typo-38-family, 'Roboto', sans-serif); font-size: 22px; font-weight: 500; line-height: 24px; color: var(--color-ffffff); }
+.typo-39 { font-family: var(--typo-39-family); font-size: var(--typo-39-size); font-weight: var(--typo-39-weight); line-height: var(--typo-39-line-height); color: var(--typo-39-color); }
+.typo-40 { font-family: var(--typo-40-family); font-size: var(--typo-40-size); font-weight: var(--typo-40-weight); line-height: var(--typo-40-line-height); color: var(--typo-40-color); text-align: right; }
+
+/* Tokenized styles */
+.style-32 { background-color: var(--style-32-bg); border: var(--style-32-border-width) solid var(--style-32-border-color); border-radius: var(--style-32-radius); }
+.style-33 { background-color: var(--style-33-bg); border-radius: var(--style-33-radius); }
+.style-36 { background-color: var(--style-36-bg); border-radius: var(--style-36-radius); }
+.style-37 { background-color: var(--style-37-bg); }
+
+/* Gradient overlay approximating the Figma gradient asset */
+.gradient-overlay {
+  /* Close approximation of I1:541 gradient visual */
+  background: linear-gradient(90deg, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.44) 35%, rgba(0,0,0,0.20) 60%, rgba(0,0,0,0.0) 100%);
+  pointer-events: none;
+}
+
+/* DPAD/Remote focusability */
+.panel-button {
+  outline: none;
+  border-radius: 12px;
+  border: none;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 120ms ease-out, filter 120ms ease-out, box-shadow 120ms ease-out;
+  will-change: transform;
+}
+.panel-button:focus {
+  box-shadow: var(--focus-ring);
+  transform: translateZ(0) scale(1.04);
+}
+.panel-button:active {
+  filter: brightness(0.96);
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .panel-button { transition: none; }
+  .panel-button:focus { transform: none; }
+}
+
+/* Accessibility helper for keyboard users */
+.kbd-nav .panel-button:focus { box-shadow: var(--focus-ring); }
+
+/* Crisp image rendering */
+img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  -ms-interpolation-mode: nearest-neighbor;
+}
+
+/* Remove default outline; we rely on custom focus ring */
+:focus { outline: none; }

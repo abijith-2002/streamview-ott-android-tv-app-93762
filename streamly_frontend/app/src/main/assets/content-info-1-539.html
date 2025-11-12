@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Content Info · Gladiador II</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preload" as="image" href="./figmaimages/figma_image_1_540.png" />
+  <link rel="stylesheet" href="./common.css" />
+  <link rel="stylesheet" href="./content-info-1-539.css" />
+</head>
+<body>
+  <main id="content-info-root" class="screen screen-container" role="main" aria-label="Información del contenido">
+    <!-- Background image (x: 0, y: 0, 1920x1080) -->
+    <img
+      src="./figmaimages/figma_image_1_540.png"
+      alt=""
+      class="abs img"
+      style="left:0;top:0;width:1920px;height:1080px;object-fit:cover;"
+      aria-hidden="true"
+    />
+
+    <!-- Gradient overlay spanning entire screen -->
+    <div
+      class="abs gradient-overlay"
+      style="left:0;top:0;width:1920px;height:1080px;"
+      aria-hidden="true"
+    ></div>
+
+    <!-- System time/date (top-right: x=3896-2172=1724, y=55) -->
+    <section class="abs" aria-label="Hora y fecha del sistema"
+      style="left:1724px;top:55px;width:100px;height:90px;display:flex;flex-direction:column;align-items:flex-end;gap:10px;">
+      <time id="ci-clock" class="typo-39" aria-live="polite">20:44</time>
+      <div id="ci-date" class="typo-40" aria-hidden="true">7 abr.</div>
+    </section>
+
+    <!-- Metadata info panel (x=2268-2172=96, y=108 ; width 1150, height ~590) -->
+    <section aria-label="Panel de metadatos"
+      class="abs"
+      style="left:96px;top:108px;width:1150px;height:auto;">
+      <!-- Row: Channel number + channel small -->
+      <div style="display:flex;align-items:center;gap:16px;height:40px;">
+        <!-- Use SVG asset to match Figma's exact metric for 242 -->
+        <img
+          src="./figmaimages/figma_image_1_542_862_9907_862_9617.svg"
+          alt="Canal 242"
+          width="56"
+          height="38"
+          style="display:block" />
+
+        <div class="typo-31" aria-label="Canal">TNT</div>
+      </div>
+
+      <!-- Program Name (height 70) -->
+      <div style="margin-top:27px;height:70px;">
+        <h1 class="typo-32" style="margin:0;">Gladiador II</h1>
+      </div>
+
+      <!-- Frame 29352: Original title | duration | genres | age tag -->
+      <div style="margin-top:6px;">
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:12px;">
+          <div class="typo-33" aria-label="Título original">Gladiator II</div>
+          <img src="./figmaimages/figma_image_1_542_456_11830.svg" alt="" width="6" height="29" aria-hidden="true" />
+          <div class="typo-33" aria-label="Duración">2 h 28 min</div>
+          <img src="./figmaimages/figma_image_1_542_456_11832.svg" alt="" width="6" height="29" aria-hidden="true" />
+          <div class="typo-33" aria-label="Géneros">Acción, aventura, drama</div>
+          <img src="./figmaimages/figma_image_1_542_456_11834.svg" alt="" width="6" height="29" aria-hidden="true" />
+          <div class="style-32" role="note" aria-label="Restricción de edad: +16"
+               style="display:inline-flex;align-items:center;justify-content:center;height:32px;padding:0 8px;min-width:124px;">
+            <span class="typo-34" style="color:#000;">+ 16 Años</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Frame 29356: MÁS TARDE + hours + replay/record -->
+      <div style="margin-top:12px;">
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+          <div class="style-33" style="display:inline-flex;align-items:center;height:32px;padding:0 12px;">
+            <span class="typo-35" style="color:#fff;">MÁS TARDE</span>
+          </div>
+
+          <!-- Hour group: 20:00 - 22:20 -->
+          <div style="display:flex;align-items:center;gap:6px;">
+            <img src="./figmaimages/figma_image_1_542_456_11839.svg" alt="20:00" width="62" height="32" />
+            <img src="./figmaimages/figma_image_1_542_456_11841.svg" alt="" width="7" height="32" aria-hidden="true" />
+            <img src="./figmaimages/figma_image_1_542_456_11840.svg" alt="22:20" width="62" height="32" />
+          </div>
+
+          <img src="./figmaimages/figma_image_1_542_456_11842.svg" alt="" width="7" height="29" aria-hidden="true" />
+
+          <button class="panel-button style-36"
+                  aria-label="Reanudar desde el inicio"
+                  style="display:inline-flex;align-items:center;justify-content:center;width:104px;height:80px;">
+            <img src="./figmaimages/figma_image_1_542_456_11843_408_11191.svg"
+                 width="40" height="40" alt="" aria-hidden="true"/>
+          </button>
+
+          <img src="./figmaimages/figma_image_1_542_456_11844.svg" alt="" width="7" height="29" aria-hidden="true" />
+
+          <button class="panel-button style-36"
+                  aria-label="Grabar"
+                  style="display:inline-flex;align-items:center;justify-content:center;width:104px;height:80px;">
+            <img src="./figmaimages/figma_image_1_542_456_11845_408_11208.svg"
+                 width="40" height="40" alt="" aria-hidden="true"/>
+          </button>
+        </div>
+      </div>
+
+      <!-- Description (3 lines block) -->
+      <div style="margin-top:24px;max-width:925px;">
+        <p class="typo-37" style="margin:0;">
+          Lucio es obligado a entrar en el Coliseo después de que su hogar sea conquistado por los tiránicos emperadores
+          que ahora dirigen Roma con puño de hierro. Con la ira en su corazón y el futuro del Imperio en juego, Lucio debe
+          mirar hacia atrás para encontrar fuerza y devolver la gloria de Roma a su pueblo.
+        </p>
+      </div>
+
+      <!-- Panel Buttons (5 items) -->
+      <nav aria-label="Acciones" style="margin-top:28px;">
+        <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
+          <!-- Programar -->
+          <button class="panel-button style-36"
+                  aria-label="Programar"
+                  style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:142px;height:156px;">
+            <div class="style-36" style="width:104px;height:80px;display:flex;align-items:center;justify-content:center;">
+              <img src="./figmaimages/figma_image_1_542_456_11853_66_6725_408_11230.svg" width="40" height="40" alt="" aria-hidden="true" />
+            </div>
+            <div class="typo-38" style="margin-top:10px;">Programar</div>
+          </button>
+
+          <!-- Reanudar -->
+          <button class="panel-button style-36"
+                  aria-label="Reanudar"
+                  style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:142px;height:156px;">
+            <div class="style-36" style="width:104px;height:80px;display:flex;align-items:center;justify-content:center;">
+              <img src="./figmaimages/figma_image_1_542_456_11854_66_6741_408_11191.svg" width="40" height="40" alt="" aria-hidden="true" />
+            </div>
+            <div class="typo-38" style="margin-top:10px;">Reanudar</div>
+          </button>
+
+          <!-- Grabar -->
+          <button class="panel-button style-36"
+                  aria-label="Grabar"
+                  style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:142px;height:156px;">
+            <div class="style-36" style="width:104px;height:80px;display:flex;align-items:center;justify-content:center;">
+              <img src="./figmaimages/figma_image_1_542_456_11855_66_6741_408_11208.svg" width="40" height="40" alt="" aria-hidden="true" />
+            </div>
+            <div class="typo-38" style="margin-top:10px;">Grabar</div>
+          </button>
+
+          <!-- Quitar de favoritos -->
+          <button class="panel-button style-36"
+                  aria-label="Quitar de favoritos"
+                  style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:142px;height:156px;">
+            <div class="style-36" style="width:104px;height:80px;display:flex;align-items:center;justify-content:center;">
+              <img src="./figmaimages/figma_image_1_542_456_11856_66_6741_31_35.svg" width="40" height="40" alt="" aria-hidden="true" />
+            </div>
+            <div class="typo-38" style="margin-top:10px;">Favoritos</div>
+          </button>
+
+          <!-- Bloquear -->
+          <button class="panel-button style-36"
+                  aria-label="Bloquear"
+                  style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:142px;height:156px;">
+            <div class="style-36" style="width:104px;height:80px;display:flex;align-items:center;justify-content:center;">
+              <img src="./figmaimages/figma_image_1_542_456_11857_66_6741_408_11218.svg" width="40" height="40" alt="" aria-hidden="true" />
+            </div>
+            <div class="typo-38" style="margin-top:10px;">Bloquear</div>
+          </button>
+
+          <!-- Audio y subtítulos -->
+          <button class="panel-button style-36"
+                  aria-label="Audio y subtítulos"
+                  style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:142px;height:156px;">
+            <div class="style-36" style="width:104px;height:80px;display:flex;align-items:center;justify-content:center;">
+              <img src="./figmaimages/figma_image_1_542_456_11858_66_6741_408_11196.svg" width="40" height="40" alt="" aria-hidden="true" />
+            </div>
+            <div class="typo-38" style="margin-top:10px;">Audio / Sub</div>
+          </button>
+        </div>
+      </nav>
+    </section>
+  </main>
+
+  <script src="./app.js"></script>
+  <script>
+    // Inline bootstrap: expose AndroidBridge payload to window.name for the JS file to consume if needed.
+    (function () {
+      try {
+        if (window.AndroidBridge && typeof window.AndroidBridge.getInitialPayload === 'function') {
+          var payload = window.AndroidBridge.getInitialPayload();
+          window.__ANDROID_BRIDGE_PAYLOAD__ = payload;
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <script src="./content-info-1-539.js"></script>
+</body>
+</html>

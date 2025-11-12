@@ -52,7 +52,26 @@ class ContentRowAdapter(
             // Horizontal content list
             innerRecycler.apply {
                 layoutManager = LinearLayoutManager(itemView.context, RecyclerView.HORIZONTAL, false)
-                adapter = ContentCardAdapter(row.items)
+                adapter = ContentCardAdapter(row.items) { item, itemIndex ->
+                    // Open Content Info screen through activity
+                    val ctx = itemView.context
+                    val rowIndex = (itemView.parent as? RecyclerView)?.getChildAdapterPosition(itemView) ?: RecyclerView.NO_POSITION
+                    val intent = com.example.streamly_frontend.ContentInfoActivity.buildIntent(
+                        ctx = ctx,
+                        title = item.title,
+                        synopsis = "Sinopsis no disponible",
+                        imageUrl = item.imageUrl,
+                        tags = arrayListOf("Popular"),
+                        runtime = "120 min",
+                        rowIndex = rowIndex,
+                        itemIndex = itemIndex
+                    )
+                    if (ctx is androidx.fragment.app.FragmentActivity) {
+                        ctx.startActivityForResult(intent, 9001)
+                    } else {
+                        ctx.startActivity(intent)
+                    }
+                }
                 descendantFocusability = ViewGroup.FOCUS_AFTER_DESCENDANTS
                 isFocusable = true
                 isFocusableInTouchMode = true
