@@ -1,70 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Base application theme for Android TV -->
-    <style name="AppTheme" parent="Theme.Leanback">
-        <!-- Apply dark background globally -->
-        <item name="android:windowBackground">@color/ocean_background</item>
-        <item name="android:colorPrimary">@color/ocean_primary</item>
-        <item name="android:colorAccent">@color/ocean_primary</item>
-        <item name="android:textColorPrimary">@color/ocean_text</item>
-    </style>
 
-    <!-- Splash theme aligned with Ocean Professional (dark) -->
-    <style name="SplashTheme" parent="Theme.Leanback">
-        <item name="android:windowBackground">@color/ocean_background</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:navigationBarColor">@android:color/black</item>
-        <item name="android:textColorPrimary">@color/ocean_text</item>
-    </style>
-
-    <!-- Text Appearances for Home -->
-    <style name="TextAppearance.Streamly.Nav" parent="@android:style/TextAppearance.Medium">
-        <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/ocean_text</item>
-        <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textStyle">normal</item>
-        <item name="android:letterSpacing">-0.01</item>
-        <item name="android:includeFontPadding">false</item>
-    </style>
-
-    <style name="TextAppearance.Streamly.Nav.Focused" parent="@style/TextAppearance.Streamly.Nav">
-        <item name="android:fontFamily">sans-serif-medium</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="TextAppearance.Streamly.RowTitle" parent="@android:style/TextAppearance.Large">
-        <item name="android:textSize">22sp</item>
-        <item name="android:textColor">@color/ocean_text</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
-    </style>
-
-    <style name="TextAppearance.Streamly.CardTitle" parent="@android:style/TextAppearance.Small">
-        <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/ocean_text</item>
-        <item name="android:fontFamily">sans-serif</item>
-    </style>
-
-    <!-- Legacy TV button (kept for any remaining text buttons) -->
-    <style name="TvActionButton" parent="@android:style/Widget.Button">
-        <item name="android:background">@drawable/bg_tv_button_state</item>
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:textSize">@dimen/info_btn_text</item>
-        <item name="android:focusable">true</item>
-        <item name="android:focusableInTouchMode">true</item>
-        <item name="android:paddingLeft">@dimen/info_btn_pad_h</item>
-        <item name="android:paddingRight">@dimen/info_btn_pad_h</item>
-        <item name="android:minHeight">@dimen/info_btn_height</item>
-        <item name="android:gravity">center</item>
-    </style>
-
-    <!-- Icon-only TV button with circular-ish background per Figma style_36 -->
-    <style name="TvIconButton" parent="@android:style/Widget.ImageButton">
+    <!-- Base TV action button style to maintain consistent focus states and tints -->
+    <style name="TvActionButton">
+        <item name="android:padding">8dp</item>
         <item name="android:background">@drawable/bg_tv_button_state</item>
         <item name="android:focusable">true</item>
-        <item name="android:focusableInTouchMode">true</item>
-        <item name="android:padding">16dp</item>
-        <item name="android:minWidth">@dimen/info_btn_height</item>
-        <item name="android:minHeight">@dimen/info_btn_height</item>
-        <item name="android:scaleType">centerInside</item>
+        <item name="android:tint">?attr/colorControlNormal</item>
     </style>
+
 </resources>

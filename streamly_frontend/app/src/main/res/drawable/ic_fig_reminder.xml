@@ -1,11 +1,42 @@
-<?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="40dp"
-    android:height="40dp"
-    android:viewportWidth="40"
-    android:viewportHeight="40">
-    <!-- Simple bell/reminder glyph placeholder -->
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24"
+    android:tint="?attr/colorControlNormal">
+
+    <!-- Outer clock circle (outline only) -->
     <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M20,4c-6.075,0 -11,4.925 -11,11v5l-3,3v2h28v-2l-3,-3v-5c0,-6.075 -4.925,-11 -11,-11zM16,32c0,2.209 1.791,4 4,4s4,-1.791 4,-4h-8z"/>
+        android:fillColor="#00000000"
+        android:strokeColor="?attr/colorOnSurface"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M12,2
+                          a10,10 0 1,0 0,20
+                          a10,10 0 1,0 0,-20" />
+
+    <!-- Clock hour/minute hands -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="?attr/colorOnSurface"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M12,6 L12,12" />
+
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="?attr/colorOnSurface"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M12,12 L16,14" />
+
+    <!-- Small center pin -->
+    <path
+        android:fillColor="?attr/colorOnSurface"
+        android:pathData="M12,11.5
+                          a0.5,0.5 0 1,0 0,1
+                          a0.5,0.5 0 1,0 0,-1" />
 </vector>

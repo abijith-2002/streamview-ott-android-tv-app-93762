@@ -1,13 +1,26 @@
-<?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="40dp"
-    android:height="40dp"
+    android:width="24dp"
+    android:height="24dp"
     android:viewportWidth="24"
-    android:viewportHeight="24">
+    android:viewportHeight="24"
+    android:tint="?attr/colorControlNormal">
+
+    <!-- Outlined heart (no fill) -->
     <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M12,21l-1.45,-1.32C5.4,15.36 2,12.28 2,8.5 2,6 4,4 6.5,4c1.74,0 3.41,0.81 4.5,2.09C12.09,4.81 13.76,4 15.5,4 18,4 20,6 20,8.5c0,3.78 -3.4,6.86 -8.55,11.18L12,21z"/>
-    <path
-        android:fillColor="#111827"
-        android:pathData="M3,3l18,18" />
+        android:fillColor="#00000000"
+        android:strokeColor="?attr/colorOnSurface"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="
+            M12,20
+            L10.55,18.68
+            C6.4,15.08 4,12.93 4,10.25
+            C4,8 5.79,6.2 8.04,6.2
+            C9.35,6.2 10.61,6.81 11.43,7.82
+            C12.25,6.81 13.51,6.2 14.82,6.2
+            C17.07,6.2 18.86,8 18.86,10.25
+            C18.86,12.93 16.46,15.08 12.31,18.69
+            L12,19
+            Z" />
 </vector>

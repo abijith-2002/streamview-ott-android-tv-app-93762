@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Application theme -->
+    <style name="AppTheme" parent="Theme.Leanback">
+        <!-- Ocean Professional color mapping -->
+        <item name="colorPrimary">@color/ocean_primary</item>
+        <item name="colorPrimaryDark">@color/ocean_primary</item>
+        <item name="colorAccent">@color/ocean_secondary</item>
+
+        <!-- Control tint for icons in normal state -->
+        <item name="colorControlNormal">@color/tv_button_normal</item>
+        <item name="colorControlHighlight">@color/tv_button_focused</item>
+        <item name="android:navigationBarColor">@color/colorBackgroundDark</item>
+        <item name="android:statusBarColor">@color/colorBackgroundDark</item>
+
+        <!-- Custom attrs used in drawables -->
+        <item name="colorOnSurface">@color/ocean_text</item>
+        <item name="colorError">@color/ocean_error</item>
+    </style>
+
+    <!-- Splash screen theme -->
+    <style name="SplashTheme" parent="Theme.Leanback">
+        <item name="android:windowBackground">@color/colorBackgroundDark</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:statusBarColor">@color/colorBackgroundDark</item>
+        <item name="android:navigationBarColor">@color/colorBackgroundDark</item>
+    </style>
+
+    <!-- Icon button style used in native content info layout -->
+    <style name="TvIconButton">
+        <item name="android:background">@drawable/bg_tv_button_state</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+        <item name="android:tint">?attr/colorControlNormal</item>
+    </style>
+</resources>

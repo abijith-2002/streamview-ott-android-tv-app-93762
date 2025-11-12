@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Custom attributes used in drawables for outline and error colors -->
+    <attr name="colorOnSurface" format="color" />
+    <attr name="colorError" format="color" />
+</resources>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Content Info action content descriptions -->
+    <string name="cd_programar">Program reminder</string>
+    <string name="cd_replay">Replay</string>
+    <string name="cd_record">Record</string>
+    <string name="cd_unfavorite">Remove from favorites</string>
+    <string name="cd_block">Block content</string>
+    <string name="cd_audio_subtitles">Audio and Subtitles</string>
+
+    <!-- General labels used in multiple layouts -->
+    <string name="streamly">Streamly</string>
+    <string name="content_rails">Content Rails</string>
+    <string name="banner_rail">Banner Rail</string>
+    <string name="top_navigation">Top Navigation</string>
+</resources>

@@ -1,41 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">streamly_frontend</string>
-    <string name="streamly">Streamly</string>
-
-    <!-- Accessibility -->
-    <string name="top_navigation">Top navigation</string>
-    <string name="content_rails">Content rails</string>
-    <string name="banner_rail">Banner rail</string>
-    <string name="banner_rail_short">Banner</string>
-    <string name="content_rails_short">Contenido</string>
-
-    <!-- Content Info actions (legacy text) -->
-    <string name="play">Play</string>
-    <string name="record">Record</string>
-    <string name="action_resume">Resume</string>
-    <string name="action_trailer">Trailer</string>
-    <string name="action_watchlist">Watchlist</string>
-    <string name="action_favorite">Favorite</string>
-
-    <!-- Content Info -->
-    <string name="content_tags">Tags</string>
-
-    <!-- New content descriptions for icon buttons -->
-    <string name="cd_programar">Programar recordatorio</string>
-    <string name="cd_replay">Repetir</string>
-    <string name="cd_record">Grabar</string>
-    <string name="cd_unfavorite">Quitar de favoritos</string>
-    <string name="cd_block">Bloquear</string>
-    <string name="cd_audio_subtitles">Audio y subtítulos</string>
-    <string name="cd_rewind">Retroceder</string>
-
-    <!-- Rating Screen Strings (existing) -->
-    <string name="rating_title">Did you like it?</string>
-    <string name="rating_message">Your vote helps us recommend more content like this.</string>
-    <string name="rating_like">I like it</string>
-    <string name="rating_love">I love it</string>
-    <string name="rating_dislike">I do not like it</string>
-    <string name="rating_close">Close</string>
-    <string name="rating_countdown">Closing in %d seconds</string>
+    <!-- Existing strings should persist; including only keys relevant to actions to ensure presence -->
+    <string name="content_info_action_remind_me">Remind me</string>
+    <string name="content_info_action_favorite">Add to Favorites</string>
+    <string name="content_info_action_record">Record</string>
 </resources>
