@@ -3,7 +3,18 @@
     <string name="app_name">streamly_frontend</string>
     <string name="streamly">Streamly</string>
 
-    <!-- Rating Screen Strings -->
+    <!-- Accessibility -->
+    <string name="top_navigation">Top navigation</string>
+    <string name="content_rails">Content rails</string>
+    <string name="banner_rail">Banner rail</string>
+    <string name="banner_rail_short">Banner</string>
+    <string name="content_rails_short">Contenido</string>
+
+    <!-- Content Info actions -->
+    <string name="play">Play</string>
+    <string name="record">Record</string>
+
+    <!-- Rating Screen Strings (existing) -->
     <string name="rating_title">Did you like it?</string>
     <string name="rating_message">Your vote helps us recommend more content like this.</string>
     <string name="rating_like">I like it</string>
@@ -11,9 +22,4 @@
     <string name="rating_dislike">I do not like it</string>
     <string name="rating_close">Close</string>
     <string name="rating_countdown">Closing in %d seconds</string>
-
-    <!-- Accessibility -->
-    <string name="top_navigation">Top navigation</string>
-    <string name="content_rails">Content rails</string>
-    <string name="banner_rail">Banner rail</string>
 </resources>

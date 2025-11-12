@@ -1,47 +1,33 @@
 package com.example.streamly_frontend
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
-import android.net.Uri
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.KeyEvent
 import android.view.View
-import android.webkit.JavascriptInterface
-import android.webkit.WebChromeClient
-import android.webkit.WebSettings
-import android.webkit.WebView
-import android.webkit.WebViewClient
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
+import com.bumptech.glide.Glide
 
 /**
  * PUBLIC_INTERFACE
- * ContentInfoActivity hosts the HTML Content Info screen (assets/content-info-1-539.html) in a WebView.
- *
- * Data Contract:
- * - Accepts metadata via Intent extras and forwards them through:
- *    1) URL query parameter "payload" as URL-encoded JSON.
- *    2) A postMessage bridge fired on page load via JS interface.
+ * ContentInfoActivity shows a native Android TV Content Info screen (no WebView).
  *
  * Intent Extras:
  *  - EXTRA_TITLE (String)
  *  - EXTRA_SYNOPSIS (String)
  *  - EXTRA_IMAGE_URL (String)
- *  - EXTRA_TAGS (String[]) optional
+ *  - EXTRA_TAGS (ArrayList<String>) optional
  *  - EXTRA_RUNTIME (String) optional
  *  - EXTRA_ROW_INDEX (Int) rail index to restore focus on back
  *  - EXTRA_ITEM_INDEX (Int) item index within rail to restore focus on back
  *
  * Focus Restore Contract:
  * - On BACK press, the activity sets result with row/item indices so Home can restore focus.
- *
- * Manifest:
- * - No special intent filter required. Ensure INTERNET permission already exists.
  */
 class ContentInfoActivity : FragmentActivity() {
-
-    private lateinit var webView: WebView
 
     companion object {
         // PUBLIC_INTERFACE
@@ -82,36 +68,72 @@ class ContentInfoActivity : FragmentActivity() {
         }
     }
 
-    @SuppressLint("SetJavaScriptEnabled")
-    override fun onCreate(savedInstanceState: Bundle?) {
-        // Use app theme
-        super.onCreate(savedInstanceState)
-        webView = WebView(this)
-        webView.setBackgroundColor(Color.BLACK)
-        setContentView(webView)
+    private lateinit var backdrop: ImageView
+    private lateinit var titleText: TextView
+    private lateinit var metadataText: TextView
+    private lateinit var synopsisText: TextView
+    private lateinit var actionPlay: View
+    private lateinit var actionRecord: View
+    private lateinit var clockText: TextView
 
-        val title = intent.getStringExtra(EXTRA_TITLE)
-        val synopsis = intent.getStringExtra(EXTRA_SYNOPSIS)
-        val imageUrl = intent.getStringExtra(EXTRA_IMAGE_URL)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        // Native fixed canvas layout (scaled 0.7x of original Figma)
+        setContentView(R.layout.activity_content_info_native)
+
+        backdrop = findViewById(R.id.info_backdrop)
+        titleText = findViewById(R.id.info_title)
+        metadataText = findViewById(R.id.info_metadata)
+        synopsisText = findViewById(R.id.info_synopsis)
+        actionPlay = findViewById(R.id.btn_play)
+        actionRecord = findViewById(R.id.btn_record)
+        clockText = findViewById(R.id.info_clock)
+
+        val title = intent.getStringExtra(EXTRA_TITLE) ?: ""
+        val synopsis = intent.getStringExtra(EXTRA_SYNOPSIS) ?: ""
+        val imageUrl = intent.getStringExtra(EXTRA_IMAGE_URL) ?: ""
         val tags = intent.getStringArrayListExtra(EXTRA_TAGS) ?: arrayListOf()
         val runtime = intent.getStringExtra(EXTRA_RUNTIME)
 
-        val payloadJson = buildPayloadJson(title, synopsis, imageUrl, tags, runtime)
+        titleText.text = title
+        val chips = tags.joinToString(" • ")
+        val runtimePart = if (!runtime.isNullOrBlank()) " • $runtime" else ""
+        metadataText.text = (chips + runtimePart).trim()
 
-        configureWebView(payloadJson)
+        synopsisText.text = synopsis
+        synopsisText.ellipsize = TextUtils.TruncateAt.END
 
-        // Load local asset with payload via query parameter
-        // Note: the JS will also receive the payload via bridge.
-        val encoded = Uri.encode(payloadJson)
-        webView.loadUrl("file:///android_asset/content-info-1-539.html?payload=$encoded")
+        Glide.with(this)
+            .load(imageUrl)
+            .centerCrop()
+            .placeholder(R.drawable.placeholder_poster)
+            .into(backdrop)
+
+        // DPAD focus defaults to Play button
+        actionPlay.requestFocus()
+
+        // Ensure proper focus movement
+        actionPlay.nextFocusRightId = R.id.btn_record
+        actionRecord.nextFocusLeftId = R.id.btn_play
+
+        // Basic click handlers
+        actionPlay.setOnClickListener {
+            // In real app this would start playback; for now, just finish while preserving focus restore.
+            deliverFocusRestoreResult()
+            finish()
+        }
+        actionRecord.setOnClickListener {
+            // Stub for record action
+            it.isSelected = !it.isSelected
+        }
+
+        // Update a simple clock (HH:MM). For demo, set once; production may use a timer.
+        val time = java.text.SimpleDateFormat("HH:mm", java.util.Locale.getDefault()).format(java.util.Date())
+        clockText.text = time
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         return when (keyCode) {
-            KeyEvent.KEYCODE_DPAD_CENTER, KeyEvent.KEYCODE_ENTER -> {
-                // Let WebView handle ENTER clicks on focused buttons
-                false
-            }
             KeyEvent.KEYCODE_BACK -> {
                 deliverFocusRestoreResult()
                 finish()
@@ -129,64 +151,5 @@ class ContentInfoActivity : FragmentActivity() {
             putExtra(EXTRA_ITEM_INDEX, itemIndex)
         }
         setResult(RESULT_OK, result)
-    }
-
-    @SuppressLint("AddJavascriptInterface")
-    private fun configureWebView(payloadJson: String) {
-        webView.settings.apply {
-            javaScriptEnabled = true
-            domStorageEnabled = true
-            databaseEnabled = true
-            mediaPlaybackRequiresUserGesture = false
-            cacheMode = WebSettings.LOAD_DEFAULT
-            setSupportZoom(false)
-            useWideViewPort = true
-            loadWithOverviewMode = true
-        }
-        // Avoid external navigation
-        webView.webViewClient = object : WebViewClient() {
-            override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
-                return url?.startsWith("file:///android_asset/")?.not() == true
-            }
-        }
-        webView.webChromeClient = WebChromeClient()
-
-        // Bridge to send payload after DOMContentLoaded
-        webView.addJavascriptInterface(object {
-            // PUBLIC_INTERFACE
-            @JavascriptInterface
-            fun getInitialPayload(): String {
-                return payloadJson
-            }
-        }, "AndroidBridge")
-    }
-
-    private fun buildPayloadJson(
-        title: String?,
-        synopsis: String?,
-        imageUrl: String?,
-        tags: List<String>?,
-        runtime: String?
-    ): String {
-        // Minimal escaping for quotes/newlines
-        fun esc(s: String?): String {
-            if (s == null) return ""
-            return s.replace("\\", "\\\\").replace("\"", "\\\"").replace("\n", "\\n")
-        }
-        val safeTitle = esc(title)
-        val safeSynopsis = esc(synopsis)
-        val safeImage = esc(imageUrl)
-        val tagsJson = (tags ?: emptyList()).joinToString(
-            prefix = "[", postfix = "]"
-        ) { "\"${esc(it)}\"" }
-        val safeRuntime = esc(runtime)
-
-        return """{
-  "title":"$safeTitle",
-  "synopsis":"$safeSynopsis",
-  "image":"$safeImage",
-  "tags":$tagsJson,
-  "runtime":"$safeRuntime"
-}""".trimIndent()
     }
 }

@@ -47,4 +47,15 @@
         <item name="android:textColor">@color/ocean_text</item>
         <item name="android:fontFamily">sans-serif</item>
     </style>
+
+    <!-- TV button for actions -->
+    <style name="TvActionButton" parent="@android:style/Widget.Button">
+        <item name="android:background">@drawable/bg_tv_button_state</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/info_btn_text</item>
+        <item name="android:focusable">true</item>
+        <item name="android:focusableInTouchMode">true</item>
+        <item name="android:paddingLeft">@dimen/info_btn_pad_h</item>
+        <item name="android:paddingRight">@dimen/info_btn_pad_h</item>
+    </style>
 </resources>

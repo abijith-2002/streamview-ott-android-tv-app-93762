@@ -40,7 +40,7 @@
             android:exported="true"
             android:screenOrientation="landscape" />
 
-        <!-- ContentInfoActivity: WebView-based details screen -->
+        <!-- ContentInfoActivity: Native details screen -->
         <activity
             android:name=".ContentInfoActivity"
             android:exported="false"

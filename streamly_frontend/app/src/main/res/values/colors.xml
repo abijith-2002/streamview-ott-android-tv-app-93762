@@ -26,6 +26,9 @@
     <color name="ocean_surface">#1F2937</color>
     <color name="ocean_text">#F9FAFB</color>
 
+    <!-- Secondary text used on Content Info metadata -->
+    <color name="secondaryTextColor">#B3FFFFFF</color>
+
     <!-- Brand color for 'Claro-' prefix in brand text -->
     <color name="brand_claro_red">#E1251B</color>
 </resources>
