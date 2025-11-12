@@ -48,9 +48,24 @@
         scale = 1;
       }
 
+      // Compose with base UI scale from CSS variable
+      var uiScale = 1;
+      try {
+        var csRoot = getComputedStyle(document.documentElement);
+        var rawUi = csRoot.getPropertyValue('--ui-scale').trim();
+        if (rawUi) {
+          var parsedUi = parseFloat(rawUi);
+          if (!isNaN(parsedUi) && parsedUi > 0) {
+            uiScale = parsedUi;
+          }
+        }
+      } catch (e) { /* ignore */ }
+
+      var finalScale = uiScale * scale;
+
       // Apply translate3d(0,0,0) for GPU compositing and set transform-origin to top-left
       canvas.style.transformOrigin = '0 0';
-      canvas.style.transform = 'translate3d(0,0,0) scale(' + scale + ')';
+      canvas.style.transform = 'translate3d(0,0,0) scale(' + finalScale + ')';
 
       // Explicitly set size to the design dimensions
       canvas.style.width = DESIGN_W + 'px';

@@ -12,6 +12,9 @@
   --color-282828: #282828;
   --color-3f9321: #3f9321;
 
+  /* Global UI scaling: shrink entire UI by ~30% */
+  --ui-scale: 0.7;
+
   /* Typography variables mapped from YAML */
   --typo-30-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif;
   --typo-30-size: 32px; --typo-30-weight: 800; --typo-30-line-height: 37.5px; --typo-30-color: var(--color-ffffff);
@@ -62,6 +65,7 @@ html, body {
   -webkit-text-size-adjust: 100%;
   color: var(--ocean-text-dark);
   font-family: var(--typo-33-family);
+  font-size: 70%; /* compound with canvas transform scale for uniform text reduction */
 }
 
 /* Viewport container: centers the fixed-size canvas and applies overscan-safe padding */
@@ -76,6 +80,7 @@ html, body {
   padding: calc(100vh * var(--overscan)) calc(100vw * var(--overscan));
   box-sizing: border-box;
   overflow: hidden; /* ensure no internal scroll */
+  touch-action: none; /* prevents accidental panning in some environments */
 }
 
 /* Fixed-size virtual canvas sized to 1920x1080 (design resolution) */
@@ -89,6 +94,7 @@ html, body {
   will-change: transform; /* Hint to the browser for perf */
   overflow: hidden; /* keep children clipped within */
   background: var(--ocean-background);
+  transform: scale(var(--ui-scale)); /* base UI shrink; JS will compose viewport scale on top */
 }
 
 /* Ensure all absolutely positioned elements stay inside the canvas bounds */
@@ -141,7 +147,7 @@ html, body {
 }
 .panel-button:focus {
   box-shadow: var(--focus-ring);
-  transform: translateZ(0) scale(1.04);
+  transform: translateZ(0) scale(1.03);
 }
 .panel-button:active {
   filter: brightness(0.96);
