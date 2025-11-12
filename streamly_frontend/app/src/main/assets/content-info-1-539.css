@@ -50,27 +50,57 @@
   --focus-ring: 0 0 0 3px rgba(255,255,255,0.85), 0 0 1px 5px rgba(0,0,0,0.4);
 }
 
-/* Base resets and helpers */
+/* Global reset and no-scroll */
 * { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; }
-body {
-  background: var(--ocean-background);
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden; /* Prevent any scrolling */
+  background: #111827;
+  -webkit-text-size-adjust: 100%;
   color: var(--ocean-text-dark);
   font-family: var(--typo-33-family);
 }
-.screen {
-  position: relative;
+
+/* Viewport container: centers the fixed-size canvas and applies overscan-safe padding */
+.ci-viewport {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #111827;
+  --overscan: 0.06; /* 6% overscan-safe padding */
+  padding: calc(100vh * var(--overscan)) calc(100vw * var(--overscan));
+  box-sizing: border-box;
+  overflow: hidden; /* ensure no internal scroll */
+}
+
+/* Fixed-size virtual canvas sized to 1920x1080 (design resolution) */
+.ci-canvas {
+  position: absolute;
+  left: 0;
+  top: 0;
   width: 1920px;
   height: 1080px;
-  overflow: hidden;
+  transform-origin: 0 0; /* Top-left to keep DPAD focus predictable */
+  will-change: transform; /* Hint to the browser for perf */
+  overflow: hidden; /* keep children clipped within */
   background: var(--ocean-background);
 }
-.abs { position: absolute; }
 
-#content-info-root {
-  transform-origin: 0 0;
-  will-change: transform;
+/* Ensure all absolutely positioned elements stay inside the canvas bounds */
+.ci-canvas * {
+  max-width: 1920px;
+  max-height: 1080px;
 }
+
+/* Legacy helpers preserved and scoped to canvas */
+.screen { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: var(--ocean-background); }
+.abs { position: absolute; }
+#content-info-root { transform-origin: 0 0; will-change: transform; }
 
 /* Typography utility classes */
 .typo-30 { font-family: var(--typo-30-family); font-size: var(--typo-30-size); font-weight: var(--typo-30-weight); line-height: var(--typo-30-line-height); color: var(--typo-30-color); text-align: right; }
@@ -93,7 +123,6 @@ body {
 
 /* Gradient overlay approximating the Figma gradient asset */
 .gradient-overlay {
-  /* Close approximation of I1:541 gradient visual */
   background: linear-gradient(90deg, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.44) 35%, rgba(0,0,0,0.20) 60%, rgba(0,0,0,0.0) 100%);
   pointer-events: none;
 }
@@ -118,6 +147,17 @@ body {
   filter: brightness(0.96);
 }
 
+/* Focus styles should remain visible within scaled area; avoid offset pushing outside */
+:focus {
+  outline: 2px solid var(--ocean-success);
+  outline-offset: 0; /* keep within bounds */
+}
+
+/* Optional: focus ring glow that scales visually without offset issues */
+.ci-focus-ring {
+  box-shadow: 0 0 0 3px rgba(16,185,129,0.9);
+}
+
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   .panel-button { transition: none; }
@@ -128,11 +168,11 @@ body {
 .kbd-nav .panel-button:focus { box-shadow: var(--focus-ring); }
 
 /* Crisp image rendering */
-img {
+img, canvas, svg, video {
   image-rendering: -webkit-optimize-contrast;
   image-rendering: crisp-edges;
   -ms-interpolation-mode: nearest-neighbor;
 }
 
-/* Remove default outline; we rely on custom focus ring */
-:focus { outline: none; }
+/* Remove any min constraints that could cause scroll */
+body, .ci-viewport { min-width: 0; min-height: 0; }
