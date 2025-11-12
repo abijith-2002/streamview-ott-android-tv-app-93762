@@ -71,9 +71,14 @@ class ContentInfoActivity : FragmentActivity() {
     private lateinit var backdrop: ImageView
     private lateinit var titleText: TextView
     private lateinit var metadataText: TextView
+    private lateinit var tagsText: TextView
     private lateinit var synopsisText: TextView
     private lateinit var actionPlay: View
+    private lateinit var actionResume: View
+    private lateinit var actionTrailer: View
     private lateinit var actionRecord: View
+    private lateinit var actionWatchlist: View
+    private lateinit var actionFavorite: View
     private lateinit var clockText: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,9 +89,14 @@ class ContentInfoActivity : FragmentActivity() {
         backdrop = findViewById(R.id.info_backdrop)
         titleText = findViewById(R.id.info_title)
         metadataText = findViewById(R.id.info_metadata)
+        tagsText = findViewById(R.id.info_tags)
         synopsisText = findViewById(R.id.info_synopsis)
         actionPlay = findViewById(R.id.btn_play)
+        actionResume = findViewById(R.id.btn_resume)
+        actionTrailer = findViewById(R.id.btn_trailer)
         actionRecord = findViewById(R.id.btn_record)
+        actionWatchlist = findViewById(R.id.btn_watchlist)
+        actionFavorite = findViewById(R.id.btn_favorite)
         clockText = findViewById(R.id.info_clock)
 
         val title = intent.getStringExtra(EXTRA_TITLE) ?: ""
@@ -100,6 +110,7 @@ class ContentInfoActivity : FragmentActivity() {
         val runtimePart = if (!runtime.isNullOrBlank()) " • $runtime" else ""
         metadataText.text = (chips + runtimePart).trim()
 
+        tagsText.text = tags.joinToString("   ") { it.uppercase() }
         synopsisText.text = synopsis
         synopsisText.ellipsize = TextUtils.TruncateAt.END
 
@@ -112,18 +123,41 @@ class ContentInfoActivity : FragmentActivity() {
         // DPAD focus defaults to Play button
         actionPlay.requestFocus()
 
-        // Ensure proper focus movement
-        actionPlay.nextFocusRightId = R.id.btn_record
-        actionRecord.nextFocusLeftId = R.id.btn_play
+        // Ensure proper focus movement across all 6 actions in a loop
+        actionPlay.nextFocusRightId = R.id.btn_resume
+        actionResume.nextFocusLeftId = R.id.btn_play
+        actionResume.nextFocusRightId = R.id.btn_trailer
+        actionTrailer.nextFocusLeftId = R.id.btn_resume
+        actionTrailer.nextFocusRightId = R.id.btn_record
+        actionRecord.nextFocusLeftId = R.id.btn_trailer
+        actionRecord.nextFocusRightId = R.id.btn_watchlist
+        actionWatchlist.nextFocusLeftId = R.id.btn_record
+        actionWatchlist.nextFocusRightId = R.id.btn_favorite
+        actionFavorite.nextFocusLeftId = R.id.btn_watchlist
+        actionFavorite.nextFocusRightId = R.id.btn_play
 
         // Basic click handlers
         actionPlay.setOnClickListener {
-            // In real app this would start playback; for now, just finish while preserving focus restore.
             deliverFocusRestoreResult()
             finish()
         }
+        actionResume.setOnClickListener {
+            deliverFocusRestoreResult()
+            finish()
+        }
+        actionTrailer.setOnClickListener {
+            // Stub
+        }
         actionRecord.setOnClickListener {
             // Stub for record action
+            it.isSelected = !it.isSelected
+        }
+        actionWatchlist.setOnClickListener {
+            // Stub toggle
+            it.isSelected = !it.isSelected
+        }
+        actionFavorite.setOnClickListener {
+            // Stub toggle
             it.isSelected = !it.isSelected
         }
 

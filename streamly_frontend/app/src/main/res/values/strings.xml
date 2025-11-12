@@ -13,6 +13,13 @@
     <!-- Content Info actions -->
     <string name="play">Play</string>
     <string name="record">Record</string>
+    <string name="action_resume">Resume</string>
+    <string name="action_trailer">Trailer</string>
+    <string name="action_watchlist">Watchlist</string>
+    <string name="action_favorite">Favorite</string>
+
+    <!-- Content Info -->
+    <string name="content_tags">Tags</string>
 
     <!-- Rating Screen Strings (existing) -->
     <string name="rating_title">Did you like it?</string>

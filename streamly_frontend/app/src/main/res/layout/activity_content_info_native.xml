@@ -1,24 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  Native Content Info layout for Android TV.
+  Matches Figma vertical order and spacing:
+   1) Channel label (e.g., "242 TNT") top-left
+   2) Title directly beneath
+   3) Metadata rows (runtime, year, rating) and tags/chips
+   4) Synopsis
+   5) Six action buttons in a single row with exact sizing and spacing
+  Uses overscan-safe margins and no scrolling at 1080p.
+-->
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/content_info_native_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackgroundDark">
+    android:background="@color/colorBackgroundDark"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
-    <!-- Backdrop image -->
+    <!-- Backdrop -->
     <ImageView
         android:id="@+id/info_backdrop"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:contentDescription="@null"
         android:scaleType="centerCrop"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- Gradient overlay bottom -->
+    <!-- Bottom gradient to improve legibility -->
     <View
         android:id="@+id/info_gradient"
         android:layout_width="0dp"
@@ -28,7 +41,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- Top right clock -->
+    <!-- Top-right clock -->
     <TextView
         android:id="@+id/info_clock"
         android:layout_width="wrap_content"
@@ -37,12 +50,43 @@
         android:textSize="@dimen/info_clock_text"
         android:padding="@dimen/info_clock_pad"
         android:fontFamily="sans-serif-medium"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="@dimen/info_margin_outer"
-        android:layout_marginEnd="@dimen/info_margin_outer"/>
+        android:layout_marginEnd="@dimen/info_margin_outer"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- Title -->
+    <!-- Content column anchored with overscan-safe margins -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintGuide_begin="@dimen/info_margin_outer"
+        android:orientation="vertical"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintGuide_begin="@dimen/info_margin_outer"
+        android:orientation="horizontal"/>
+
+    <!-- 1) Channel label -->
+    <TextView
+        android:id="@+id/info_channel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="242 TNT"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/info_channel_text"
+        android:fontFamily="sans-serif-medium"
+        android:letterSpacing="0.02"
+        android:maxLines="1"
+        android:layout_marginTop="@dimen/info_spacing_small"
+        app:layout_constraintTop_toBottomOf="@id/guideline_top"
+        app:layout_constraintStart_toStartOf="@id/guideline_start"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- 2) Title just under channel -->
     <TextView
         android:id="@+id/info_title"
         android:layout_width="0dp"
@@ -50,55 +94,69 @@
         android:textColor="@android:color/white"
         android:textSize="@dimen/info_title_text"
         android:fontFamily="sans-serif-medium"
-        android:maxLines="1"
-        app:layout_constraintBottom_toTopOf="@+id/info_metadata"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="@dimen/info_margin_outer"
-        android:layout_marginEnd="@dimen/info_margin_outer"
-        android:layout_marginBottom="@dimen/info_spacing_small"/>
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:layout_marginTop="@dimen/info_spacing_small"
+        app:layout_constraintTop_toBottomOf="@id/info_channel"
+        app:layout_constraintStart_toStartOf="@id/guideline_start"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- Metadata chips/row -->
+    <!-- 3) Metadata row (compact, muted) -->
     <TextView
         android:id="@+id/info_metadata"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textColor="@color/secondaryTextColor"
         android:textSize="@dimen/info_meta_text"
+        android:fontFamily="sans-serif"
         android:maxLines="1"
-        app:layout_constraintBottom_toTopOf="@+id/info_synopsis"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="@dimen/info_margin_outer"
-        android:layout_marginEnd="@dimen/info_margin_outer"
-        android:layout_marginBottom="@dimen/info_spacing_small"/>
+        android:ellipsize="end"
+        android:layout_marginTop="@dimen/info_spacing_small"
+        app:layout_constraintTop_toBottomOf="@id/info_title"
+        app:layout_constraintStart_toStartOf="@id/guideline_start"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- Synopsis -->
+    <!-- 3b) Tags/Chips line -->
+    <TextView
+        android:id="@+id/info_tags"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/info_tags_text"
+        android:fontFamily="sans-serif"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:layout_marginTop="@dimen/info_spacing_small"
+        app:layout_constraintTop_toBottomOf="@id/info_metadata"
+        app:layout_constraintStart_toStartOf="@id/guideline_start"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- 4) Synopsis -->
     <TextView
         android:id="@+id/info_synopsis"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textColor="@android:color/white"
         android:textSize="@dimen/info_synopsis_text"
-        android:maxLines="4"
-        app:layout_constraintBottom_toTopOf="@+id/info_actions"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="@dimen/info_margin_outer"
-        android:layout_marginEnd="@dimen/info_margin_outer"
-        android:layout_marginBottom="@dimen/info_spacing_large"/>
+        android:fontFamily="sans-serif"
+        android:maxLines="5"
+        android:ellipsize="end"
+        android:layout_marginTop="@dimen/info_spacing_large"
+        app:layout_constraintTop_toBottomOf="@id/info_tags"
+        app:layout_constraintStart_toStartOf="@id/guideline_start"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- Actions row -->
+    <!-- 5) Actions: 6 buttons with exact spacing and focus order -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/info_actions"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/info_spacing_xlarge"
+        android:layout_marginBottom="@dimen/info_margin_outer"
+        app:layout_constraintTop_toBottomOf="@id/info_synopsis"
+        app:layout_constraintStart_toStartOf="@id/guideline_start"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="@dimen/info_margin_outer"
-        android:layout_marginEnd="@dimen/info_margin_outer"
-        android:layout_marginBottom="@dimen/info_margin_outer">
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <Button
             android:id="@+id/btn_play"
@@ -106,9 +164,34 @@
             android:layout_width="@dimen/info_btn_width"
             android:layout_height="@dimen/info_btn_height"
             android:text="@string/play"
-            android:nextFocusRight="@id/btn_record"
+            android:nextFocusRight="@id/btn_resume"
+            android:nextFocusLeft="@id/btn_favorite"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
+
+        <Button
+            android:id="@+id/btn_resume"
+            style="@style/TvActionButton"
+            android:layout_width="@dimen/info_btn_width"
+            android:layout_height="@dimen/info_btn_height"
+            android:text="@string/action_resume"
+            android:nextFocusLeft="@id/btn_play"
+            android:nextFocusRight="@id/btn_trailer"
+            app:layout_constraintStart_toEndOf="@id/btn_play"
+            app:layout_constraintTop_toTopOf="@id/btn_play"
+            android:layout_marginStart="@dimen/info_btn_gap"/>
+
+        <Button
+            android:id="@+id/btn_trailer"
+            style="@style/TvActionButton"
+            android:layout_width="@dimen/info_btn_width"
+            android:layout_height="@dimen/info_btn_height"
+            android:text="@string/action_trailer"
+            android:nextFocusLeft="@id/btn_resume"
+            android:nextFocusRight="@id/btn_record"
+            app:layout_constraintStart_toEndOf="@id/btn_resume"
+            app:layout_constraintTop_toTopOf="@id/btn_play"
+            android:layout_marginStart="@dimen/info_btn_gap"/>
 
         <Button
             android:id="@+id/btn_record"
@@ -116,11 +199,35 @@
             android:layout_width="@dimen/info_btn_width"
             android:layout_height="@dimen/info_btn_height"
             android:text="@string/record"
-            android:nextFocusLeft="@id/btn_play"
-            app:layout_constraintStart_toEndOf="@id/btn_play"
+            android:nextFocusLeft="@id/btn_trailer"
+            android:nextFocusRight="@id/btn_watchlist"
+            app:layout_constraintStart_toEndOf="@id/btn_trailer"
             app:layout_constraintTop_toTopOf="@id/btn_play"
-            android:layout_marginStart="@dimen/info_spacing_large"/>
+            android:layout_marginStart="@dimen/info_btn_gap"/>
 
+        <Button
+            android:id="@+id/btn_watchlist"
+            style="@style/TvActionButton"
+            android:layout_width="@dimen/info_btn_width"
+            android:layout_height="@dimen/info_btn_height"
+            android:text="@string/action_watchlist"
+            android:nextFocusLeft="@id/btn_record"
+            android:nextFocusRight="@id/btn_favorite"
+            app:layout_constraintStart_toEndOf="@id/btn_record"
+            app:layout_constraintTop_toTopOf="@id/btn_play"
+            android:layout_marginStart="@dimen/info_btn_gap"/>
+
+        <Button
+            android:id="@+id/btn_favorite"
+            style="@style/TvActionButton"
+            android:layout_width="@dimen/info_btn_width"
+            android:layout_height="@dimen/info_btn_height"
+            android:text="@string/action_favorite"
+            android:nextFocusLeft="@id/btn_watchlist"
+            android:nextFocusRight="@id/btn_play"
+            app:layout_constraintStart_toEndOf="@id/btn_watchlist"
+            app:layout_constraintTop_toTopOf="@id/btn_play"
+            android:layout_marginStart="@dimen/info_btn_gap"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

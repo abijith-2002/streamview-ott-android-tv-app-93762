@@ -57,5 +57,7 @@
         <item name="android:focusableInTouchMode">true</item>
         <item name="android:paddingLeft">@dimen/info_btn_pad_h</item>
         <item name="android:paddingRight">@dimen/info_btn_pad_h</item>
+        <item name="android:minHeight">@dimen/info_btn_height</item>
+        <item name="android:gravity">center</item>
     </style>
 </resources>

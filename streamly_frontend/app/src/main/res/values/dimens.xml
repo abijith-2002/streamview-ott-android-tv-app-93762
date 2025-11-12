@@ -1,20 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- 0.7x of typical large values -->
+    <!-- Overscan-safe outer margin and spacing (scaled ~0.7 from Figma 1920x1080) -->
     <dimen name="info_margin_outer">48dp</dimen>
     <dimen name="info_spacing_small">8dp</dimen>
     <dimen name="info_spacing_large">16dp</dimen>
+    <dimen name="info_spacing_xlarge">24dp</dimen>
 
+    <!-- Typography -->
+    <dimen name="info_channel_text">20sp</dimen>
     <dimen name="info_title_text">32sp</dimen>
     <dimen name="info_meta_text">18sp</dimen>
+    <dimen name="info_tags_text">18sp</dimen>
     <dimen name="info_synopsis_text">20sp</dimen>
     <dimen name="info_clock_text">22sp</dimen>
     <dimen name="info_clock_pad">8dp</dimen>
 
+    <!-- Actions -->
     <dimen name="info_btn_width">220dp</dimen>
     <dimen name="info_btn_height">64dp</dimen>
     <dimen name="info_btn_text">20sp</dimen>
     <dimen name="info_btn_pad_h">16dp</dimen>
+    <dimen name="info_btn_gap">16dp</dimen>
 
+    <!-- Backdrop gradient height -->
     <dimen name="info_gradient_height">360dp</dimen>
 </resources>
