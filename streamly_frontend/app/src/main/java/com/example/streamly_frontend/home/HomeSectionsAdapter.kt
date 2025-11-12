@@ -131,32 +131,9 @@ class HomeSectionsAdapter(
             val adapter = TopNavAdapter(categories) { /* future: filter rails */ }
             topNav.apply {
                 // Use a Flow-like layout that wraps items into multiple rows if needed.
-                // Since RecyclerView doesn't have FlowLayoutManager by default, we simulate wrapping
-                // by using a Flexbox-like approach with a custom LayoutManager fallback to GridAutoFit.
-                // Here, we approximate using a GridLayoutManager with dynamic span count based on width.
-                val gridLm = object : androidx.recyclerview.widget.GridLayoutManager(ctx, 1, RecyclerView.HORIZONTAL, false) {
-                    private var lastWidth = -1
-                    private var lastSpan = -1
-                    override fun onLayoutChildren(recycler: RecyclerView.Recycler?, state: RecyclerView.State?) {
-                        super.onLayoutChildren(recycler, state)
-                        val w = width
-                        if (w > 0 && w != lastWidth && adapter != null) {
-                            lastWidth = w
-                            // Estimate item width using a baseline (label ~16sp + 20dp padding ≈ 64-120dp).
-                            // Compute a span count that auto-fits items per row, forcing wrap to multiple rows.
-                            val density = context.resources.displayMetrics.density
-                            val estItemMinDp = 88f // min pill width target
-                            val estItemMinPx = (estItemMinDp * density).toInt().coerceAtLeast(1)
-                            val newSpan = (w / estItemMinPx).coerceAtLeast(1)
-                            if (newSpan != lastSpan) {
-                                lastSpan = newSpan
-                                spanCount = newSpan
-                                orientation = RecyclerView.VERTICAL
-                                requestLayout()
-                            }
-                        }
-                    }
-                }
+                // IMPORTANT: Do NOT mutate spanCount/orientation during layout passes.
+                // We'll compute spans after measurement via OnGlobalLayout and post().
+                val gridLm = androidx.recyclerview.widget.GridLayoutManager(ctx, /*spanCount=*/1, RecyclerView.VERTICAL, /*reverseLayout=*/false)
                 layoutManager = gridLm
                 this.adapter = adapter
                 descendantFocusability = ViewGroup.FOCUS_AFTER_DESCENDANTS
@@ -165,6 +142,42 @@ class HomeSectionsAdapter(
                 clipToPadding = false
                 clipChildren = false
 
+                // Defer span computation to avoid IllegalStateException during compute/layout.
+                // This ensures no mutations in onLayoutChildren.
+                val viewTreeObserver = viewTreeObserver
+                val spanUpdater = object : android.view.ViewTreeObserver.OnGlobalLayoutListener {
+                    private var lastWidth = -1
+                    private var lastSpan = -1
+                    override fun onGlobalLayout() {
+                        val w = width
+                        if (w <= 0 || adapter == null) return
+                        if (w == lastWidth && lastSpan > 0) return
+
+                        lastWidth = w
+                        val density = context.resources.displayMetrics.density
+                        val estItemMinDp = 88f // min pill width target for pills
+                        val estItemMinPx = (estItemMinDp * density).toInt().coerceAtLeast(1)
+                        val newSpan = (w / estItemMinPx).coerceAtLeast(1)
+
+                        if (newSpan != lastSpan) {
+                            lastSpan = newSpan
+                            // Apply changes on the message queue after current layout finishes.
+                            post {
+                                // Safety: ensure LM is still attached and is the expected type
+                                (layoutManager as? androidx.recyclerview.widget.GridLayoutManager)?.let { lm ->
+                                    if (lm.spanCount != newSpan || lm.orientation != RecyclerView.VERTICAL) {
+                                        lm.spanCount = newSpan
+                                        lm.orientation = RecyclerView.VERTICAL
+                                        // requestLayout safely after post
+                                        requestLayout()
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                viewTreeObserver.addOnGlobalLayoutListener(spanUpdater)
+
                 // DPAD LEFT/RIGHT edge handling no longer needed; wrapping ensures visibility without horizontal scroll.
                 setOnKeyListener(null)
 
@@ -172,11 +185,14 @@ class HomeSectionsAdapter(
                 fun focusInicio() {
                     val inicioIndex = categories.indexOfFirst { it.equals("Inicio", ignoreCase = true) }
                     if (inicioIndex >= 0) {
-                        // For GridLayoutManager (vertical with wrapping), just scroll to position
-                        scrollToPosition(inicioIndex)
+                        // For GridLayoutManager (vertical with wrapping), ensure stable post before actions
                         post {
-                            val vh = findViewHolderForAdapterPosition(inicioIndex)
-                            vh?.itemView?.requestFocus()
+                            // Scroll so 'Inicio' row becomes visible in the wrapped grid
+                            scrollToPosition(inicioIndex)
+                            post {
+                                val vh = findViewHolderForAdapterPosition(inicioIndex)
+                                vh?.itemView?.requestFocus()
+                            }
                         }
                     }
                 }
