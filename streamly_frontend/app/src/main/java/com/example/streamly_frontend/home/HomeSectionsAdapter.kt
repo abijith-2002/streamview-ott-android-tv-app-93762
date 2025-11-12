@@ -137,10 +137,17 @@ class HomeSectionsAdapter(
                 descendantFocusability = ViewGroup.FOCUS_AFTER_DESCENDANTS
                 isFocusable = true
                 isFocusableInTouchMode = true
+                // No horizontal padding so items are tightly enclosed at the edges
+                setPadding(0, paddingTop, 0, paddingBottom)
                 clipToPadding = false
                 clipChildren = false
                 isNestedScrollingEnabled = false
                 overScrollMode = View.OVER_SCROLL_NEVER
+
+                // Remove any existing item decorations that might add edge offsets
+                while (itemDecorationCount > 0) {
+                    removeItemDecorationAt(0)
+                }
 
                 // Helper to find and focus 'Inicio'
                 fun focusInicio() {
