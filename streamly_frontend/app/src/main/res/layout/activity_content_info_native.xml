@@ -58,15 +58,15 @@
     <!-- Overscan-safe guidelines -->
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintGuide_begin="@dimen/info_margin_outer"
         android:orientation="vertical"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_top"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintGuide_begin="@dimen/info_margin_outer"
         android:orientation="horizontal"/>
 
@@ -250,7 +250,7 @@
             android:id="@+id/icon_rewind_info"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:contentDescription="@string/cd_rewind"
+            android:contentDescription="@null"
             android:src="@drawable/ic_fig_replay"
             app:layout_constraintStart_toEndOf="@id/time_end"
             app:layout_constraintTop_toTopOf="@id/badge_later"
@@ -261,7 +261,7 @@
             android:id="@+id/icon_record_info"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:contentDescription="@string/cd_record"
+            android:contentDescription="@null"
             android:src="@drawable/ic_fig_record"
             app:layout_constraintStart_toEndOf="@id/icon_rewind_info"
             app:layout_constraintTop_toTopOf="@id/badge_later"
@@ -299,6 +299,8 @@
         <ImageButton
             android:id="@+id/btn_play"
             style="@style/TvIconButton"
+            android:layout_width="@dimen/info_btn_height"
+            android:layout_height="@dimen/info_btn_height"
             android:src="@drawable/ic_fig_reminder"
             android:contentDescription="@string/cd_programar"
             android:nextFocusRight="@id/btn_resume"
@@ -310,6 +312,8 @@
         <ImageButton
             android:id="@+id/btn_resume"
             style="@style/TvIconButton"
+            android:layout_width="@dimen/info_btn_height"
+            android:layout_height="@dimen/info_btn_height"
             android:src="@drawable/ic_fig_replay"
             android:contentDescription="@string/cd_replay"
             android:nextFocusLeft="@id/btn_play"
@@ -322,6 +326,8 @@
         <ImageButton
             android:id="@+id/btn_trailer"
             style="@style/TvIconButton"
+            android:layout_width="@dimen/info_btn_height"
+            android:layout_height="@dimen/info_btn_height"
             android:src="@drawable/ic_fig_record"
             android:contentDescription="@string/cd_record"
             android:nextFocusLeft="@id/btn_resume"
@@ -334,6 +340,8 @@
         <ImageButton
             android:id="@+id/btn_record"
             style="@style/TvIconButton"
+            android:layout_width="@dimen/info_btn_height"
+            android:layout_height="@dimen/info_btn_height"
             android:src="@drawable/ic_fig_unfavorite"
             android:contentDescription="@string/cd_unfavorite"
             android:nextFocusLeft="@id/btn_trailer"
@@ -346,6 +354,8 @@
         <ImageButton
             android:id="@+id/btn_watchlist"
             style="@style/TvIconButton"
+            android:layout_width="@dimen/info_btn_height"
+            android:layout_height="@dimen/info_btn_height"
             android:src="@drawable/ic_fig_block"
             android:contentDescription="@string/cd_block"
             android:nextFocusLeft="@id/btn_record"
@@ -358,6 +368,8 @@
         <ImageButton
             android:id="@+id/btn_favorite"
             style="@style/TvIconButton"
+            android:layout_width="@dimen/info_btn_height"
+            android:layout_height="@dimen/info_btn_height"
             android:src="@drawable/ic_fig_audio_subs"
             android:contentDescription="@string/cd_audio_subtitles"
             android:nextFocusLeft="@id/btn_watchlist"
