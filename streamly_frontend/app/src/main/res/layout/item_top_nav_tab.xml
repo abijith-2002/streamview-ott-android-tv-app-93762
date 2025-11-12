@@ -13,22 +13,22 @@
     android:focusableInTouchMode="true"
     android:clipToPadding="false">
 
-    <!-- Full-height label, with internal horizontal padding coming from the label itself -->
+    <!-- Full-height label with stable internal padding; includeFontPadding disabled to avoid metric shifts -->
     <TextView
         android:id="@+id/top_nav_label"
         style="@style/TextAppearance.Streamly.Nav"
         android:textAppearance="@drawable/text_appearance_nav_state"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
-        android:paddingTop="6dp"
-        android:paddingBottom="6dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         android:gravity="center_vertical"
         android:textColor="@color/ocean_text"
-        android:ellipsize="none"
+        android:ellipsize="end"
         android:singleLine="true"
-        android:includeFontPadding="true"
+        android:includeFontPadding="false"
         android:foreground="@drawable/ripple_tv"
         android:text="Inicio" />
 
@@ -36,10 +36,10 @@
         android:id="@+id/top_nav_icon"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
-        android:paddingTop="6dp"
-        android:paddingBottom="6dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         android:adjustViewBounds="true"
         android:scaleType="centerInside"
         android:contentDescription="@string/top_navigation"
