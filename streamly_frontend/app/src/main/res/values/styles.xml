@@ -19,7 +19,6 @@
 
     <!-- Text Appearances for Home -->
     <style name="TextAppearance.Streamly.Nav" parent="@android:style/TextAppearance.Medium">
-        <!-- Keep size and spacing identical across states to prevent reflow -->
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/ocean_text</item>
         <item name="android:fontFamily">sans-serif</item>
@@ -28,27 +27,24 @@
         <item name="android:includeFontPadding">false</item>
     </style>
 
-    <!-- Focused variation: only weight changes; size/letterSpacing are inherited unchanged -->
     <style name="TextAppearance.Streamly.Nav.Focused" parent="@style/TextAppearance.Streamly.Nav">
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="TextAppearance.Streamly.RowTitle" parent="@android:style/TextAppearance.Large">
-        <!-- Slightly reduced to maintain hierarchy under brand while conserving space -->
         <item name="android:textSize">22sp</item>
         <item name="android:textColor">@color/ocean_text</item>
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
     <style name="TextAppearance.Streamly.CardTitle" parent="@android:style/TextAppearance.Small">
-        <!-- Slightly reduced for compact rails without hurting readability -->
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/ocean_text</item>
         <item name="android:fontFamily">sans-serif</item>
     </style>
 
-    <!-- TV button for actions -->
+    <!-- Legacy TV button (kept for any remaining text buttons) -->
     <style name="TvActionButton" parent="@android:style/Widget.Button">
         <item name="android:background">@drawable/bg_tv_button_state</item>
         <item name="android:textColor">@android:color/white</item>
@@ -59,5 +55,16 @@
         <item name="android:paddingRight">@dimen/info_btn_pad_h</item>
         <item name="android:minHeight">@dimen/info_btn_height</item>
         <item name="android:gravity">center</item>
+    </style>
+
+    <!-- Icon-only TV button with circular-ish background per Figma style_36 -->
+    <style name="TvIconButton" parent="@android:style/Widget.ImageButton">
+        <item name="android:background">@drawable/bg_tv_button_state</item>
+        <item name="android:focusable">true</item>
+        <item name="android:focusableInTouchMode">true</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:minWidth">@dimen/info_btn_height</item>
+        <item name="android:minHeight">@dimen/info_btn_height</item>
+        <item name="android:scaleType">centerInside</item>
     </style>
 </resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="40dp"
+    android:height="40dp"
+    android:viewportWidth="40"
+    android:viewportHeight="40">
+    <!-- Simple bell/reminder glyph placeholder -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M20,4c-6.075,0 -11,4.925 -11,11v5l-3,3v2h28v-2l-3,-3v-5c0,-6.075 -4.925,-11 -11,-11zM16,32c0,2.209 1.791,4 4,4s4,-1.791 4,-4h-8z"/>
+</vector>

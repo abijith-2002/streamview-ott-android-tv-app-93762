@@ -70,9 +70,17 @@ class ContentInfoActivity : FragmentActivity() {
 
     private lateinit var backdrop: ImageView
     private lateinit var titleText: TextView
-    private lateinit var metadataText: TextView
-    private lateinit var tagsText: TextView
     private lateinit var synopsisText: TextView
+    private lateinit var metaTitle: TextView
+    private lateinit var metaDuration: TextView
+    private lateinit var metaGenre: TextView
+    private lateinit var ageBadge: TextView
+    private lateinit var laterBadge: TextView
+    private lateinit var timeStart: TextView
+    private lateinit var timeEnd: TextView
+    private lateinit var iconRewindInfo: View
+    private lateinit var iconRecordInfo: View
+
     private lateinit var actionPlay: View
     private lateinit var actionResume: View
     private lateinit var actionTrailer: View
@@ -83,14 +91,23 @@ class ContentInfoActivity : FragmentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Native fixed canvas layout (scaled 0.7x of original Figma)
         setContentView(R.layout.activity_content_info_native)
 
         backdrop = findViewById(R.id.info_backdrop)
         titleText = findViewById(R.id.info_title)
-        metadataText = findViewById(R.id.info_metadata)
-        tagsText = findViewById(R.id.info_tags)
         synopsisText = findViewById(R.id.info_synopsis)
+
+        metaTitle = findViewById(R.id.meta_title)
+        metaDuration = findViewById(R.id.meta_duration)
+        metaGenre = findViewById(R.id.meta_genre)
+        ageBadge = findViewById(R.id.meta_age_badge)
+
+        laterBadge = findViewById(R.id.badge_later)
+        timeStart = findViewById(R.id.time_start)
+        timeEnd = findViewById(R.id.time_end)
+        iconRewindInfo = findViewById(R.id.icon_rewind_info)
+        iconRecordInfo = findViewById(R.id.icon_record_info)
+
         actionPlay = findViewById(R.id.btn_play)
         actionResume = findViewById(R.id.btn_resume)
         actionTrailer = findViewById(R.id.btn_trailer)
@@ -103,15 +120,26 @@ class ContentInfoActivity : FragmentActivity() {
         val synopsis = intent.getStringExtra(EXTRA_SYNOPSIS) ?: ""
         val imageUrl = intent.getStringExtra(EXTRA_IMAGE_URL) ?: ""
         val tags = intent.getStringArrayListExtra(EXTRA_TAGS) ?: arrayListOf()
-        val runtime = intent.getStringExtra(EXTRA_RUNTIME)
+        val runtime = intent.getStringExtra(EXTRA_RUNTIME) ?: "2 h 28 min"
 
+        // Populate fields per spec
         titleText.text = title
-        val chips = tags.joinToString(" • ")
-        val runtimePart = if (!runtime.isNullOrBlank()) " • $runtime" else ""
-        metadataText.text = (chips + runtimePart).trim()
+        metaTitle.text = title.ifBlank { "Gladiator II" }
+        metaDuration.text = runtime
+        metaGenre.text = if (tags.isNotEmpty()) {
+            tags.joinToString(", ")
+        } else {
+            "Acción, Aventura, Drama"
+        }
+        ageBadge.text = "+ 16 Años"
 
-        tagsText.text = tags.joinToString("   ") { it.uppercase() }
-        synopsisText.text = synopsis
+        laterBadge.text = "MÁS TARDE"
+        timeStart.text = "20:00"
+        timeEnd.text = "22:20"
+
+        synopsisText.text = synopsis.ifBlank {
+            "Un general romano cae en desgracia y se convierte en gladiador, buscando venganza y honor en la arena."
+        }
         synopsisText.ellipsize = TextUtils.TruncateAt.END
 
         Glide.with(this)
@@ -120,7 +148,7 @@ class ContentInfoActivity : FragmentActivity() {
             .placeholder(R.drawable.placeholder_poster)
             .into(backdrop)
 
-        // DPAD focus defaults to Play button
+        // DPAD focus defaults to first icon button
         actionPlay.requestFocus()
 
         // Ensure proper focus movement across all 6 actions in a loop
@@ -136,32 +164,14 @@ class ContentInfoActivity : FragmentActivity() {
         actionFavorite.nextFocusLeftId = R.id.btn_watchlist
         actionFavorite.nextFocusRightId = R.id.btn_play
 
-        // Basic click handlers
-        actionPlay.setOnClickListener {
-            deliverFocusRestoreResult()
-            finish()
-        }
-        actionResume.setOnClickListener {
-            deliverFocusRestoreResult()
-            finish()
-        }
-        actionTrailer.setOnClickListener {
-            // Stub
-        }
-        actionRecord.setOnClickListener {
-            // Stub for record action
-            it.isSelected = !it.isSelected
-        }
-        actionWatchlist.setOnClickListener {
-            // Stub toggle
-            it.isSelected = !it.isSelected
-        }
-        actionFavorite.setOnClickListener {
-            // Stub toggle
-            it.isSelected = !it.isSelected
-        }
+        // Basic click handlers stubs (toggle for some)
+        actionPlay.setOnClickListener { it.isSelected = !it.isSelected }
+        actionResume.setOnClickListener { it.isSelected = !it.isSelected }
+        actionTrailer.setOnClickListener { it.isSelected = !it.isSelected }
+        actionRecord.setOnClickListener { it.isSelected = !it.isSelected }
+        actionWatchlist.setOnClickListener { it.isSelected = !it.isSelected }
+        actionFavorite.setOnClickListener { it.isSelected = !it.isSelected }
 
-        // Update a simple clock (HH:MM). For demo, set once; production may use a timer.
         val time = java.text.SimpleDateFormat("HH:mm", java.util.Locale.getDefault()).format(java.util.Date())
         clockText.text = time
     }

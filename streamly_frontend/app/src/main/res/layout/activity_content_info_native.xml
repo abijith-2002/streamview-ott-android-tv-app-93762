@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   Native Content Info layout for Android TV.
-  Matches Figma vertical order and spacing:
-   1) Channel label (e.g., "242 TNT") top-left
-   2) Title directly beneath
-   3) Metadata rows (runtime, year, rating) and tags/chips
-   4) Synopsis
-   5) Six action buttons in a single row with exact sizing and spacing
-  Uses overscan-safe margins and no scrolling at 1080p.
+  Updated to:
+   - Replace text buttons with 6 icon buttons exactly as in Figma
+   - Metadata rows under title:
+        Row 1: title | duration | genre | "+ 16 Años" badge
+        Row 2: "MÁS TARDE" badge, start - end, rewind icon, record icon
+   - Ensure DPAD focus order left-to-right with wrap, nextFocus attributes set
+   - No scrolling at 1080p, overscan-safe margins, Ocean Professional theme
 -->
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -55,7 +55,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- Content column anchored with overscan-safe margins -->
+    <!-- Overscan-safe guidelines -->
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_start"
         android:layout_width="wrap_content"
@@ -70,7 +70,7 @@
         app:layout_constraintGuide_begin="@dimen/info_margin_outer"
         android:orientation="horizontal"/>
 
-    <!-- 1) Channel label -->
+    <!-- Channel label -->
     <TextView
         android:id="@+id/info_channel"
         android:layout_width="0dp"
@@ -86,7 +86,7 @@
         app:layout_constraintStart_toStartOf="@id/guideline_start"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- 2) Title just under channel -->
+    <!-- Title -->
     <TextView
         android:id="@+id/info_title"
         android:layout_width="0dp"
@@ -101,37 +101,174 @@
         app:layout_constraintStart_toStartOf="@id/guideline_start"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- 3) Metadata row (compact, muted) -->
-    <TextView
-        android:id="@+id/info_metadata"
+    <!-- Metadata Row A: title | duration | genre | "+ 16 Años" -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/info_meta_row_a"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/secondaryTextColor"
-        android:textSize="@dimen/info_meta_text"
-        android:fontFamily="sans-serif"
-        android:maxLines="1"
-        android:ellipsize="end"
         android:layout_marginTop="@dimen/info_spacing_small"
         app:layout_constraintTop_toBottomOf="@id/info_title"
         app:layout_constraintStart_toStartOf="@id/guideline_start"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <!-- 3b) Tags/Chips line -->
-    <TextView
-        android:id="@+id/info_tags"
+        <TextView
+            android:id="@+id/meta_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gladiator II"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/info_meta_text"
+            android:fontFamily="sans-serif" 
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/meta_divider_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="|"
+            android:textColor="@color/secondaryTextColor"
+            android:textSize="@dimen/info_meta_text"
+            app:layout_constraintStart_toEndOf="@id/meta_title"
+            app:layout_constraintTop_toTopOf="@id/meta_title"
+            android:layout_marginStart="12dp"/>
+
+        <TextView
+            android:id="@+id/meta_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2 h 28 min"
+            android:textColor="@color/secondaryTextColor"
+            android:textSize="@dimen/info_meta_text"
+            app:layout_constraintStart_toEndOf="@id/meta_divider_1"
+            app:layout_constraintTop_toTopOf="@id/meta_title"
+            android:layout_marginStart="12dp"/>
+
+        <TextView
+            android:id="@+id/meta_divider_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="|"
+            android:textColor="@color/secondaryTextColor"
+            android:textSize="@dimen/info_meta_text"
+            app:layout_constraintStart_toEndOf="@id/meta_duration"
+            app:layout_constraintTop_toTopOf="@id/meta_title"
+            android:layout_marginStart="12dp"/>
+
+        <TextView
+            android:id="@+id/meta_genre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Acción, Aventura, Drama"
+            android:textColor="@color/secondaryTextColor"
+            android:textSize="@dimen/info_meta_text"
+            app:layout_constraintStart_toEndOf="@id/meta_divider_2"
+            app:layout_constraintTop_toTopOf="@id/meta_title"
+            android:layout_marginStart="12dp"/>
+
+        <!-- Age badge -->
+        <TextView
+            android:id="@+id/meta_age_badge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+ 16 Años"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/info_meta_text"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:background="@drawable/bg_age_badge"
+            app:layout_constraintStart_toEndOf="@id/meta_genre"
+            app:layout_constraintTop_toTopOf="@id/meta_title"
+            android:layout_marginStart="16dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Metadata Row B: MÁS TARDE badge, start - end, rewind icon, record icon -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/info_meta_row_b"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/info_tags_text"
-        android:fontFamily="sans-serif"
-        android:maxLines="1"
-        android:ellipsize="end"
         android:layout_marginTop="@dimen/info_spacing_small"
-        app:layout_constraintTop_toBottomOf="@id/info_metadata"
+        app:layout_constraintTop_toBottomOf="@id/info_meta_row_a"
         app:layout_constraintStart_toStartOf="@id/guideline_start"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <!-- 4) Synopsis -->
+        <!-- Más Tarde badge -->
+        <TextView
+            android:id="@+id/badge_later"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MÁS TARDE"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/info_meta_text"
+            android:fontFamily="sans-serif-medium"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:background="@drawable/bg_later_badge"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <!-- Time range -->
+        <TextView
+            android:id="@+id/time_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="20:00"
+            android:textColor="@color/secondaryTextColor"
+            android:textSize="@dimen/info_meta_text"
+            app:layout_constraintStart_toEndOf="@id/badge_later"
+            app:layout_constraintTop_toTopOf="@id/badge_later"
+            android:layout_marginStart="16dp"/>
+
+        <TextView
+            android:id="@+id/time_dash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:textColor="@color/secondaryTextColor"
+            android:textSize="@dimen/info_meta_text"
+            app:layout_constraintStart_toEndOf="@id/time_start"
+            app:layout_constraintTop_toTopOf="@id/badge_later"
+            android:layout_marginStart="8dp"/>
+
+        <TextView
+            android:id="@+id/time_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="22:20"
+            android:textColor="@color/secondaryTextColor"
+            android:textSize="@dimen/info_meta_text"
+            app:layout_constraintStart_toEndOf="@id/time_dash"
+            app:layout_constraintTop_toTopOf="@id/badge_later"
+            android:layout_marginStart="8dp"/>
+
+        <!-- Rewind icon -->
+        <ImageView
+            android:id="@+id/icon_rewind_info"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:contentDescription="@string/cd_rewind"
+            android:src="@drawable/ic_fig_replay"
+            app:layout_constraintStart_toEndOf="@id/time_end"
+            app:layout_constraintTop_toTopOf="@id/badge_later"
+            android:layout_marginStart="24dp"/>
+
+        <!-- Record icon -->
+        <ImageView
+            android:id="@+id/icon_record_info"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:contentDescription="@string/cd_record"
+            android:src="@drawable/ic_fig_record"
+            app:layout_constraintStart_toEndOf="@id/icon_rewind_info"
+            app:layout_constraintTop_toTopOf="@id/badge_later"
+            android:layout_marginStart="24dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Synopsis -->
     <TextView
         android:id="@+id/info_synopsis"
         android:layout_width="0dp"
@@ -142,11 +279,11 @@
         android:maxLines="5"
         android:ellipsize="end"
         android:layout_marginTop="@dimen/info_spacing_large"
-        app:layout_constraintTop_toBottomOf="@id/info_tags"
+        app:layout_constraintTop_toBottomOf="@id/info_meta_row_b"
         app:layout_constraintStart_toStartOf="@id/guideline_start"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- 5) Actions: 6 buttons with exact spacing and focus order -->
+    <!-- Actions: 6 icon buttons from Figma with DPAD wrap -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/info_actions"
         android:layout_width="0dp"
@@ -158,71 +295,71 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <Button
+        <!-- Programar (Reminder) -->
+        <ImageButton
             android:id="@+id/btn_play"
-            style="@style/TvActionButton"
-            android:layout_width="@dimen/info_btn_width"
-            android:layout_height="@dimen/info_btn_height"
-            android:text="@string/play"
+            style="@style/TvIconButton"
+            android:src="@drawable/ic_fig_reminder"
+            android:contentDescription="@string/cd_programar"
             android:nextFocusRight="@id/btn_resume"
             android:nextFocusLeft="@id/btn_favorite"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
-        <Button
+        <!-- Replay -->
+        <ImageButton
             android:id="@+id/btn_resume"
-            style="@style/TvActionButton"
-            android:layout_width="@dimen/info_btn_width"
-            android:layout_height="@dimen/info_btn_height"
-            android:text="@string/action_resume"
+            style="@style/TvIconButton"
+            android:src="@drawable/ic_fig_replay"
+            android:contentDescription="@string/cd_replay"
             android:nextFocusLeft="@id/btn_play"
             android:nextFocusRight="@id/btn_trailer"
             app:layout_constraintStart_toEndOf="@id/btn_play"
             app:layout_constraintTop_toTopOf="@id/btn_play"
             android:layout_marginStart="@dimen/info_btn_gap"/>
 
-        <Button
+        <!-- Record -->
+        <ImageButton
             android:id="@+id/btn_trailer"
-            style="@style/TvActionButton"
-            android:layout_width="@dimen/info_btn_width"
-            android:layout_height="@dimen/info_btn_height"
-            android:text="@string/action_trailer"
+            style="@style/TvIconButton"
+            android:src="@drawable/ic_fig_record"
+            android:contentDescription="@string/cd_record"
             android:nextFocusLeft="@id/btn_resume"
             android:nextFocusRight="@id/btn_record"
             app:layout_constraintStart_toEndOf="@id/btn_resume"
             app:layout_constraintTop_toTopOf="@id/btn_play"
             android:layout_marginStart="@dimen/info_btn_gap"/>
 
-        <Button
+        <!-- Unfavorite -->
+        <ImageButton
             android:id="@+id/btn_record"
-            style="@style/TvActionButton"
-            android:layout_width="@dimen/info_btn_width"
-            android:layout_height="@dimen/info_btn_height"
-            android:text="@string/record"
+            style="@style/TvIconButton"
+            android:src="@drawable/ic_fig_unfavorite"
+            android:contentDescription="@string/cd_unfavorite"
             android:nextFocusLeft="@id/btn_trailer"
             android:nextFocusRight="@id/btn_watchlist"
             app:layout_constraintStart_toEndOf="@id/btn_trailer"
             app:layout_constraintTop_toTopOf="@id/btn_play"
             android:layout_marginStart="@dimen/info_btn_gap"/>
 
-        <Button
+        <!-- Block -->
+        <ImageButton
             android:id="@+id/btn_watchlist"
-            style="@style/TvActionButton"
-            android:layout_width="@dimen/info_btn_width"
-            android:layout_height="@dimen/info_btn_height"
-            android:text="@string/action_watchlist"
+            style="@style/TvIconButton"
+            android:src="@drawable/ic_fig_block"
+            android:contentDescription="@string/cd_block"
             android:nextFocusLeft="@id/btn_record"
             android:nextFocusRight="@id/btn_favorite"
             app:layout_constraintStart_toEndOf="@id/btn_record"
             app:layout_constraintTop_toTopOf="@id/btn_play"
             android:layout_marginStart="@dimen/info_btn_gap"/>
 
-        <Button
+        <!-- Audio & Subtitles -->
+        <ImageButton
             android:id="@+id/btn_favorite"
-            style="@style/TvActionButton"
-            android:layout_width="@dimen/info_btn_width"
-            android:layout_height="@dimen/info_btn_height"
-            android:text="@string/action_favorite"
+            style="@style/TvIconButton"
+            android:src="@drawable/ic_fig_audio_subs"
+            android:contentDescription="@string/cd_audio_subtitles"
             android:nextFocusLeft="@id/btn_watchlist"
             android:nextFocusRight="@id/btn_play"
             app:layout_constraintStart_toEndOf="@id/btn_watchlist"
