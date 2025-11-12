@@ -25,7 +25,6 @@
         android:paddingBottom="6dp"
         android:gravity="center_vertical"
         android:textColor="@color/ocean_text"
-        android:maxLines="1"
         android:ellipsize="none"
         android:singleLine="true"
         android:includeFontPadding="true"
