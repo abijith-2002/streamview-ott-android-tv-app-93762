@@ -73,10 +73,25 @@ class TopNavAdapter(
             itemView.isFocusable = true
             itemView.isFocusableInTouchMode = true
 
-            // Subtle emphasis on focus: scale text/icon slightly for visibility on dark bg
+            // Remove scale animations to ensure the focus pill/background stays within the 2dp padded container
             itemView.setOnFocusChangeListener { v, hasFocus ->
-                val scale = if (hasFocus) 1.06f else 1.0f
-                v.animate().scaleX(scale).scaleY(scale).setDuration(100L).start()
+                // Maintain stable size; rely solely on the pill background for focus affordance
+                v.scaleX = 1.0f
+                v.scaleY = 1.0f
+            }
+
+            // Inter-item spacing strictly via margins; no edge gaps (first/last = 0)
+            val density = itemView.resources.displayMetrics.density
+            val spacingPx = (12f * density).toInt() // spacing between items
+            val params = (itemView.layoutParams as? RecyclerView.LayoutParams)
+            val pos = bindingAdapterPosition
+            val parentRv = itemView.parent as? RecyclerView
+            val count = parentRv?.adapter?.itemCount ?: -1
+            if (params != null && pos != RecyclerView.NO_POSITION) {
+                // Apply spacing only on the start side (LTR). This yields inter-item gaps without trailing/leading edges.
+                params.marginStart = if (pos == 0) 0 else spacingPx
+                params.marginEnd = 0
+                itemView.layoutParams = params
             }
 
             // Click -> callback with meaningful value
@@ -87,23 +102,15 @@ class TopNavAdapter(
                 if (event.action != KeyEvent.ACTION_DOWN) return@setOnKeyListener false
                 val rv = itemView.parent as? RecyclerView ?: return@setOnKeyListener false
                 val adapter = rv.adapter ?: return@setOnKeyListener false
-                val pos = bindingAdapterPosition
-                if (pos == RecyclerView.NO_POSITION) return@setOnKeyListener false
+                val position = bindingAdapterPosition
+                if (position == RecyclerView.NO_POSITION) return@setOnKeyListener false
                 val lastIndex = adapter.itemCount - 1
                 return@setOnKeyListener when (keyCode) {
-                    KeyEvent.KEYCODE_DPAD_LEFT -> {
-                        // Consume if at first item
-                        pos == 0
-                    }
-                    KeyEvent.KEYCODE_DPAD_RIGHT -> {
-                        // Consume if at last item
-                        pos == lastIndex
-                    }
+                    KeyEvent.KEYCODE_DPAD_LEFT -> position == 0
+                    KeyEvent.KEYCODE_DPAD_RIGHT -> position == lastIndex
                     else -> false
                 }
             }
-
-            // Ensure left/right focus traversal naturally uses order in RecyclerView
         }
     }
 }

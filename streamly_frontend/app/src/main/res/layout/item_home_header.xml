@@ -11,6 +11,7 @@
     android:paddingTop="8dp"
     android:paddingBottom="8dp">
 
+    <!-- Brand text -->
     <TextView
         android:id="@+id/brand_text_scrolling"
         android:layout_width="wrap_content"
@@ -25,39 +26,39 @@
         android:singleLine="true"
         android:layout_marginEnd="16dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/top_nav_background_scrolling"
-        app:layout_constraintTop_toTopOf="@id/top_nav_background_scrolling"
-        app:layout_constraintBottom_toBottomOf="@id/top_nav_background_scrolling"/>
+        app:layout_constraintTop_toTopOf="@id/top_nav_container_scrolling"
+        app:layout_constraintBottom_toBottomOf="@id/top_nav_container_scrolling"
+        app:layout_constraintEnd_toStartOf="@id/top_nav_container_scrolling" />
 
-    <android.view.View
-        android:id="@+id/top_nav_background_scrolling"
-        android:layout_width="0dp"
-        android:layout_height="46dp"
+    <!-- Top nav pill container: wrap_content width, exact 2dp padding, centers horizontally -->
+    <FrameLayout
+        android:id="@+id/top_nav_container_scrolling"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:background="@drawable/bg_top_nav_container"
-        android:alpha="1.0"
-        app:layout_constraintWidth_percent="0.72"
+        android:padding="2dp"
+        android:clipToPadding="true"
+        android:clipChildren="true"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/top_nav_recycler_scrolling"
-        android:layout_width="0dp"
-        android:layout_height="46dp"
-        android:paddingStart="0dp"
-        android:paddingEnd="0dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:clipToPadding="false"
-        android:clipChildren="false"
-        android:overScrollMode="never"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:contentDescription="@string/top_navigation"
-        android:background="@android:color/transparent"
-        app:layout_constraintTop_toTopOf="@id/top_nav_background_scrolling"
-        app:layout_constraintBottom_toBottomOf="@id/top_nav_background_scrolling"
-        app:layout_constraintStart_toStartOf="@id/top_nav_background_scrolling"
-        app:layout_constraintEnd_toEndOf="@id/top_nav_background_scrolling" />
+        <!-- Horizontal RecyclerView for top nav tabs (wraps content) -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/top_nav_recycler_scrolling"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:clipToPadding="false"
+            android:clipChildren="false"
+            android:overScrollMode="never"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:contentDescription="@string/top_navigation"
+            android:background="@android:color/transparent" />
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

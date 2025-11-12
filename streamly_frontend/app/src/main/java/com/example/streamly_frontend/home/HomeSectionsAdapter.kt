@@ -137,8 +137,8 @@ class HomeSectionsAdapter(
                 descendantFocusability = ViewGroup.FOCUS_AFTER_DESCENDANTS
                 isFocusable = true
                 isFocusableInTouchMode = true
-                // No horizontal padding so items are tightly enclosed at the edges
-                setPadding(0, paddingTop, 0, paddingBottom)
+                // No internal padding; the container provides exactly 2dp padding on all sides
+                setPadding(0, 0, 0, 0)
                 clipToPadding = false
                 clipChildren = false
                 isNestedScrollingEnabled = false
