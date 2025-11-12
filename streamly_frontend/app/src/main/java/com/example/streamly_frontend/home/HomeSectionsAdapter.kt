@@ -130,7 +130,34 @@ class HomeSectionsAdapter(
             val categories = header.categories
             val adapter = TopNavAdapter(categories) { /* future: filter rails */ }
             topNav.apply {
-                layoutManager = LinearLayoutManager(ctx, RecyclerView.HORIZONTAL, false)
+                // Use a Flow-like layout that wraps items into multiple rows if needed.
+                // Since RecyclerView doesn't have FlowLayoutManager by default, we simulate wrapping
+                // by using a Flexbox-like approach with a custom LayoutManager fallback to GridAutoFit.
+                // Here, we approximate using a GridLayoutManager with dynamic span count based on width.
+                val gridLm = object : androidx.recyclerview.widget.GridLayoutManager(ctx, 1, RecyclerView.HORIZONTAL, false) {
+                    private var lastWidth = -1
+                    private var lastSpan = -1
+                    override fun onLayoutChildren(recycler: RecyclerView.Recycler?, state: RecyclerView.State?) {
+                        super.onLayoutChildren(recycler, state)
+                        val w = width
+                        if (w > 0 && w != lastWidth && adapter != null) {
+                            lastWidth = w
+                            // Estimate item width using a baseline (label ~16sp + 20dp padding ≈ 64-120dp).
+                            // Compute a span count that auto-fits items per row, forcing wrap to multiple rows.
+                            val density = context.resources.displayMetrics.density
+                            val estItemMinDp = 88f // min pill width target
+                            val estItemMinPx = (estItemMinDp * density).toInt().coerceAtLeast(1)
+                            val newSpan = (w / estItemMinPx).coerceAtLeast(1)
+                            if (newSpan != lastSpan) {
+                                lastSpan = newSpan
+                                spanCount = newSpan
+                                orientation = RecyclerView.VERTICAL
+                                requestLayout()
+                            }
+                        }
+                    }
+                }
+                layoutManager = gridLm
                 this.adapter = adapter
                 descendantFocusability = ViewGroup.FOCUS_AFTER_DESCENDANTS
                 isFocusable = true
@@ -138,31 +165,15 @@ class HomeSectionsAdapter(
                 clipToPadding = false
                 clipChildren = false
 
-                // Edge DPAD no-op behavior (do not recenter to 'Inicio' on left/right)
-                setOnKeyListener { v, keyCode, event ->
-                    if (event.action != KeyEvent.ACTION_DOWN) return@setOnKeyListener false
-                    val rv = v as RecyclerView
-                    val lm = rv.layoutManager as? LinearLayoutManager ?: return@setOnKeyListener false
-                    val first = lm.findFirstCompletelyVisibleItemPosition().takeIf { it != RecyclerView.NO_POSITION }
-                        ?: lm.findFirstVisibleItemPosition()
-                    val last = lm.findLastCompletelyVisibleItemPosition().takeIf { it != RecyclerView.NO_POSITION }
-                        ?: lm.findLastVisibleItemPosition()
-                    val total = rv.adapter?.itemCount ?: return@setOnKeyListener false
-                    when (keyCode) {
-                        KeyEvent.KEYCODE_DPAD_LEFT -> first == 0
-                        KeyEvent.KEYCODE_DPAD_RIGHT -> last == total - 1
-                        else -> false
-                    }
-                }
+                // DPAD LEFT/RIGHT edge handling no longer needed; wrapping ensures visibility without horizontal scroll.
+                setOnKeyListener(null)
 
                 // Helper to find and focus 'Inicio'
                 fun focusInicio() {
                     val inicioIndex = categories.indexOfFirst { it.equals("Inicio", ignoreCase = true) }
                     if (inicioIndex >= 0) {
-                        (layoutManager as? LinearLayoutManager)?.let { lm ->
-                            lm.scrollToPositionWithOffset(inicioIndex, 0)
-                        } ?: scrollToPosition(inicioIndex)
-
+                        // For GridLayoutManager (vertical with wrapping), just scroll to position
+                        scrollToPosition(inicioIndex)
                         post {
                             val vh = findViewHolderForAdapterPosition(inicioIndex)
                             vh?.itemView?.requestFocus()
@@ -241,9 +252,9 @@ class HomeSectionsAdapter(
                 clipToPadding = false
                 clipChildren = false
 
-                // Set DPAD up from banner to header's navbar
+                // With a wrapping navbar, allow natural focus up without forcing a specific child id.
                 if (nextFocusUpToHeader) {
-                    nextFocusUpId = R.id.top_nav_recycler_scrolling
+                    nextFocusUpId = View.NO_ID
                 }
 
                 // Size and side paddings based on screen to achieve 1744x444 on 1080p and 4:1 aspect

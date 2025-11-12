@@ -2,5 +2,6 @@
 <!-- Background surface for the entire top nav rail; no internal insets/padding. -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
     <solid android:color="@color/colorSurfaceDark"/>
-    <corners android:radius="26dp"/>
+    <!-- Match ~46dp height with ~23dp radius for true pill -->
+    <corners android:radius="23dp"/>
 </shape>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Selector to render ONLY a pill-shaped focus background for top nav items.
-     Non-focused state is fully transparent. Height and radius match container (64dp, 32dp radius). -->
+     Non-focused state is fully transparent. Height and radius tuned for ~38dp items, ~19dp radius pill. -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- Focused: pill with #9B0F0F -->
     <item android:state_focused="true">
         <shape android:shape="rectangle">
             <solid android:color="#9B0F0F" />
-            <corners android:radius="22dp" />
+            <corners android:radius="19dp" />
         </shape>
     </item>
 

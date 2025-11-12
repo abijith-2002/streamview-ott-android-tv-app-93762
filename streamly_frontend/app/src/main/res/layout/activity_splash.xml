@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:text="@string/streamly"
         android:textColor="@color/ocean_text"
-        android:textSize="48sp"
+        android:textSize="40sp"
         android:textStyle="bold"
         android:fontFamily="sans-serif-medium"
         android:contentDescription="@string/streamly"
