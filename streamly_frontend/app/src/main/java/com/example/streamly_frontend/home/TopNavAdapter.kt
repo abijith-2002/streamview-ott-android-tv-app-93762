@@ -1,5 +1,6 @@
 package com.example.streamly_frontend.home
 
+import android.graphics.Typeface
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -79,11 +80,10 @@ class TopNavAdapter(
                 v.scaleX = 1.0f
                 v.scaleY = 1.0f
 
-                // Toggle bold via TextAppearance state list already set in XML.
-                // No explicit programmatic change to avoid relayout width shifts.
+                // Prefer XML state-list textAppearance; on OEMs where it doesn't refresh, enforce bold programmatically.
                 if (!isSearch) {
-                    // Force label to re-apply state for some OEMs where textAppearance state doesn't refresh
-                    label.isSelected = hasFocus
+                    // Keep same text size to avoid width/height shift; only toggle typeface weight.
+                    label.setTypeface(Typeface.DEFAULT, if (hasFocus) Typeface.BOLD else Typeface.NORMAL)
                 }
             }
 
@@ -92,8 +92,6 @@ class TopNavAdapter(
             val spacingPx = (12f * density).toInt() // spacing between items
             val params = (itemView.layoutParams as? RecyclerView.LayoutParams)
             val pos = bindingAdapterPosition
-            val parentRv = itemView.parent as? RecyclerView
-            val count = parentRv?.adapter?.itemCount ?: -1
             if (params != null && pos != RecyclerView.NO_POSITION) {
                 // Apply spacing only on the start side (LTR). This yields inter-item gaps without trailing/leading edges.
                 params.marginStart = if (pos == 0) 0 else spacingPx
