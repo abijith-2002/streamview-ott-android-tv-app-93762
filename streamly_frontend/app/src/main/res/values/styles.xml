@@ -19,12 +19,19 @@
 
     <!-- Text Appearances for Home -->
     <style name="TextAppearance.Streamly.Nav" parent="@android:style/TextAppearance.Medium">
-        <!-- Further reduced to ensure single-line fit across all categories on TV -->
+        <!-- Ensure text size remains stable (no width change on focus) -->
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/ocean_text</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">normal</item>
         <!-- Subtle negative letter spacing helps compress longer labels like "Mis Contenidos" -->
         <item name="android:letterSpacing">-0.01</item>
+    </style>
+
+    <!-- Focused variation: same size, bold weight for emphasis -->
+    <style name="TextAppearance.Streamly.Nav.Focused" parent="@style/TextAppearance.Streamly.Nav">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="TextAppearance.Streamly.RowTitle" parent="@android:style/TextAppearance.Large">

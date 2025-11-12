@@ -17,6 +17,7 @@
     <TextView
         android:id="@+id/top_nav_label"
         style="@style/TextAppearance.Streamly.Nav"
+        android:textAppearance="@drawable/text_appearance_nav_state"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:paddingStart="8dp"

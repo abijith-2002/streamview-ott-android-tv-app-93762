@@ -73,11 +73,18 @@ class TopNavAdapter(
             itemView.isFocusable = true
             itemView.isFocusableInTouchMode = true
 
-            // Remove scale animations to ensure the focus pill/background stays within the 2dp padded container
+            // Remove scale animations to ensure the focus pill/background stays within the padded container
             itemView.setOnFocusChangeListener { v, hasFocus ->
-                // Maintain stable size; rely solely on the pill background for focus affordance
+                // Maintain stable size; rely solely on the pill background and bold text for focus
                 v.scaleX = 1.0f
                 v.scaleY = 1.0f
+
+                // Toggle bold via TextAppearance state list already set in XML.
+                // No explicit programmatic change to avoid relayout width shifts.
+                if (!isSearch) {
+                    // Force label to re-apply state for some OEMs where textAppearance state doesn't refresh
+                    label.isSelected = hasFocus
+                }
             }
 
             // Inter-item spacing strictly via margins; no edge gaps (first/last = 0)

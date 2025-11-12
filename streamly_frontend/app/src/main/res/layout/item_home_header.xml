@@ -36,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_top_nav_container"
-        android:padding="2dp"
+        android:padding="3dp"
         android:clipToPadding="true"
         android:clipChildren="true"
         app:layout_constraintTop_toTopOf="parent"

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- State list to apply bold text appearance when focused; default remains normal. -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Focused: bold -->
+    <item android:state_focused="true" android:textAppearance="@style/TextAppearance.Streamly.Nav.Focused" />
+    <!-- Default: normal -->
+    <item android:textAppearance="@style/TextAppearance.Streamly.Nav" />
+</selector>
