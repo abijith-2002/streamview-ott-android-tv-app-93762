@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Application theme -->
+    <!-- Use Leanback (TV) base; avoid MaterialComponents parents -->
     <style name="AppTheme" parent="Theme.Leanback">
         <!-- Ocean Professional color mapping -->
         <item name="colorPrimary">@color/ocean_primary</item>
@@ -10,10 +11,12 @@
         <!-- Control tint for icons in normal state -->
         <item name="colorControlNormal">@color/tv_button_normal</item>
         <item name="colorControlHighlight">@color/tv_button_focused</item>
+
+        <!-- System bars -->
         <item name="android:navigationBarColor">@color/colorBackgroundDark</item>
         <item name="android:statusBarColor">@color/colorBackgroundDark</item>
 
-        <!-- Custom attrs used in drawables -->
+        <!-- Custom attrs used in drawables (declared in attrs.xml) -->
         <item name="colorOnSurface">@color/ocean_text</item>
         <item name="colorError">@color/ocean_error</item>
     </style>
