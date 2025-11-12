@@ -62,6 +62,10 @@ class TopNavAdapter(
                 label.visibility = View.VISIBLE
                 icon.visibility = View.GONE
                 label.text = text
+                // Enforce single line and ellipsize defensively in code too
+                label.maxLines = 1
+                label.isSingleLine = true
+                label.ellipsize = android.text.TextUtils.TruncateAt.END
                 itemView.contentDescription = text
             }
 

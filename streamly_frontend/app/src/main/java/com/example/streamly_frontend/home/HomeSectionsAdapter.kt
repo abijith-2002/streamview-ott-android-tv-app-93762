@@ -130,64 +130,23 @@ class HomeSectionsAdapter(
             val categories = header.categories
             val adapter = TopNavAdapter(categories) { /* future: filter rails */ }
             topNav.apply {
-                // Use a Flow-like layout that wraps items into multiple rows if needed.
-                // IMPORTANT: Do NOT mutate spanCount/orientation during layout passes.
-                // We'll compute spans after measurement via OnGlobalLayout and post().
-                val gridLm = androidx.recyclerview.widget.GridLayoutManager(ctx, /*spanCount=*/1, RecyclerView.VERTICAL, /*reverseLayout=*/false)
-                layoutManager = gridLm
+                // Use a single horizontal row; no wrapping
+                val lm = LinearLayoutManager(ctx, RecyclerView.HORIZONTAL, /*reverseLayout=*/false)
+                layoutManager = lm
                 this.adapter = adapter
                 descendantFocusability = ViewGroup.FOCUS_AFTER_DESCENDANTS
                 isFocusable = true
                 isFocusableInTouchMode = true
                 clipToPadding = false
                 clipChildren = false
-
-                // Defer span computation to avoid IllegalStateException during compute/layout.
-                // This ensures no mutations in onLayoutChildren.
-                val viewTreeObserver = viewTreeObserver
-                val spanUpdater = object : android.view.ViewTreeObserver.OnGlobalLayoutListener {
-                    private var lastWidth = -1
-                    private var lastSpan = -1
-                    override fun onGlobalLayout() {
-                        val w = width
-                        if (w <= 0 || adapter == null) return
-                        if (w == lastWidth && lastSpan > 0) return
-
-                        lastWidth = w
-                        val density = context.resources.displayMetrics.density
-                        val estItemMinDp = 88f // min pill width target for pills
-                        val estItemMinPx = (estItemMinDp * density).toInt().coerceAtLeast(1)
-                        val newSpan = (w / estItemMinPx).coerceAtLeast(1)
-
-                        if (newSpan != lastSpan) {
-                            lastSpan = newSpan
-                            // Apply changes on the message queue after current layout finishes.
-                            post {
-                                // Safety: ensure LM is still attached and is the expected type
-                                (layoutManager as? androidx.recyclerview.widget.GridLayoutManager)?.let { lm ->
-                                    if (lm.spanCount != newSpan || lm.orientation != RecyclerView.VERTICAL) {
-                                        lm.spanCount = newSpan
-                                        lm.orientation = RecyclerView.VERTICAL
-                                        // requestLayout safely after post
-                                        requestLayout()
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                viewTreeObserver.addOnGlobalLayoutListener(spanUpdater)
-
-                // DPAD LEFT/RIGHT edge handling no longer needed; wrapping ensures visibility without horizontal scroll.
-                setOnKeyListener(null)
+                isNestedScrollingEnabled = false
+                overScrollMode = View.OVER_SCROLL_NEVER
 
                 // Helper to find and focus 'Inicio'
                 fun focusInicio() {
                     val inicioIndex = categories.indexOfFirst { it.equals("Inicio", ignoreCase = true) }
                     if (inicioIndex >= 0) {
-                        // For GridLayoutManager (vertical with wrapping), ensure stable post before actions
                         post {
-                            // Scroll so 'Inicio' row becomes visible in the wrapped grid
                             scrollToPosition(inicioIndex)
                             post {
                                 val vh = findViewHolderForAdapterPosition(inicioIndex)
@@ -268,7 +227,7 @@ class HomeSectionsAdapter(
                 clipToPadding = false
                 clipChildren = false
 
-                // With a wrapping navbar, allow natural focus up without forcing a specific child id.
+                // Allow natural focus up without forcing a specific child id.
                 if (nextFocusUpToHeader) {
                     nextFocusUpId = View.NO_ID
                 }
