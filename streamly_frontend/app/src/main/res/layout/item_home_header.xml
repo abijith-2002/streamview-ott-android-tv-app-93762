@@ -8,7 +8,7 @@
     android:background="@android:color/transparent"
     android:clipToPadding="false"
     android:clipChildren="false"
-    android:paddingTop="4dp"
+    android:paddingTop="2dp"
     android:paddingBottom="4dp">
 
     <!-- Brand text -->
@@ -37,7 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_top_nav_container"
-        android:padding="3dp"
+        android:padding="2dp"
         android:clipToPadding="true"
         android:clipChildren="true"
         app:layout_constraintTop_toTopOf="parent"
