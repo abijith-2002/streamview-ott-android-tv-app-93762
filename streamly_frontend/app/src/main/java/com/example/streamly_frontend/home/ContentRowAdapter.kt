@@ -86,8 +86,8 @@ class ContentRowAdapter(
                         // We'll overshoot slightly for safe visibility near overscan.
                         val density = (itemView.resources?.displayMetrics?.density ?: 1f)
                         val headerDp = 52f
-                        val marginDp = 16f
-                        val railsPadTopDp = 12f
+                        val marginDp = 12f
+                        val railsPadTopDp = 6f
                         val safetyDp = 8f
                         val extraTopPx = ((headerDp + marginDp + railsPadTopDp + safetyDp) * density).toInt()
 

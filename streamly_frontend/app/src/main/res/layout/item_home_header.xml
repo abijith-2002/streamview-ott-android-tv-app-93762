@@ -8,8 +8,8 @@
     android:background="@android:color/transparent"
     android:clipToPadding="false"
     android:clipChildren="false"
-    android:paddingTop="4dp"
-    android:paddingBottom="6dp">
+    android:paddingTop="0dp"
+    android:paddingBottom="4dp">
 
     <!-- Brand text -->
     <TextView
