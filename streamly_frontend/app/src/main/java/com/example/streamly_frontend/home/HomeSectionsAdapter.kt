@@ -346,8 +346,8 @@ class HomeSectionsAdapter(
 
                         val density = (itemView.resources?.displayMetrics?.density ?: 1f)
                         val headerDp = 52f
-                        val marginDp = 12f
-                        val railsPadTopDp = 6f
+                        val marginDp = 24f
+                        val railsPadTopDp = 24f
                         val safetyDp = 8f
                         val extraTopPx = ((headerDp + marginDp + railsPadTopDp + safetyDp) * density).toInt()
 
