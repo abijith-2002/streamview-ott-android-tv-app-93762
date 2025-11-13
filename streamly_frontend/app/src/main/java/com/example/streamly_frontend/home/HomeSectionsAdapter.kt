@@ -346,9 +346,9 @@ class HomeSectionsAdapter(
 
                         val density = (itemView.resources?.displayMetrics?.density ?: 1f)
                         val headerDp = 52f
-                        val marginDp = 24f
-                        // On TV keep critical UI at least 48dp from the top (overscan-safe).
-                        val railsPadTopDp = 48f
+                        val marginDp = 16f
+                        // Top inset reduced at fragment root; keep safe visibility when snapping titles.
+                        val railsPadTopDp = 40f
                         val safetyDp = 8f
                         val extraTopPx = ((headerDp + marginDp + railsPadTopDp + safetyDp) * density).toInt()
 
