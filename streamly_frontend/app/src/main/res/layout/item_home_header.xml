@@ -8,8 +8,8 @@
     android:background="@android:color/transparent"
     android:clipToPadding="false"
     android:clipChildren="false"
-    android:paddingTop="8dp"
-    android:paddingBottom="8dp">
+    android:paddingTop="4dp"
+    android:paddingBottom="4dp">
 
     <!-- Brand text -->
     <TextView
@@ -28,6 +28,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/top_nav_container_scrolling"
         app:layout_constraintBottom_toBottomOf="@id/top_nav_container_scrolling"
+        app:layout_constraintVertical_bias="0.5"
         app:layout_constraintEnd_toStartOf="@id/top_nav_container_scrolling" />
 
     <!-- Top nav pill container: wrap_content width, exact 2dp padding, centers horizontally -->
